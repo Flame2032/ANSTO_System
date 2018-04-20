@@ -1,0 +1,664 @@
+
+/*Navigation Bar Style*/
+.navBarContainer {
+    margin-top: -8px;
+    padding-top: 8px;
+    padding-left: 8px;
+    padding-right: 8px;
+    left: 0px;
+    right: 0px;
+    position: fixed;
+    z-index: 2;
+    background: white;
+}
+
+.secondBarContainer {
+    position: fixed;
+    padding-left: 8px;
+    padding-right: 8px;
+    left: 0px;
+    right: 0px;
+    background: white;
+    margin-top: 48px;
+    z-index: 1;
+}
+
+.navBar {
+    overflow: hidden;
+    background-color: #0079c0;
+    font-family: Arial;
+    width: 100%;
+    margin-right: 4px;
+}
+
+.navBar a {
+    float: left;
+    font-size: 16px;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.myDropdown {
+    float: left;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.myDropdown .myDropbtn {
+    font-size: 16px;
+    border: none;
+    outline: none;
+    color: white;
+    padding: 14px 16px;
+    background-color: inherit;
+    font-family: inherit;
+    margin: 0px;
+}
+
+.indexOption {
+    margin: 10px;
+    width: 250px;
+    height: 80px;
+    font-size: 28px;
+}
+
+.navBar a:hover, .myDropdown:hover .myDropbtn{
+    background-color: #005eb8;
+    cursor: pointer;
+}
+
+.myDropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.myDropdown-content a {
+    float: none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.myDropdown-content a:hover {
+    background-color: #ddd;
+}
+
+.myDropdown:hover .myDropdown-content {
+    display: block;
+}
+
+.navLogo {
+    padding-bottom: 0px;
+    padding-left: 10px;
+    float: left;
+}
+
+.secondBar {
+    height: 25px;
+    width: 100%;
+    border-bottom: 2px solid;
+    border-color: #005eb8; 
+}
+
+.secondBar p {
+    display: inline-block;
+    margin: 0;
+}
+
+.secondBar a {
+    text-decoration: none;
+    color: #0000EE;
+}
+
+.rightDiv {
+    display: inline-block;
+    float: right;
+}
+
+.navSpacer {
+    width: 100%;
+    height: 75px;
+}
+
+.filterBar {
+    background-color: #0079c0;
+    position: fixed;
+    padding: 8px;
+    width: 190px;
+    height: 70%;
+    overflow-y: scroll;
+    display: none;
+}
+.searchBox {
+    width: 100%;
+    padding: 3px;
+}
+.searchBarText {
+    color: white;
+    font-family: Arial;
+    font-weight: bold;
+    font-size: 14px;
+    display: inline-block;
+    margin-top: 0px;
+    margin-bottom: 6px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.searchByCheckbox {
+    display: inline-block;
+}
+
+.filterSeparator {
+    width: 100%;
+    background-color: white;
+    height: 2px;
+    margin-top: 10px;
+    margin-bottom: 6px;
+    border-radius: 5px;
+}
+
+.textbox-block {
+    display: block;
+}
+
+.noDisplay {
+    display: none;
+}
+
+/*Content Styles*/
+.centeredContent {
+    display: table;
+    margin: 0 auto;
+    margin-top: 10px;
+    background-color: #0079c0;
+    position: relative;
+}
+
+.main-content-centered {
+    display: table;
+    margin: 0 auto;
+}
+
+@media (max-height: 700px), (max-width: : 1200px) {
+    .main-content-centered {
+        margin-top: 20px;
+        position: relative;
+    }
+}
+
+@media (min-height: 700px) {
+    .main-content-centered {
+        top: 50%;
+        transform: translateY(-50%);
+        position: absolute;
+    }
+}
+
+@media (min-width: 1200px) {
+    .main-content-centered {
+        left: 50%;
+        transform: translateX(-50%);
+        position: absolute;
+    }
+}
+
+@media (min-height: 700px) and (min-width: 1200px) {
+    .main-content-centered {
+        transform: translate(-50%, -50%);
+    }
+}
+
+.horizontal-center {
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+    margin: 0 auto;
+    position: relative;
+}
+
+
+.content {
+    margin-top: 10px;
+    left: 8px;
+    right: 8px;
+    position: absolute;
+}
+
+.template {
+    margin: 15px;
+}
+
+.strip {
+    position: relative;
+    width: 100%;
+}
+
+.bottomStrip, .bottomStripAbs {
+	position: relative;
+    width: 100%;
+    bottom: 0px;
+}
+
+.bottomStripAbs {
+    position: absolute;
+}
+
+.container-ansto {
+    background-color: #0079c0;
+    border-radius: 16px;
+}
+
+.container-white {
+    background-color: white;
+}
+
+.vertAlign {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
+input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.width-90 {
+    width: 90%;
+    margin-left: 5%;
+}
+
+.width-100 {
+    width: 100%;
+}
+
+.awesome-icon {
+    font-size: 50px !important;
+    color: white;
+    vertical-align: middle;
+}
+
+.awesome-icon:hover {
+    cursor: pointer;
+}
+
+/*Button Styles*/
+.btn-ansto {
+    border-style: none;
+    border-radius: 10px;
+    padding: 8px;
+    font-family: Arial;
+    color: white;
+    background-color: #0079c0;
+    border: 1px solid white;
+}
+
+.btn-ansto:hover, .btn-filter-menu:hover  {
+    background-color: #005eb8;
+    cursor: pointer;
+}
+
+.btn-filter-menu {
+    height: 100%;
+    width: 80px;
+    background-color: #0079c0;
+    border-style: none;
+}
+
+.btn-ASP-GAS {
+    width: 200px;
+    height: 100px;
+    background-color: white;
+    color: #0079c0;
+    font-size: 30px;
+    border-style: none;
+    border-radius: 15px;
+    border: 3px solid #0079c0;
+    display: inline-block;
+}
+
+.btn-ASP-GAS:hover {
+    background-color: #0079c0;
+    color: white;
+    cursor: pointer;
+}
+
+.font-16 {
+    font-size: 16px
+}
+
+.button35H {
+    display: inline-block;
+    height: 35px;
+    font-size: 14px;
+}
+
+.button30H {
+    display: inline-block;
+    height: 30px;
+    width: 80px;
+    font-size: 14px;
+}
+
+button {
+    font-family: Arial;
+}
+
+.csvButton {
+    position: relative;
+    width: 100px;
+    height: 40px;
+    float: right;
+    margin: 0px;
+}
+
+.siteButton {
+    height: 30px;
+    width: 55px;
+}
+
+h1{
+    font-family: Arial;
+    font-weight: bolder;
+    font-size: 36px;
+    color: white;
+    background-color: #0079c0;
+    padding-bottom: 8px;
+    text-align: center;
+    width: 100%;
+}
+
+h2 {
+    font-family: Arial;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.h2Bordered {
+    font-size: 16px;
+    background-color: white;
+    border: solid 1px black;
+    display: inline-block;
+    padding: 4px;
+    margin: 0px;
+}
+
+.printButton {
+    display: inline-block;
+    height: 35px;
+    width: 70px;
+    font-size: 14px;
+}
+
+.printAllButton {
+    margin-top: 10px;
+    width: 80px;
+    height: 30px;
+}
+
+.confirmButton {
+    font-size: 14px;
+    width: 80px;
+    height: 30px;
+    margin: 10px;
+    display: inline-block;
+}
+
+.floatRight {
+    float: right;
+}
+
+.centeredItem {
+    display: table;
+    margin: 0 auto;
+    position: relative;
+}
+
+.centeredTextBox {
+    width: 60%;
+    background-color: white;
+    border: 2px solid black;
+    display: table;
+    margin: 20px auto;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.prototype {
+    display: inline-block;
+    border: 2px solid red;
+    padding: 5px;
+}
+
+.generatedSheet {
+    border-bottom: 1px solid black;
+    margin-top: 3px;
+}
+
+a {
+    text-decoration: none;
+    color: #0000EE;
+}
+
+/*Login page styles*/
+.loginFormContainer {
+    width: 800px;
+    height: 400px; margin-top: 10px;
+    background: #0079c0;
+    vertical-align: middle;
+}
+
+.loginForm{
+    top: 50px;
+    bottom: 50px;
+    position: relative;
+}
+
+.loginLogoDiv {
+    margin-top: 3%;
+    width: 100%;
+    text-align: center;
+}
+
+.loginTextBox {
+    font-size: 16px;
+    margin: 20px;
+    width: 250px;
+    height: 30px;
+}
+
+.filterSelector {
+    width: 110px;
+    text-align: center;
+    margin-right: 10px;
+    margin-left: -4px;
+}
+
+.bg-ansto {
+  background-color: #0079c0 !important;
+}
+
+a.bg-ansto:hover, a.bg-ansto:focus,
+button.bg-ansto:hover,
+button.bg-ansto:focus {
+  background-color: #005eb8 !important;
+}
+
+/*Generate Logsheets Page Styles*/
+.genLogsheetsForm{
+    display: table;
+    margin: 0 auto;
+    position: relative;
+    width: 700px;
+    height: 600px;
+    margin-top: 60px;
+    background: #0079c0;
+}
+
+.H190Width,.H290Width, .H290Width-left {
+    width: 90%;
+    margin-left: 5%;
+    font-size: 26px;
+    text-align: center;
+    background-color: #0079c0;
+    font-family: Arial;
+    margin-top: 30px;
+    color: white;
+    border-bottom: 2px solid white;
+    font-weight: bold;
+}
+
+.H290Width {
+    font-size: 20px;
+    font-weight: normal;
+}
+
+.H290Width-left {
+    text-align: left;
+    padding: 0px;
+    margin: 0px;
+    width: auto;
+    font-size: 20px;
+    display: inline-block;
+    border:none;
+}
+
+.siteContainer {
+    width: 90%;
+    margin-left: 5%;
+    margin-top: 10px;
+    border: solid 1px;
+    background-color: white;
+    font-size: 20px;
+    display: block;
+    padding: 1px;
+}
+
+.day-container {
+    background-color: white;
+    vertical-align: middle;
+    width: 130px;
+    height: 60px;
+    text-align: center;
+    border: 3px solid;
+    display: inline-block;
+    margin: 10px 5px;
+    font-size: 16px;
+}
+
+.fill-half-width {
+    width: 50%;
+    padding: 0;
+    margin-right: -4px;
+    display: inline-block;
+}
+
+.sundayContainer {
+    border-color: red;
+    margin-right: 20px;
+}
+
+.arrowSelector {
+    vertical-align: middle;
+}
+
+.genLogsheetsTable {
+    margin-top: 10px;
+    width: 90%;
+    border-collapse: collapse;
+    background-color: white;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+/*Database Tables*/
+table {
+    margin-top: 10px;
+    border-collapse: collapse;
+    display: inline-block;
+    background-color: white;
+}
+
+td, th {
+    text-align: left;
+    font-family: Arial;
+}
+
+.staticData, .columnTitle {
+    border: 1px solid #dddddd;
+    padding: 8px;
+    font-size: 12px;
+    font-weight: normal;
+}
+
+.columnTitle {
+    font-weight: bold;
+    text-align: center;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+.dataTableTextbox {
+    margin-left: -2px;
+    width: 100%;
+    height: 30px;
+}
+
+.dataEditButton {
+    height: 30px;
+    width: 55px;
+}
+
+.smallFont {
+    font-size: 12px;
+}
+
+.dbTextbox {
+    height: 30px;
+}
+
+.editedData {
+    color: red;
+    font-size: 12px;
+    text-align: center;
+}
+
+.whiteStrip {
+    margin-right: 8px;
+}
+
+.row {
+    width: 100%;
+}
+
+.vertically-aligned {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.fully-centered {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.marginT-20 {
+    margin-top: 20px;
+}
+
+.no-outer-spaces {
+    margin: 0px;
+    padding: 0px;
+}
+
