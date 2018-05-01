@@ -10,7 +10,7 @@
         <script type="text/javascript">
             //Load in navigation bar using jquery
             $(function(){
-              $("#navBar").load("NavigationBar.html"); 
+              $("#navBar").load("NavigationBar"); 
             });
         </script>
 
@@ -23,7 +23,7 @@
         <div class = "secondBarContainer">
             <div class = "secondBar">
                 <div class = "rightDiv">
-                    <a href="login.html" style = "font-family:helvetica;">Logout</a>
+                    <a href="login.php" style = "font-family:helvetica;">Logout</a>
                 </div>
             </div>
         </div>
@@ -31,7 +31,7 @@
         <div class = "navSpacer"></div>
 
          <div class = "container-ansto centered-800-X marginT-20" style = " width:600px;">
-            <form action = "PostAnalysis.html" name = "numForm" onsubmit = "return validateForm()" method="POST" style = "margin:20px 0px;">
+            <form action = "PostAnalysis.php" name = "numForm" onsubmit = "return validateForm()" method="POST" style = "margin:20px 0px;">
                 <h1 class = "H290Width">Scan Filters</h1>
                 
                 <div class = "width-90 container-white">

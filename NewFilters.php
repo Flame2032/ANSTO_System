@@ -21,7 +21,7 @@
         <script type="text/javascript">
             //Load in navigation bar using jquery
             $(function(){
-              $("#navBar").load("NavigationBar.html"); 
+              $("#navBar").load("NavigationBar"); 
             });
 
             function validateForm () {
@@ -42,7 +42,7 @@
         <div class = "secondBarContainer">
             <div class = "secondBar">
                 <div class = "rightDiv">
-                    <a href="login.html" style = "font-family:helvetica;">Logout</a>
+                    <a href="login.php" style = "font-family:helvetica;">Logout</a>
                 </div>
             </div>
         </div>

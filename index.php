@@ -10,23 +10,23 @@
         <script type="text/javascript">
             //Load in navigation bar using jquery
             $(function(){
-              $("#navBar").load("NavigationBar.html"); 
+              $("#navBar").load("NavigationBar"); 
             });
 
             function GoPrepFilters () {
-                window.location.href = "NewFilters.html";
+                window.location.href = "NewFilters.php";
             }
             function GoGenLogs () {
-                window.location.href = "GenerateLogsheets.html";
+                window.location.href = "GenerateLogsheets.php";
             }
             function GoEditLogs () {
-                window.location.href = "ReturnedLogsheets.html";
+                window.location.href = "ReturnedLogsheets.php";
             }
             function GoPostAnalysis () {
-                window.location.href = "PostScan.html";
+                window.location.href = "PostScan.php";
             }
             function GoViewData () {
-                window.location.href = "AllData.html";
+                window.location.href = "AllData.php";
             }
         </script>
 
@@ -39,7 +39,7 @@
         <div class = "secondBarContainer">
             <div class = "secondBar">
                 <div class = "rightDiv">
-                    <a href="login.html" style = "font-family:helvetica;">Logout</a>
+                    <a href="login.php" style = "font-family:helvetica;">Logout</a>
                 </div>
             </div>
         </div>

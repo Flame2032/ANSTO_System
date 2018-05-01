@@ -2,21 +2,16 @@
 <html lang="en">
     <head>
 
-        <title>Filtered Data</title>
+        <title>Viewing: Post-Analysis Data</title>
         <meta charset="UTF-8">
-        <link rel="stylesheet" href="CSS/bootstrap/css/bootstrap.css">
         <link rel="stylesheet" href="CSS/styles.css">
         <link rel="stylesheet" href="CSS/font-awesome/css/font-awesome.min.css">
         <script src = "JavaScript/jquery-3.3.1.min.js"></script>
         <script type="text/javascript">
             //Load in navigation bar using jquery
             $(function(){
-              $("#navBar").load("NavigationBar.html"); 
+              $("#navBar").load("NavigationBar"); 
             });
-
-            function exportCSV() {
-                window.alert ("Filtered data will be exported as CSV file");
-            }
         </script>
 
     </head>
@@ -28,7 +23,7 @@
         <div class = "secondBarContainer">
             <div class = "secondBar">
                 <div class = "rightDiv">
-                    <a href="login.html" style = "font-family:helvetica;">Logout</a>
+                    <a href="login.php" style = "font-family:helvetica;">Logout</a>
                 </div>
             </div>
         </div>
@@ -36,26 +31,24 @@
         <div class = "navSpacer"></div>
 
         <div class = "content">
-          <table class = "centeredItem">
+            <table class = "centeredItem">
                 <tr>
                     <th class = "staticData columnTitle">ID</th>
-                    <th class = "staticData columnTitle">ASP Code</th>
-                    <th class = "staticData columnTitle">Filter Type</th>
-                    <th class = "staticData columnTitle">Sampling Day</th>
-                    <th class = "staticData columnTitle">Pre Mass</th>
-                    <th class = "staticData columnTitle">Pre Laser</th>
-                    <th class = "staticData columnTitle">Vacuum Pinch Tube</th>
-                    <th class = "staticData columnTitle">Vacuum</th>
-                    <th class = "staticData columnTitle">Magnehelic</th>
+                    <th class = "staticData columnTitle">Type</th>
+                    <th class = "staticData columnTitle">l(405)</th>
+                    <th class = "staticData columnTitle">l(465)</th>
+                    <th class = "staticData columnTitle">l(525)</th>
+                    <th class = "staticData columnTitle">l(639)</th>
+                    <th class = "staticData columnTitle">l(870)</th>
+                    <th class = "staticData columnTitle">l(940)</th>
+                    <th class = "staticData columnTitle">l(1050)</th>
                     <th class = "staticData columnTitle">Post Mass</th>
                     <th class = "staticData columnTitle">Post Laser</th>
-                    <th class = "staticData columnTitle">Vacuum4</th>
-                    <th class = "staticData columnTitle">Magnehelic5</th>
-                    <th class = "staticData columnTitle">Elapsed Time</th>
-                    <th class = "staticData columnTitle">Temperature Max</th>
-                    <th class = "staticData columnTitle">Temperature Min</th>
+                    <th class = "staticData columnTitle">Date</th>
+                    <th class = "staticData columnTitle">Edit</th>
                 </tr>
                 <tr>
+                    <th class = "staticData">X</th>
                     <th class = "staticData">Data</th>
                     <th class = "staticData">Data</th>
                     <th class = "staticData">Data</th>
@@ -67,13 +60,10 @@
                     <th class = "staticData">Data</th>
                     <th class = "staticData">Data</th>
                     <th class = "staticData">Data</th>
-                    <th class = "staticData">Data</th>
-                    <th class = "staticData">Data</th>
-                    <th class = "staticData">Data</th>
-                    <th class = "staticData">Data</th>
-                    <th class = "staticData">Data</th>
+                    <th><input type = "button" value = "Edit" class = "dataEditButton"></th>
                 </tr>
                 <tr>
+                    <th class = "staticData">X</th>
                     <th class = "staticData">Data</th>
                     <th class = "staticData">Data</th>
                     <th class = "staticData">Data</th>
@@ -85,13 +75,10 @@
                     <th class = "staticData">Data</th>
                     <th class = "staticData">Data</th>
                     <th class = "staticData">Data</th>
-                    <th class = "staticData">Data</th>
-                    <th class = "staticData">Data</th>
-                    <th class = "staticData">Data</th>
-                    <th class = "staticData">Data</th>
-                    <th class = "staticData">Data</th>
+                    <th><input type = "button" value = "Edit" class = "dataEditButton"></th>
                 </tr>
                 <tr>
+                    <th class = "staticData">X</th>
                     <th class = "staticData">Data</th>
                     <th class = "staticData">Data</th>
                     <th class = "staticData">Data</th>
@@ -103,11 +90,7 @@
                     <th class = "staticData">Data</th>
                     <th class = "staticData">Data</th>
                     <th class = "staticData">Data</th>
-                    <th class = "staticData">Data</th>
-                    <th class = "staticData">Data</th>
-                    <th class = "staticData">Data</th>
-                    <th class = "staticData">Data</th>
-                    <th class = "staticData">Data</th>
+                    <th><input type = "button" value = "Edit" class = "dataEditButton"></th>
                 </tr>
             </table>
         </div>

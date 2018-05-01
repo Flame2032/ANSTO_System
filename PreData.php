@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
 
-        <title>Viewing: Post-Analysis Data</title>
+        <title>Viewing: Pre-Analysis Data</title>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="CSS/styles.css">
         <link rel="stylesheet" href="CSS/font-awesome/css/font-awesome.min.css">
@@ -10,7 +10,7 @@
         <script type="text/javascript">
             //Load in navigation bar using jquery
             $(function(){
-              $("#navBar").load("NavigationBar.html"); 
+              $("#navBar").load("NavigationBar"); 
             });
         </script>
 
@@ -23,7 +23,7 @@
         <div class = "secondBarContainer">
             <div class = "secondBar">
                 <div class = "rightDiv">
-                    <a href="login.html" style = "font-family:helvetica;">Logout</a>
+                    <a href="login.php" style = "font-family:helvetica;">Logout</a>
                 </div>
             </div>
         </div>
@@ -33,19 +33,19 @@
         <div class = "content">
             <table class = "centeredItem">
                 <tr>
-                    <th class = "staticData columnTitle">ID</th>
-                    <th class = "staticData columnTitle">Type</th>
-                    <th class = "staticData columnTitle">l(405)</th>
-                    <th class = "staticData columnTitle">l(465)</th>
-                    <th class = "staticData columnTitle">l(525)</th>
-                    <th class = "staticData columnTitle">l(639)</th>
-                    <th class = "staticData columnTitle">l(870)</th>
-                    <th class = "staticData columnTitle">l(940)</th>
-                    <th class = "staticData columnTitle">l(1050)</th>
-                    <th class = "staticData columnTitle">Post Mass</th>
-                    <th class = "staticData columnTitle">Post Laser</th>
-                    <th class = "staticData columnTitle">Date</th>
-                    <th class = "staticData columnTitle">Edit</th>
+                    <th class = "columnTitle">ID</th>
+                    <th class = "columnTitle">Type</th>
+                    <th class = "columnTitle">l<sub>0</sub>(405)</th>
+                    <th class = "columnTitle">l<sub>0</sub>(465)</th>
+                    <th class = "columnTitle">l<sub>0</sub>(525)</th>
+                    <th class = "columnTitle">l<sub>0</sub>(639)</th>
+                    <th class = "columnTitle">l<sub>0</sub>(870)</th>
+                    <th class = "columnTitle">l<sub>0</sub>(940)</th>
+                    <th class = "columnTitle">l<sub>0</sub>(1050)</th>
+                    <th class = "columnTitle">Pre Mass</th>
+                    <th class = "columnTitle">Pre Laser</th>
+                    <th class = "columnTitle">Date</th>
+                    <th class = "columnTitle">Edit</th>
                 </tr>
                 <tr>
                     <th class = "staticData">X</th>

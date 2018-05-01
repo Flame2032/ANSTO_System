@@ -28,7 +28,7 @@
                         </div>
                     </div>
                     <!--Login Form-->
-                    <form action = "index.html">
+                    <form action = "index.php">
                         <div class = "container-fluid">
                             <!--Username-->
                             <div class = "row justify-content-center" style = "margin-top:30px;">

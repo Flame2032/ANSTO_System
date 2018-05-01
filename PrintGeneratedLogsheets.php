@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
 
-        <title>Logsheet</title>
+        <title>Generated Logsheet</title>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="CSS/styles.css">
         <link rel="stylesheet" href="CSS/font-awesome/css/font-awesome.min.css">
@@ -10,7 +10,7 @@
         <script type="text/javascript">
             //Load in navigation bar using jquery
             $(function(){
-              $("#navBar").load("NavigationBar.html"); 
+              $("#navBar").load("NavigationBar"); 
             });
         </script>
 
@@ -23,20 +23,21 @@
         <div class = "secondBarContainer">
             <div class = "secondBar">
                 <div class = "rightDiv">
-                    <a href="login.html" style = "font-family:helvetica;">Logout</a>
+                    <a href="login.php" style = "font-family:helvetica;">Logout</a>
                 </div>
             </div>
         </div>
         <!--Empty block so navbar doesn't overlap content-->
         <div class = "navSpacer"></div>
 
-         <div class = "centeredContent container-ansto">
-            <img class = "template" src="LogsheetTemplate.jpg">
-            <form action = "SaveSuccess.html">
-                <div class = "row">
-                    <input type = "button" class = "btn-ansto floatRight" value = "Print" style = "margin:15px; margin-top:0px; font-size:20px;">
-                </div>
-            </form>
+        <div class = "content">
+            <h2>List of generated logsheets:</h2>
+            <div class = "generatedSheet"><a href="SingleLogsheet.html">12450-1 ASP01 14-03-18Y/18-03-18R Lucas Heights</a></div>
+            <div class = "generatedSheet"><a href="SingleLogsheet.html">12452-3 ASP01 14-03-18Y/18-03-18R Warrawong</a></div>
+            <div class = "generatedSheet"><a href="SingleLogsheet.html">12454-5 ASP01 14-03-18Y/18-03-18R Mascot</a></div>
+            
+            <div class = "bottomStrip"><button class = "printAllButton" onclick = "window.print()">Print All</button></div>
         </div>
+
     </body>
 </html>

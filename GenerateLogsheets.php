@@ -11,11 +11,11 @@
         <script type="text/javascript">
             //Load in navigation bar using jquery
             $(function(){
-              $("#navBar").load("NavigationBar.html"); 
+              $("#navBar").load("NavigationBar"); 
             });
 
             function GoAddSite () {
-                window.location.href = "AddSite.html";
+                window.location.href = "AddSite.php";
             }
         </script>
 
@@ -28,7 +28,7 @@
         <div class = "secondBarContainer">
             <div class = "secondBar">
                 <div class = "rightDiv">
-                    <a href="login.html" style = "font-family:helvetica;">Logout</a>
+                    <a href="login.php" style = "font-family:helvetica;">Logout</a>
                 </div>
             </div>
         </div>
@@ -46,7 +46,7 @@
             <div class = "row">
                 <p class = "H190Width">Generate Logsheets</p>
             </div>
-            <form action = "PrintGeneratedLogsheets.html">
+            <form action = "PrintGeneratedLogsheets.php">
                 <!--Site selection-->
                 <div id = "ASP" class = "width-90 container-white noDisplay">
                     <div class = "fill-half-width"><input type = "checkbox">Lucas Heights (ASP01)</div>
@@ -66,18 +66,21 @@
 
                 <!--Day-Pair Selection-->
 
+                <?php
+                    date_default_timezone_set('Australia/NSW');
+                    $today = date("l");
+                    $wednesday = date("d-m-Y", strtotime('wednesday this week'));
+                    $sunday = date("d-m-Y", strtotime('sunday this week'));
+                    
+                ?>
+
                 <div class = "centeredContent">
                     <i class="fa fa-angle-double-left awesome-icon" aria-hidden="true"></i> 
                     <div class = "day-container" style = "border-color: yellow; margin-left:20px;">
-                        <p class = "vertically-aligned no-outer-spaces"><?php
-                    echo "hey uncle";
-                    echo "hey uncle";
-                    echo "hey uncle";
-                    echo "hey uncle";
-                ?> <br> 18-02-2018</p>
+                        <p class = "vertically-aligned no-outer-spaces">Wednesday <br> <?php echo $wednesday; ?></p>
                     </div>
                     <div class = "day-container" style = "border-color: red; margin-right:20px;">  
-                        <p class = "vertically-aligned no-outer-spaces">Sunday <br> 18-02-2018</p>
+                        <p class = "vertically-aligned no-outer-spaces">Sunday <br> <?php echo $sunday; ?></p>
                     </div>
                     <i class="fa fa-angle-double-right awesome-icon" aria-hidden="true"></i> 
                 </div>
