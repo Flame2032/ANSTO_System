@@ -4,17 +4,6 @@
 
 
         <title>Prepare New Filters</title>
-        <style>
-
-            /*Header Style*/
-
-            .saveButton {
-                margin-top: 10px;
-                position: absolute;
-                right: 0;
-                height: 30px;
-            }
-        </style>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="CSS/styles.css">
         <link rel="stylesheet" href="CSS/font-awesome/css/font-awesome.min.css">

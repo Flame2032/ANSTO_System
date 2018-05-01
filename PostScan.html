@@ -3,65 +3,6 @@
     <head>
 
         <title>Scanning: Returned Filters</title>
-        <style>
-            /*Form Style*/
-            form{
-                position: fixed;
-                top:50%;
-                left: 50%;
-                width: 600px; margin-left: -300px;
-                height: 200px; margin-top: -100px;
-                background: #0079c0;
-                display: inline-block;
-            }
-
-            h1 {
-                width: 90%;
-                margin-left: 5%;
-                border: 2px solid;
-                font-size: 20px;
-                text-align: center;
-                background-color: white;
-                font-family: Arial;
-                margin-top: 30px;
-            }
-
-            .bottomRight {
-                position: absolute;
-                bottom: 0;
-                right: 0;
-                margin-right: 10px;
-                margin-bottom: 10px;
-            }
-
-            .middleDiv {
-                width: 90%;
-                margin-left: 5%;
-                border-color: black;
-                border: 1px solid;
-                background-color: white;
-            }
-
-            .centerText {
-                text-align: center;
-            }
-
-            input[type="submit"] {
-                float: right;
-                width: 80px;
-                height: 30px;
-                font-size: 14px;
-            }
-
-            input[type="number"] {
-                margin-top: 25px;
-                width: 100px;
-                margin-left: 250px;
-                font-size: 16px;
-                text-align: center;
-            }
-
-        </style>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="CSS/styles.css">
         <link rel="stylesheet" href="CSS/font-awesome/css/font-awesome.min.css">
@@ -89,15 +30,29 @@
         <!--Empty block so navbar doesn't overlap content-->
         <div class = "navSpacer"></div>
 
-        <form action = "PostAnalysis.html">
-            <p class = "H190Width">Scan filter barcodes</p>
-            <div class = "middleDiv">
-                <p class = "centerText"> Scanned: 5</p>
-            </div>
-            
-            <div class = "bottomRight">
-                <input type = "submit" value = "Continue"></input>
-            </div>
-        </form>
+         <div class = "container-ansto centered-800-X marginT-20" style = " width:600px;">
+            <form action = "NewFiltersP2.php" name = "numForm" onsubmit = "return validateForm()" method="POST" style = "margin:20px 0px;">
+                <h1 class = "H290Width">Scan Filters</h1>
+                
+                <div class = "width-90 container-white">
+                    <div class = "centeredItem" style = "padding:5px;">
+                        Scanned Barcodes:
+                    </div>
+                    <div class = "centeredItem" style = "padding:2px;">
+                        ID: 12432415
+                    </div>
+                    <div class = "centeredItem" style = "padding:2px;">
+                        ID: 42315423
+                    </div>
+                </div>
+                <div class = "width-90 container-white" style = "margin-top:5px;">
+                    <div class = "centeredItem" style = "padding:5px;">
+                        Scan Next Barcode:
+                        <input type = "textbox" style = "display:inline-block; width: ;">
+                    </div>
+                </div>
+            </form>
+        </div>
+
     </body>
 </html>
