@@ -48,16 +48,15 @@
 
         <?php
             $number = $_POST['number'];
-            echo ($number);
-            echo "waddup";
         ?>
-        
-        
+
         <div class = "container-ansto main-content-centered marginT-20" style = "padding:20px;">
             <div class = "strip">
-                <h2 class = "H290Width-left">3 Pre-Analysis filter entries have been generated</h2>
+                <h2 class = "H290Width-left"> <?php echo ($number); ?> Pre-Analysis filter entries have been generated</h2>
                 <button class = "btn-ansto font-16 floatRight" style = "padding:10px;" onclick = "uploadCSV()">Import CSV</button>
             </div>
+
+            
             
             <table>
                 <tr>
@@ -74,48 +73,26 @@
                     <th class = "staticData columnTitle">l<sub>0</sub>(1050)</th>
                     <th class = "staticData columnTitle">Date</th>
                 </tr>
-                <tr>
-                    <th class = "staticData">X</th>
-                    <th><input type = "text" class = "dbTextbox"></input></th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">30-3-18</th>
-                </tr>
-                <tr>
-                    <th class = "staticData">X</th>
-                    <th><input type = "text" class = "dbTextbox"></input></th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">30-3-18</th>
-                </tr>
-                <tr>
-                    <th class = "staticData">X</th>
-                    <th><input type = "text" class = "dbTextbox"></input></th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">30-3-18</th>
-                </tr>
+
+                <?php
+                for ($i=0; $i < $number; $i++) { 
+                    echo 
+                    "<tr>
+                        <th class = 'staticData'>$i</th>
+                        <th><input type = 'text' class = 'dbTextbox'></input></th>
+                        <th class = 'staticData'>--</th>
+                        <th class = 'staticData'>--</th>
+                        <th class = 'staticData'>--</th>
+                        <th class = 'staticData'>--</th>
+                        <th class = 'staticData'>--</th>
+                        <th class = 'staticData'>--</th>
+                        <th class = 'staticData'>--</th>
+                        <th class = 'staticData'>--</th>
+                        <th class = 'staticData'>--</th>
+                        <th class = 'staticData'>30-3-18</th>
+                    </tr>";
+                }
+            ?>
             </table>
             <div class = "bottomStrip">
                 <form action = "PreData.html">
