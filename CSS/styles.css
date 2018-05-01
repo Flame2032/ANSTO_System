@@ -195,6 +195,11 @@
     position: absolute;
 }
 
+.centered-800-X {
+    display: table;
+    margin: 0 auto;
+}
+
 /*600 x 200*/
 @media (min-height: 350px) and (min-width: 650px) {
     .dynamic-content-600-200 {
@@ -241,7 +246,7 @@
     }
 }
 @media (max-height: 700px) and (min-width: 750px){
-    .dynamic-content-700-570 {
+     {
         left:50%;
         transform: translateX(-50%);
         position: absolute;

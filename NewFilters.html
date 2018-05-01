@@ -23,6 +23,14 @@
             $(function(){
               $("#navBar").load("NavigationBar.html"); 
             });
+
+            function validateForm () {
+                var x = document.forms["numForm"]["number"].value;
+                if (x < 1) {
+                    alert("You must input a minimum of 1");
+                    return false;
+                }
+            }
         </script>
 
     </head>
@@ -42,7 +50,7 @@
         <div class = "navSpacer"></div>
         
         <div class = "container-ansto dynamic-content-600-200 marginT-20" style = "width:600px; height:200px;">
-            <form action = "NewFiltersP2.php" method="POST">
+            <form action = "NewFiltersP2.php" name = "numForm" onsubmit = "return validateForm()" method="POST">
                 <h1 class = "H290Width">How many pre-analysis filters do you wish to generate?</h1>
                 <input type="number" name = "number" value = "0"></input>
                 <div class = "bottomStripAbs">
