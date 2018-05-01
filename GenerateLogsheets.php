@@ -66,14 +66,14 @@
 
                 <!--Day-Pair Selection-->
 
-                
+                <?php
+                    echo "hey uncle donald!";
+                ?>
 
                 <div class = "centeredContent">
                     <i class="fa fa-angle-double-left awesome-icon" aria-hidden="true"></i> 
                     <div class = "day-container" style = "border-color: yellow; margin-left:20px;">
-                        <p class = "vertically-aligned no-outer-spaces">Wednesday <br> <?php
-                    echo date("l");
-                ?></p>
+                        <p class = "vertically-aligned no-outer-spaces">Wednesday <br> 18-02-2018</p>
                     </div>
                     <div class = "day-container" style = "border-color: red; margin-right:20px;">  
                         <p class = "vertically-aligned no-outer-spaces">Sunday <br> 18-02-2018</p>
