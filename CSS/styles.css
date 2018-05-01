@@ -188,7 +188,73 @@
     margin: 0 auto;
 }
 
-@media (max-height: 700px), (max-width: : 1200px) {
+.centered-ASP-GAS {
+    left:50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+}
+
+/*600 x 200*/
+@media (min-height: 350px) and (min-width: 650px) {
+    .dynamic-content-600-200 {
+        top:50%;
+        left:50%;
+        transform: translate(-50%, -50%);
+        position: absolute;
+    }
+}
+@media (min-height: 350px)  and (max-width: 650px) {
+    .dynamic-content-600-200 {
+        top:50%;
+        transform: translateY(-50%);
+        position: absolute;
+    }
+}
+@media (max-height: 350px) and (min-width: 650px){
+    .dynamic-content-600-200 {
+        left:50%;
+        transform: translateX(-50%);
+        position: absolute;
+    }
+}
+@media (max-height: 350px) and (max-width: 650px) {
+    .dynamic-content-600-200 {
+        position: relative;
+    }
+}
+
+/*700 x 570*/
+@media (min-height: 700px) and (min-width: 750px) {
+    .dynamic-content-700-570 {
+        top:50%;
+        left:50%;
+        transform: translate(-50%, -50%);
+        position: absolute;
+    }
+}
+@media (min-height: 700px) and (max-width: 750px) {
+    .dynamic-content-700-570 {
+        top:50%;
+        transform: translateY(-50%);
+        position: absolute;
+    }
+}
+@media (max-height: 700px) and (min-width: 750px){
+    .dynamic-content-700-570 {
+        left:50%;
+        transform: translateX(-50%);
+        position: absolute;
+    }
+}
+@media (max-height: 700px) and (max-width: 750px) {
+    .dynamic-content-700-570 {
+        position: relative;
+    }
+}
+
+/*Other*/
+@media (max-height: 700px) and (max-width: : 1200px) {
     .main-content-centered {
         margin-top: 20px;
         position: relative;
