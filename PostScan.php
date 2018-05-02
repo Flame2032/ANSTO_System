@@ -46,14 +46,13 @@
         <div class = "navSpacer"></div>
 
          <div class = "container-ansto centered-800-X marginT-20" style = " width:600px;">
-            <form action = "PostAnalysis.php" name = "numForm" onsubmit = "return validateForm()" method="POST" style = "margin:20px 0px;">
+            <form action = "PostAnalysis.php" name = "numForm" method="POST" style = "margin:20px 0px;">
                 <h1 class = "H290Width">Scan Filters</h1>
 
                 <div class = "width-90 container-white">
                     <div class = "centeredItem" style = "padding:5px;">
                         Scan Next Barcode:
                         <input type = "textbox" id = "scanTB" style = "display:inline-block; width: ;">
-                        <input type = "button" id = "add" value = "Add">
                     </div>
                 </div>
                 
@@ -76,15 +75,38 @@
     </body>
 
     <script type="text/javascript">
-        document.getElementById("add").onclick = function() {
-            var input = document.getElementById("scanTB").value;
-            var myList = document.getElementById("myList");
-            var li = document.createElement("li");
-            li.className = "scanListItem";
-            li.appendChild(document.createTextNode("ID: " + input));
-            myList.appendChild(li);
-            document.getElementById("scanTB").value = "";
-            document.getElementById("scanTB").focus();
+
+        // Dynamically populate list each time 'Enter' is pressed (or barcode scanned)
+        window.onkeyup = function(e) {
+            if (e.keyCode === 13) {
+                // Get textbox value
+                var input = document.getElementById("scanTB").value;
+
+                // Get list and create a new list item
+                var myList = document.getElementById("myList");
+                var li = document.createElement("li");
+                li.className = "scanListItem";
+
+                // Create the X icon for this list item
+                var x = document.createElement("i");
+                x.className = "fa fa-times hoverPoint";
+
+                // Append the x icon and scanned barcode to the li element
+                li.appendChild(x);
+                var node = document.createTextNode(' ID: ' + input);
+                li.appendChild(node);
+                myList.appendChild(li);
+
+                // Make textbox empty and refocus for the next scan
+                document.getElementById("scanTB").value = "";
+                document.getElementById("scanTB").focus();
+
+                // Delete this if X is clicked
+                x.onclick = function () {
+                    li.removeChild(x);
+                    li.removeChild(node);
+                }
+            }
         }
     </script>
 
