@@ -204,6 +204,10 @@
     margin: 0 auto;
 }
 
+.scanListItem {
+    list-style: none;
+}
+
 /*600 x 200*/
 @media (min-height: 350px) and (min-width: 650px) {
     .dynamic-content-600-200 {

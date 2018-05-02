@@ -53,6 +53,7 @@
                     <div class = "centeredItem" style = "padding:5px;">
                         Scan Next Barcode:
                         <input type = "textbox" id = "scanTB" style = "display:inline-block; width: ;">
+                        <input type = "button" id = "add" value = "Add">
                     </div>
                 </div>
                 
@@ -61,10 +62,8 @@
                         Scanned Barcodes:
                     </div>
                     <div class = "centeredItem" style = "padding:2px;">
-                        ID: 12432415
-                    </div>
-                    <div class = "centeredItem" style = "padding:2px;">
-                        ID: 42315423
+                        <ul id = "myList" style = "padding:0px; margin:0px;">
+                        </ul>
                     </div>
                 </div>
                 
@@ -75,4 +74,18 @@
         </div>
 
     </body>
+
+    <script type="text/javascript">
+        document.getElementById("add").onclick = function() {
+            var input = document.getElementById("scanTB").value;
+            var myList = document.getElementById("myList");
+            var li = document.createElement("li");
+            li.className = "scanListItem";
+            li.appendChild(document.createTextNode("ID: " + input));
+            myList.appendChild(li);
+            document.getElementById("scanTB").value = "";
+            document.getElementById("scanTB").focus();
+        }
+    </script>
+
 </html>
