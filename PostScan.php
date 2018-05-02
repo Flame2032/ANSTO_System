@@ -8,10 +8,25 @@
         <link rel="stylesheet" href="CSS/font-awesome/css/font-awesome.min.css">
         <script src = "JavaScript/jquery-3.3.1.min.js"></script>
         <script type="text/javascript">
-            //Load in navigation bar using jquery
+            // Load in navigation bar using jquery
             $(function(){
               $("#navBar").load("NavigationBar"); 
             });
+
+            // Stop 'Enter' key from submitting the form
+            $(document).ready(function() {
+              $(window).keydown(function(event){
+                if(event.keyCode == 13) {
+                  event.preventDefault();
+                  return false;
+                }
+              });
+            });
+
+            // Make the scanning textbox focus on load
+            window.onload = function() {
+              document.getElementById("scanTB").focus();
+            };
         </script>
 
     </head>
@@ -37,7 +52,7 @@
                 <div class = "width-90 container-white">
                     <div class = "centeredItem" style = "padding:5px;">
                         Scan Next Barcode:
-                        <input type = "textbox" style = "display:inline-block; width: ;">
+                        <input type = "textbox" id = "scanTB" style = "display:inline-block; width: ;">
                     </div>
                 </div>
                 
