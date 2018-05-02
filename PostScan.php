@@ -33,8 +33,15 @@
          <div class = "container-ansto centered-800-X marginT-20" style = " width:600px;">
             <form action = "PostAnalysis.php" name = "numForm" onsubmit = "return validateForm()" method="POST" style = "margin:20px 0px;">
                 <h1 class = "H290Width">Scan Filters</h1>
-                
+
                 <div class = "width-90 container-white">
+                    <div class = "centeredItem" style = "padding:5px;">
+                        Scan Next Barcode:
+                        <input type = "textbox" style = "display:inline-block; width: ;">
+                    </div>
+                </div>
+                
+                <div class = "width-90 container-white" style = "margin-top:5px;">
                     <div class = "centeredItem" style = "padding:5px;">
                         Scanned Barcodes:
                     </div>
@@ -45,12 +52,7 @@
                         ID: 42315423
                     </div>
                 </div>
-                <div class = "width-90 container-white" style = "margin-top:5px;">
-                    <div class = "centeredItem" style = "padding:5px;">
-                        Scan Next Barcode:
-                        <input type = "textbox" style = "display:inline-block; width: ;">
-                    </div>
-                </div>
+                
                 <div class = "strip width-90">
                     <input type = "submit" class = "btn-ansto font-16 floatRight" style = "margin:10px 0px;" value = "Finish Scanning">
                 </div>

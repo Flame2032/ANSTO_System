@@ -57,6 +57,10 @@
     margin: 0px;
 }
 
+.myDropbtn {
+    height: 48px;
+}
+
 .indexOption {
     margin: 10px;
     width: 250px;
