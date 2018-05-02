@@ -31,7 +31,7 @@
         <div class = "navSpacer"></div>
 
          <div class = "centeredContent container-ansto">
-            <img class = "template" src="LogsheetTemplate.jpg">
+            <img class = "template" src="Images/LogsheetTemplate.jpg">
             <form action = "SaveSuccess.html">
                 <div class = "row">
                     <input type = "button" class = "btn-ansto floatRight" value = "Print" style = "margin:15px; margin-top:0px; font-size:20px;">

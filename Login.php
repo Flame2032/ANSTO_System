@@ -15,7 +15,7 @@
         <!--This screen was made using bootstrap-->
         <div class = "container-fluid">
             <div class = "row justify-content-center">
-                <div class = "col-auto "><img src="LOGOBlock.jpg"></div>
+                <div class = "col-auto "><img src="Images/LOGOBlock.jpg"></div>
             </div>
             <!--Blue container-->
             <div class = "row justify-content-center">

@@ -75,7 +75,7 @@
             <input type = "text" class = "field19"></input>
             <input type = "text" class = "field20"></input>
             <input type = "text" class = "field21"></input>
-            <img class = "template" src="LogsheetTemplate.jpg">
+            <img class = "template" src="Images/LogsheetTemplate.jpg">
             <form action = "SaveSuccess.html">
                 <div class = "row">
                     <input type = "button" class = "btn-ansto floatRight" value = "Save" style = "margin:15px; margin-top:0px; font-size:20px;">

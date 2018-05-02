@@ -32,9 +32,9 @@
 
         <div class = "content">
             <h2>List of generated logsheets:</h2>
-            <div class = "generatedSheet"><a href="SingleLogsheet.html">12450-1 ASP01 14-03-18Y/18-03-18R Lucas Heights</a></div>
-            <div class = "generatedSheet"><a href="SingleLogsheet.html">12452-3 ASP01 14-03-18Y/18-03-18R Warrawong</a></div>
-            <div class = "generatedSheet"><a href="SingleLogsheet.html">12454-5 ASP01 14-03-18Y/18-03-18R Mascot</a></div>
+            <div class = "generatedSheet"><a href="SingleLogsheet.php">12450-1 ASP01 14-03-18Y/18-03-18R Lucas Heights</a></div>
+            <div class = "generatedSheet"><a href="SingleLogsheet.php">12452-3 ASP01 14-03-18Y/18-03-18R Warrawong</a></div>
+            <div class = "generatedSheet"><a href="SingleLogsheet.php">12454-5 ASP01 14-03-18Y/18-03-18R Mascot</a></div>
             
             <div class = "bottomStrip"><button class = "printAllButton" onclick = "window.print()">Print All</button></div>
         </div>
