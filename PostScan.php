@@ -61,7 +61,7 @@
                         Scanned Barcodes:
                     </div>
                     <div class = "centeredItem" style = "padding:2px;">
-                        <ul id = "myList" style = "padding:0px; margin:0px;">
+                        <ul id = "myList" name = "list" style = "padding:0px; margin:0px;">
                         </ul>
                     </div>
                 </div>
