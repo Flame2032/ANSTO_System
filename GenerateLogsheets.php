@@ -75,14 +75,14 @@
                 ?>
 
                 <div class = "centeredContent">
-                    <i class="fa fa-angle-double-left awesome-icon" aria-hidden="true"></i> 
+                    <i class="fa fa-angle-double-left awesome-icon" aria-hidden="true" onclick = "PrevWeek();"></i> 
                     <div class = "day-container" style = "border-color: yellow; margin-left:20px;">
-                        <p class = "vertically-aligned no-outer-spaces">Wednesday <br> <?php echo $wednesday; ?></p>
+                        <p class = "vertically-aligned no-outer-spaces" id = "wed">Wednesday <br> </p>
                     </div>
                     <div class = "day-container" style = "border-color: red; margin-right:20px;">  
-                        <p class = "vertically-aligned no-outer-spaces">Sunday <br> <?php echo $sunday; ?></p>
+                        <p class = "vertically-aligned no-outer-spaces" id = "sun">Sunday <br> </p>
                     </div>
-                    <i class="fa fa-angle-double-right awesome-icon" aria-hidden="true"></i> 
+                    <i class="fa fa-angle-double-right awesome-icon" aria-hidden="true" onclick = "NextWeek();"></i> 
                 </div>
                 <!--Table-->
                 <div class = "width-90">
@@ -197,7 +197,7 @@
         
 
         <script type="text/javascript">
-        // Display either ASP or GAS options depending on which button is pressed
+            // Display either ASP or GAS options depending on which button is pressed
             function GoASP () {
                 document.getElementById("typeSelect").style.display = "none";
                 document.getElementById("Form").style.display = "table";
@@ -208,6 +208,57 @@
                 document.getElementById("typeSelect").style.display = "none";
                 document.getElementById("Form").style.display = "table";
                 document.getElementById("GAS").style.display = "table";
+            }
+
+            var wedDD, wedMM, wedY, wednesdayDate;
+            var sunDD, sunMM, sunY, sundayDate;
+
+            // Get the dates for Wednesday and Sunday this week
+            var today = new Date();
+            var todayDay = today.getDay();
+
+            var wednesday = new Date();
+            var sunday = new Date();
+
+            var wedDiff =  3 - todayDay;
+            var sunDiff =  7 - todayDay;
+
+            wednesday.setDate(today.getDate() + wedDiff);
+            sunday.setDate(today.getDate() + sunDiff);
+
+            // Format the dates to look nice a dilectable
+            function FormatDates(){
+                wedDD = wednesday.getDate();
+                wedMM = wednesday.getMonth() + 1;
+                wedY = wednesday.getFullYear();
+                wednesdayDate = wedDD + "/" + wedMM + "/" + wedY;
+
+                sunDD = sunday.getDate();
+                sunMM = sunday.getMonth() + 1;
+                sunY = sunday.getFullYear();
+                sundayDate = sunDD + "/" + sunMM + "/" + sunY;
+            }
+            // Update date on screen
+            function UpdateDate() {
+                document.getElementById("wed").innerHTML = "Wednesday <br> " +  wednesdayDate;
+                document.getElementById("sun").innerHTML = "Sunday <br> " +  sundayDate;
+            }
+
+            FormatDates();
+            UpdateDate();
+
+            function NextWeek(){
+                wednesday.setDate(wednesday.getDate() + 7);
+                sunday.setDate(sunday.getDate() + 7);
+                FormatDates();
+                UpdateDate();
+            }
+
+            function PrevWeek(){
+                wednesday.setDate(wednesday.getDate() - 7);
+                sunday.setDate(sunday.getDate() - 7);
+                FormatDates();
+                UpdateDate();
             }
         </script>
     </body>
