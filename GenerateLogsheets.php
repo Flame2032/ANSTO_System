@@ -65,15 +65,6 @@
                 </div>
 
                 <!--Day-Pair Selection-->
-
-                <?php
-                    date_default_timezone_set('Australia/NSW');
-                    $today = date("l");
-                    $wednesday = date("d-m-Y", strtotime('wednesday this week'));
-                    $sunday = date("d-m-Y", strtotime('sunday this week'));
-                    
-                ?>
-
                 <div class = "centeredContent">
                     <i class="fa fa-angle-double-left awesome-icon" aria-hidden="true" onclick = "PrevWeek();"></i> 
                     <div class = "day-container" style = "border-color: yellow; margin-left:20px;">
