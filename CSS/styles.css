@@ -300,6 +300,10 @@
     }
 }
 
+.siteName {
+    width: 150px;
+}
+
 .horizontal-center {
     width: 100%;
     height: 100%;

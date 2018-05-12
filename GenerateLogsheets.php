@@ -1,7 +1,15 @@
+<?php
+    require_once("db_connect.php");
+
+    $ASPquery = 'SELECT * FROM sites WHERE type = "ASP"';
+    $ASPResult = mysqli_query($connection, $ASPquery);
+    $GASquery = 'SELECT * FROM sites WHERE type = "GAS"';
+    $GASResult = mysqli_query($connection, $GASquery);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
-
 
         <title>Generate Logsheets</title>
         <meta charset="UTF-8">
@@ -48,21 +56,44 @@
             </div>
             <form action = "PrintGeneratedLogsheets.php">
                 <!--Site selection-->
-                <div id = "ASP" class = "width-90 container-white noDisplay">
-                    <div class = "fill-half-width"><input type = "checkbox">Lucas Heights (ASP01)</div>
-                    <div class = "fill-half-width"><input type = "checkbox">Warrawrong (ASP08)</div>
-                    <div class = "fill-half-width"><input type = "checkbox">ASP 3</div>
-                    <div class = "fill-half-width"><input type = "checkbox">ASP 4</div>
-                    <div class = "fill-half-width"><input type = "checkbox">ASP 5</div>
-                </div>
+                <?php
+                    if($ASPResult){
 
-                <div id = "GAS" class = "width-90 container-white noDisplay">
-                    <div class = "fill-half-width"><input type = "checkbox">Lucas Heights (GAS)</div>
-                    <div class = "fill-half-width"><input type = "checkbox">Warrawrong (GAS)</div>
-                    <div class = "fill-half-width"><input type = "checkbox">GAS 3</div>
-                    <div class = "fill-half-width"><input type = "checkbox">GAS 4</div>
-                    <div class = "fill-half-width"><input type = "checkbox">GAS 5</div>
-                </div>
+                        echo '<div id = "ASP" class = "width-90 container-white noDisplay">';
+
+                        while ($row = mysqli_fetch_array($ASPResult)) {
+                            //Get Site Code
+                            if($row['SiteID'] < 10) {
+                                $siteCode = " (".$row['type']."0".$row['SiteID'].")";
+                            } else {
+                                $siteCode = " (".$row['type'].$row['SiteID'].")";
+                            }
+                            //Display all sites as selectable checkbox options
+                            echo '<div class = "fill-half-width"><input type = "checkbox">'.$row['siteName'].$siteCode.'</div>';
+                        }
+
+                        echo "</div>";
+                    }
+
+                    if($GASResult){
+
+                        echo '<div id = "GAS" class = "width-90 container-white noDisplay">';
+
+                        while ($row = mysqli_fetch_array($GASResult)) {
+                            //Get Site Code
+                            if($row['SiteID'] < 10) {
+                                $siteCode = " (".$row['type']."0".$row['SiteID'].")";
+                            } else {
+                                $siteCode = " (".$row['type'].$row['SiteID'].")";
+                            }
+                            //Display all sites as selectable checkbox options
+                            echo '<div class = "fill-half-width"><input type = "checkbox">'.$row['siteName'].$siteCode.'</div>';;
+                        }
+
+                        echo "</div>";
+                    }
+                ?>
+                
 
                 <!--Day-Pair Selection-->
                 <div class = "centeredContent">
@@ -254,3 +285,7 @@
         </script>
     </body>
 </html>
+
+<?php
+    mysqli_close($connection)
+?>

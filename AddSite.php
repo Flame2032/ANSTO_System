@@ -1,3 +1,10 @@
+<?php
+    require_once("db_connect.php");
+
+    $query = 'SELECT * FROM sites';
+    $result = mysqli_query($connection, $query);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -32,39 +39,52 @@
 
         <div class = "container-ansto centeredItem marginT-20" style = "padding:20px;">
             <p class = "H290Width" style = "margin-top:0px;">Site List</p>
-            <table>
-                <tr>
-                    <th class = "columnTitle">ID</th>
-                    <th class = "columnTitle">Site Name</th>
-                    <th class = "columnTitle">Site Code</th>
-                    <th class = "columnTitle" style = "background-color:#0079c0; border-color:#0079c0"></th>
-                </tr>
-                <tr>
-                    <th class = "staticData">1</th>
-                    <th class = "staticData">Lucas Heights</th>
-                    <th class = "staticData">ASP01</th>
-                    <th><button class = "siteButton" onclick = "deleteSite()">Delete</button></th>
-                </tr>
-                <tr>
-                    <th class = "staticData">2</th>
-                    <th class = "staticData">Warrawong</th>
-                    <th class = "staticData">ASP08</th>
-                    <th><button class = "siteButton" onclick = "deleteSite()">Delete</button></th>
-                </tr>
-                <tr>
-                    <th class = "staticData">3</th>
-                    <th class = "staticData">Option 3</th>
-                    <th class = "staticData">ASPXX</th>
-                    <th><button class = "siteButton" onclick = "deleteSite()">Delete</button></th>
-                </tr>
-                <tr>
-                    <th class = "staticData">4</th>
-                    <th><input type = "text" class = "dbTextbox"></input></th>
-                    <th><input type = "text" class = "dbTextbox"></input></th>
-                    <th><button class = "siteButton" onclick = "addSite()">Add</button></th>
-                </tr>
+
+            <?php   
+                if($result){
+
+                    echo 
+                    '<table style = "margin:0px 20px;">
+                        <tr>
+                            <td class = "columnTitle">ID</td>
+                            <td class = "columnTitle">Site Name</td>
+                            <td class = "columnTitle">Site Code</td>
+                            <td class = "columnTitle" style = "background-color:#0079c0; border-color:#0079c0"></td>
+                        </tr>'
+                    ;
+
+                    while ($row = mysqli_fetch_array($result)) {
+                        if($row['SiteID'] < 10) {
+                            $siteCode = $row['type']."(0".$row['SiteID'].")";
+                        } else {
+                            $siteCode = $row['type']."(".$row['SiteID'].")";
+                        }
+                        echo 
+                        '<form action = "deleteSite.php" method = "post">
+                            <tr>
+                                <td class = "staticData">'.$row['SiteID'].'</td>
+                                <td class = "staticData">'.$row['siteName'].'</td>
+                                <td class = "staticData" style = "text-align: center;">'.$siteCode.'</td>
+                                <td><button class = "siteButton" type = "submit">Delete</button></td>
+                            </tr>
+                        </form>'
+                        ;
+                    }
+
+                }
+            ?>
+            <tr>
+                <th class = "staticData">x</th>
+                <th><input type = "text" class = "dbTextbox" style = "width:120px;"></input></th>
+                <th><input type = "text" class = "dbTextbox" style = "width:100px;"></input></th>
+                <th><button class = "siteButton" onclick = "addSite()">Add</button></th>
+            </tr>
             </table>
         </div>
 
     </body>
 </html>
+
+<?php
+    mysqli_close($connection)
+?>
