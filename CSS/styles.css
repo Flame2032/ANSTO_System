@@ -300,6 +300,16 @@
     }
 }
 
+.whiteText {
+    padding: 0px;
+    margin: 0px;
+    vertical-align: middle;
+    display: inline-block;
+    color: white;
+    font-family: Arial;
+    margin-right: 5px;
+}
+
 .siteName {
     width: 150px;
 }
@@ -375,6 +385,11 @@ input[type="checkbox"] {
 
 .awesome-icon:hover {
     cursor: pointer;
+}
+
+.dbReadTB {
+    border: none;
+    text-align: center;
 }
 
 /*Button Styles*/
@@ -721,7 +736,8 @@ tr:nth-child(even) {
 }
 
 .dbTextbox {
-    height: 30px;
+    height: 25px;
+    text-align: center;
 }
 
 .editedData {

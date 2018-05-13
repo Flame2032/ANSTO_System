@@ -211,7 +211,7 @@
                 <!--Buttons-->
 
                 <div clas = "row">
-                    <input type = "button" class = "btn-ansto font-16" style = "margin-left:10px;margin-bottom:10px;" onclick = "GoAddSite();" value = "Add Site">
+                    <input type = "button" class = "btn-ansto font-16" style = "margin-left:10px;margin-bottom:10px;" onclick = "GoAddSite();" value = "Edit Sites">
                     <input class = "btn-ansto font-16 floatRight" type = "submit" value = "Generate" style = "margin-right:10px;margin-bottom:10px;">
                 </div>
             </form>
