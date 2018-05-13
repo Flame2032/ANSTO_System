@@ -5,10 +5,19 @@
     $result = mysqli_query($connection, $query);
 
     // This code is executed if the user deletes a site
-    if(isset($_GET['ID'])){
-        $id = $_GET['ID'];
+    if(isset($_GET['deleteID'])){
+        $id = $_GET['deleteID'];
         $deleteQuery = "DELETE FROM sites WHERE SiteID = $id";
         mysqli_query($connection, $deleteQuery);
+        header("Refresh:0; url=AddSite.php");
+    }
+
+    // This code is executed if the user adds a site
+    if(isset($_GET['addName'])){
+        $name = $_GET['addName'];
+        $type = $_GET['addType'];
+        $addQuery = "INSERT INTO sites VALUES ('1', '".$name."' ,'".$type."')";
+        mysqli_query($connection, $addQuery);
         header("Refresh:0; url=AddSite.php");
     }
 ?>
@@ -103,9 +112,9 @@
             <div class = "width-90">
                 <div class = "centeredContent">
                     <div class = "strip">
-                        <p class = "whiteText">Site Name: </p><input type = "textbox" style = "padding:5px; border-radius: 5px; border-style: none;">
+                        <p class = "whiteText">Site Name: </p><input id = "newName" type = "textbox" style = "padding:5px; border-radius: 5px; border-style: none;">
                         <p class = "whiteText" style = "margin-left:20px;">Type: </p> 
-                        <select>
+                        <select id = "newType">
                             <option value = "ASP">ASP</option>
                             <option value = "GAS">GAS</option>
                         </select>
@@ -115,7 +124,7 @@
                 
                 <div class = "strip" style = "margin-top:10px;">
                     <input class = "btn-ansto font-16" type = "button" value = "Back" onclick = "GoBack();">
-                    <input class = "btn-ansto font-16 floatRight" type = "button" value = "Confirm">
+                    <input class = "btn-ansto font-16 floatRight" type = "button" value = "Add" onclick = "AddSite();">
                 </div>
             </div>
 
@@ -150,7 +159,15 @@
     }
 
     function DeleteSite () {
-        window.location.href = "AddSite.php?ID=" + selectedID;
+        window.location.href = "AddSite.php?deleteID=" + selectedID;
+    }
+
+    function AddSite () {
+        // Get the entered name and type
+        var name = document.getElementById('newName').value;
+        var type = document.getElementById('newType');
+        var selectedType = type.options[type.selectedIndex].value;
+        window.location.href = "AddSite.php?addName=" + name + "&addType=" + selectedType;
     }
 
     function ShowAddSite () {
