@@ -23,7 +23,7 @@
             });
 
             function GoAddSite () {
-                window.location.href = "AddSite.php";
+                window.location.href = "Editsites.php";
             }
         </script>
 

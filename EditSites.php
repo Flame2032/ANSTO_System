@@ -9,16 +9,17 @@
         $id = $_GET['deleteID'];
         $deleteQuery = "DELETE FROM sites WHERE SiteID = $id";
         mysqli_query($connection, $deleteQuery);
-        header("Refresh:0; url=AddSite.php");
+        header("Refresh:0; url=EditSites.php");
     }
 
     // This code is executed if the user adds a site
     if(isset($_GET['addName'])){
         $name = $_GET['addName'];
         $type = $_GET['addType'];
-        $addQuery = "INSERT INTO sites VALUES ('1', '".$name."' ,'".$type."')";
+        $id = $_GET['addID'];
+        $addQuery = "INSERT INTO sites VALUES ('".$id."', '".$name."' ,'".$type."')";
         mysqli_query($connection, $addQuery);
-        header("Refresh:0; url=AddSite.php");
+        header("Refresh:0; url=EditSites.php");
     }
 ?>
 
@@ -46,6 +47,7 @@
         <!--Second Bar-->
         <div class = "secondBarContainer">
             <div class = "secondBar">
+                <a href="GenerateLogsheets.php" style = "font-family:helvetica;">Back</a>
                 <div class = "rightDiv">
                     <a href="login.php" style = "font-family:helvetica;">Logout</a>
                 </div>
@@ -111,8 +113,9 @@
             <h1 class = "H290Width" style = "padding-top:20px;">Add a new site</h1>
             <div class = "width-90">
                 <div class = "centeredContent">
-                    <div class = "strip">
-                        <p class = "whiteText">Site Name: </p><input id = "newName" type = "textbox" style = "padding:5px; border-radius: 5px; border-style: none;">
+                    <div class = "strip" style = "margin: 10px 0px;">
+                        <p class = "whiteText">ID: </p><input id = "newID" type = "number" min = "0" style = "padding:5px; border-radius: 5px; border-style: none; width:50px; margin-right:20px;" required>
+                        <p class = "whiteText">Site Name: </p><input id = "newName" type = "textbox" style = "padding:5px; border-radius: 5px; border-style: none; width:130px;" required>
                         <p class = "whiteText" style = "margin-left:20px;">Type: </p> 
                         <select id = "newType">
                             <option value = "ASP">ASP</option>
@@ -159,15 +162,35 @@
     }
 
     function DeleteSite () {
-        window.location.href = "AddSite.php?deleteID=" + selectedID;
+        window.location.href = "EditSites.php?deleteID=" + selectedID;
     }
 
     function AddSite () {
-        // Get the entered name and type
+        var valid = true;
+        var id = document.getElementById('newID').value;
         var name = document.getElementById('newName').value;
-        var type = document.getElementById('newType');
-        var selectedType = type.options[type.selectedIndex].value;
-        window.location.href = "AddSite.php?addName=" + name + "&addType=" + selectedType;
+        // Validation
+        if (id == "" || id < 0 || name == "") {
+            valid = false;
+        };
+
+        if (!valid) {
+            if (id == "") {
+                alert("ID field is required");
+            } else if (id < 0) {
+                alert("ID can't be a negative number");
+            } else if (name == "") {
+                alert("Site Name field is required");
+            };
+            
+        };
+            
+        if(valid){
+            // Get the entered name and type
+            var type = document.getElementById('newType');
+            var selectedType = type.options[type.selectedIndex].value;
+            window.location.href = "EditSites.php?addName=" + name + "&addType=" + selectedType + "&addID=" + id;
+        };
     }
 
     function ShowAddSite () {
