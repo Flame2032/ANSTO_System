@@ -135,9 +135,10 @@
 .filterBar {
     background-color: #0079c0;
     position: fixed;
+    bottom: 0px;
+    top: 83px;
     padding: 8px;
-    width: 190px;
-    height: 70%;
+    width: 190px;    
     overflow-y: scroll;
     display: none;
 }
