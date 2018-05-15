@@ -27,6 +27,7 @@
         <!--Second Bar-->
         <div class = "secondBarContainer">
             <div class = "secondBar">
+                <a href="NewFilters.php" style = "font-family:helvetica;">Back</a>
                 <div class = "rightDiv">
                     <a href="login.php" style = "font-family:helvetica;">Logout</a>
                 </div>
@@ -58,7 +59,6 @@
                     <th class = "staticData columnTitle">l<sub>0</sub>(870)</th>
                     <th class = "staticData columnTitle">l<sub>0</sub>(940)</th>
                     <th class = "staticData columnTitle">l<sub>0</sub>(1050)</th>
-                    <th class = "staticData columnTitle">Date</th>
                 </tr>
 
                 <?php
@@ -78,7 +78,6 @@
                             <th class = 'staticData'>--</th>
                             <th class = 'staticData'>--</th>
                             <th class = 'staticData'>--</th>
-                            <th class = 'staticData'>$currentDate</th>
                         </tr>";
                     }
                 ?>
