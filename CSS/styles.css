@@ -179,6 +179,13 @@
     display: none;
 }
 
+.printA4 {
+    padding:0px;
+    width: 792px;
+    height: 1120px;
+    display: block;
+}
+
 /*Content Styles*/
 .centeredContent {
     display: table;

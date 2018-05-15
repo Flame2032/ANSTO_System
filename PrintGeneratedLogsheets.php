@@ -12,6 +12,19 @@
             $(function(){
               $("#navBar").load("NavigationBar"); 
             });
+
+            function PrintAllLogsheets (divName) {
+                var printContents = document.getElementById(divName).innerHTML;
+                var originalContents = document.body.innerHTML;
+
+                document.body.innerHTML = printContents;
+                document.body.style.margin = "0px";
+
+                window.print();
+
+                document.body.style.margin = "8px";
+                document.body.innerHTML = originalContents;
+            }
         </script>
 
     </head>
@@ -36,8 +49,17 @@
             <div class = "generatedSheet"><a href="SingleLogsheet.php">12452-3 ASP01 14-03-18Y/18-03-18R Warrawong</a></div>
             <div class = "generatedSheet"><a href="SingleLogsheet.php">12454-5 ASP01 14-03-18Y/18-03-18R Mascot</a></div>
             
-            <div class = "bottomStrip"><button class = "printAllButton" onclick = "window.print()">Print All</button></div>
-        </div>
+            <div class = "bottomStrip"><button class = "printAllButton" onclick = "PrintAllLogsheets('testDiv');">Print All</button></div>
+
+            <div id = "testDiv" style = "display:none;">
+                <img class = "printA4" src="Images/LogsheetTemplate.jpg">
+                <img class = "printA4" src="Images/LogsheetTemplate.jpg">
+                <img class = "printA4" src="Images/LogsheetTemplate.jpg">
+            </div>
+            
+        </div>  
+
+        
 
     </body>
 </html>
