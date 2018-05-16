@@ -266,10 +266,11 @@
     }
 }
 @media (max-height: 700px) and (min-width: 750px){
-     {
+    .dynamic-content-700-570 {
         left:50%;
         transform: translateX(-50%);
         position: absolute;
+        margin: 10px 0px;
     }
 }
 @media (max-height: 700px) and (max-width: 750px) {
