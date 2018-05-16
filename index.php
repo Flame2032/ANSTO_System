@@ -7,12 +7,13 @@
         <link rel="stylesheet" href="CSS/styles.css">
         <link rel="stylesheet" href="CSS/font-awesome/css/font-awesome.min.css">
         <script src = "JavaScript/jquery-3.3.1.min.js"></script>
-        <script type="text/javascript">
+        <script>
             //Load in navigation bar using jquery
             $(function(){
-              $("#navBar").load("NavigationBar"); 
+              $("#navBar").load("NavigationBar.php"); 
             });
-
+        </script>
+        <script type="text/javascript">
             function GoPrepFilters () {
                 window.location.href = "NewFilters.php";
             }

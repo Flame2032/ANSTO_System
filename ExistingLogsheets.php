@@ -10,7 +10,7 @@
         <script type="text/javascript">
             //Load in navigation bar using jquery
             $(function(){
-              $("#navBar").load("NavigationBar"); 
+              $("#navBar").load("NavigationBar.php"); 
             });
 
             function deleteSite() {
