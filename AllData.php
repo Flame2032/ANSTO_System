@@ -10,8 +10,11 @@
         <script type="text/javascript">
             //Load in navigation bar using jquery
             $(function(){
-              $("#navBar").load("NavigationBar.php"); 
+              $("#navBar").load("NavigationBar"); 
             });
+
+            
+
         </script>
 
     </head>
@@ -92,209 +95,36 @@
                     <input type = 'checkbox' name = 'column'>Cape Grim<br>
                     <input type = 'checkbox' name = 'column'>Liverpool<br>
                 </div>
-                <div class = 'filterSeparator'></div>
-                <input type = "button" class = "btn-ansto" value = "Apply Filter Options" style = "width:100%;">
                 
             </form>
         </div>
+<?php
+include 'db_connect.php';
 
-        <table class = "whiteStrip">
-            <tr>
-                <th class = "columnTitle">ID</th>
-                <th class = "columnTitle">Code</th>
-                <th class = "columnTitle">Pre Mass</th>
-                <th class = "columnTitle">Pre Laser</th>
-                <th class = "columnTitle">Vacuum Valve Closed</th>
-                <th class = "columnTitle">Pre Vacuum</th>
-                <th class = "columnTitle">Pre Mass Volume</th>
-                <th class = "columnTitle">Post Mass</th>
-                <th class = "columnTitle">Post Laser</th>
-                <th class = "columnTitle">Post Vacuum</th>
-                <th class = "columnTitle">Post Mass Volume</th>
-                <th class = "columnTitle">Finish Flow Rate</th>
-                <th class = "columnTitle">Elapsed Time</th>
-                <th class = "columnTitle">Temperature Max</th>
-                <th class = "columnTitle">Temperature Min</th>
-                <th class = "columnTitle">Comments</th>
-                <th class = "columnTitle">Pre QA Date</th>
-                <th class = "columnTitle">Sent Date</th>
-                <th class = "columnTitle">Return Date</th>
-                <th class = "columnTitle">Returned QA Date</th>
-                <th class = "columnTitle">Site</th>
-                <th class = "columnTitle">Exposure Date</th>
-                <th class = "columnTitle">Filter Type</th>
-                <th class = "columnTitle">l<sub>0</sub>(405)</th>
-                <th class = "columnTitle">l<sub>0</sub>(465)</th>
-                <th class = "columnTitle">l<sub>0</sub>(525)</th>
-                <th class = "columnTitle">l<sub>0</sub>(639)</th>
-                <th class = "columnTitle">l<sub>0</sub>(870)</th>
-                <th class = "columnTitle">l<sub>0</sub>(940)</th>
-                <th class = "columnTitle">l<sub>0</sub>(1050)</th>
-                <th class = "columnTitle">l(405)</th>
-                <th class = "columnTitle">l(465)</th>
-                <th class = "columnTitle">l(525)</th>
-                <th class = "columnTitle">l(639)</th>
-                <th class = "columnTitle">l(870)</th>
-                <th class = "columnTitle">l(940)</th>
-                <th class = "columnTitle">l(1050)</th>
-            </tr>
-            <tr>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-            </tr>
-            <tr>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-            </tr>
-            <tr>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-            </tr>
-            <tr>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-                <th class = "staticData">Data</th>
-            </tr>
-        </table>
+//get results from database
+$result = mysqli_query($connection,"SELECT * FROM asp");
+$all_property = array();  //declare an array for saving property
+
+//showing property
+echo '<table class="data-table" border="2" width="auto" overflow: "auto" ID="Table1" style="font-size: 70%;">
+        <tr class="data-heading">';  //initialize table tag
+while ($property = mysqli_fetch_field($result)) {
+    echo '<td>' . $property->name . '</td>';  //get field name for header
+    array_push($all_property, $property->name);  //save those to array
+}
+echo '</tr>'; //end tr tag
+
+//showing all data
+while ($row = mysqli_fetch_array($result)) {
+    echo "<tr>";
+    foreach ($all_property as $item) {
+        echo '<td>' . $row[$item] . '<div style= "width:180px;"</div></td>'; //get items using property value
+    }
+    echo '</tr>';
+}
+echo "</table>";
+?>
+ 
 
         <script type="text/javascript">
             function ToggleFilterMenu () {
