@@ -10,10 +10,8 @@
         <script type="text/javascript">
             //Load in navigation bar using jquery
             $(function(){
-              $("#navBar").load("NavigationBar"); 
+              $("#navBar").load("NavigationBar.php"); 
             });
-
-            
 
         </script>
 
@@ -95,6 +93,8 @@
                     <input type = 'checkbox' name = 'column'>Cape Grim<br>
                     <input type = 'checkbox' name = 'column'>Liverpool<br>
                 </div>
+                <div class = 'filterSeparator'></div>
+                <input type = "button" class = "btn-ansto" value = "Apply Filter Options" style = "width:100%;">
                 
             </form>
         </div>

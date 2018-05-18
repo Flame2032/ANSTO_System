@@ -48,8 +48,17 @@
         </div>
         <!--Empty block so navbar doesn't overlap content-->
         <div class = "navSpacer"></div>
+
+        <!--ASP/GAS Button options-->
+        <div class = "centered-ASP-GAS" id = "typeSelect" style = "width:800px;">
+            <div class = "centeredItem">
+                <input class = "btn-ASP-GAS" type = "button" onclick = "SetASP();" value = "ASP">
+                <input class = "btn-ASP-GAS"type = "button" style = "margin:0px 10px;" onclick = "SetGASC();" value = "GAS-C">
+                <input class = "btn-ASP-GAS"type = "button" onclick = "SetGASF();" value = "GAS-F">
+            </div>
+        </div>
         
-        <div class = "container-ansto dynamic-content-600-200 marginT-20" style = "width:600px; height:200px;">
+        <div class = "container-ansto dynamic-content-600-200 marginT-20" style = "width:600px; height:200px; display:none;" id = "numPickContainer">
             <form action = "NewFiltersP2.php" name = "numForm" onsubmit = "return validateForm()" method="POST">
                 <h1 class = "H290Width">How many pre-analysis filters do you wish to generate?</h1>
                 <input type="number" name = "number" value = "0"></input>
@@ -58,5 +67,26 @@
                 </div>
             </form>
         </div>
+
+        <script type="text/javascript">
+            var numPicker = document.getElementById('numPickContainer');
+            var typeSelect = document.getElementById('typeSelect');
+            var selectedType;
+            function SetASP () {
+                typeSelect.style.display = "none";
+                numPicker.style.display = "";
+                selectedType = "ASP";
+            }
+            function SetGASC () {
+                typeSelect.style.display = "none";
+                numPicker.style.display = "";
+                selectedType = "GAS-C";
+            }
+            function SetGASF () {
+                typeSelect.style.display = "none";
+                numPicker.style.display = "";
+                selectedType = "GAS-F";
+            }
+        </script>
     </body>
 </html>
