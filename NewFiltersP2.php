@@ -43,7 +43,7 @@
         <div class = "container-ansto centered-800-X marginT-20" style = "padding:20px;">
             <div class = "strip">
                 <h2 class = "H290Width-left"> <?php echo ($number); ?> Pre-Analysis filter entries have been generated</h2>
-                <button class = "btn-ansto font-16 floatRight" style = "padding:10px;" onclick = "uploadCSV()">Import CSV</button>
+                <button class = "btn-ansto font-16 floatRight" style = "padding:10px;" onclick = "uploadCSV()">Import MABI</button>
             </div>
             
             <table>
