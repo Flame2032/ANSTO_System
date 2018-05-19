@@ -14,6 +14,15 @@
             $sunSND[$i] = $sites[$i]." ".$sunDate;
         }
     }
+
+    if (isset($_POST['type'])) {
+        $type = $_POST['type'];
+    }
+
+    // Set initial values to false
+    $availableFiltersQueryResult = false;
+    $availableGasCQueryResult = false;
+    $availableGasCQueryResult = false;
 ?>
 
 <!DOCTYPE html>
@@ -53,9 +62,17 @@
         <div class = "navSpacer"></div>
 
         <?php
-            // Make sure there are enough new filters in the database for allocation
-            $availableFiltersQueryResult = mysqli_query($connection, "SELECT * FROM asp WHERE Code = ''");
-            if ($availableFiltersQueryResult && isset($_POST['site'])) {
+            // Check whether GAS or ASP has been selected
+            if($type == "ASP" && isset($_POST['site'])) {
+                $availableFiltersQueryResult = mysqli_query($connection, "SELECT * FROM asp WHERE Code = ''");
+            } else if ($type == "GAS" && isset($_POST['site'])) {
+                $availableGasCQueryResult = mysqli_query($connection, "SELECT * FROM gasc WHERE Code = ''");
+                $availableGasFQueryResult = mysqli_query($connection, "SELECT * FROM gasf WHERE Code = ''");
+            }
+            
+            // ------------------------------ASP------------------------------
+            if ($availableFiltersQueryResult) {
+                // Make sure enough new filters are available for allocation
                 $availableFilters = mysqli_num_rows($availableFiltersQueryResult);
                 if($availableFilters >= (sizeof($sites)*2)) {
 
@@ -65,7 +82,6 @@
                     while ($row = mysqli_fetch_array($minIDResult)) {
                         $minID = $row['aspID'];
                     }
-                    echo $minID;
 
                     // Get 2 filters for each site that has been selected (1 for wed, 1 for sun)
                     for ($i=0; $i < (sizeof($sites)*2); $i++) { 
@@ -74,65 +90,216 @@
                     }
 
                     // Display
-                    if (isset($_POST['site']) && $filtersResult[0]) {
-                        echo '<div class = "container-ansto dynamic-content-700-570" style = "margin:10px 0px;">';
-                        echo '<div class = "centeredItem">
-                        <p class = "H190Width">Filters have been allocated for exposure</p>
-                    
-                        <table class = "centeredItem" style = "margin:20px;">';
+                    echo '<div class = "container-ansto dynamic-content-700-570" style = "margin:10px 0px;">';
+                    echo '<div class = "centeredItem">
+                    <p class = "H190Width">ASP Filters have been allocated for exposure</p>
+                
+                    <table class = "centeredItem" style = "margin:20px;">';
 
-                        // Table headings
-                        echo 
-                        '<tr>
-                            <th class = "staticData columnTitle smallFont">ID</th>
-                            <th class = "staticData columnTitle smallFont">Exposure Code</th>
-                            <th class = "staticData columnTitle smallFont">Pre-Mass</th>
-                            <th class = "staticData columnTitle smallFont">I<sub>0</sub>(405nm)</th>
-                            <th class = "staticData columnTitle smallFont">I<sub>0</sub>(465nm)</th>
-                            <th class = "staticData columnTitle smallFont">I<sub>0</sub>(525nm)</th>
-                            <th class = "staticData columnTitle smallFont">I<sub>0</sub>(639nm)</th>
-                            <th class = "staticData columnTitle smallFont">I<sub>0</sub>(870nm)</th>
-                            <th class = "staticData columnTitle smallFont">I<sub>0</sub>(940nm)</th>
-                            <th class = "staticData columnTitle smallFont">I<sub>0</sub>(1050nm)</th>
-                        </tr>';
+                    // Table headings
+                    echo 
+                    '<tr>
+                        <th class = "staticData columnTitle smallFont">ID</th>
+                        <th class = "staticData columnTitle smallFont">Exposure Code</th>
+                        <th class = "staticData columnTitle smallFont">Pre-Mass</th>
+                        <th class = "staticData columnTitle smallFont">I<sub>0</sub>(405nm)</th>
+                        <th class = "staticData columnTitle smallFont">I<sub>0</sub>(465nm)</th>
+                        <th class = "staticData columnTitle smallFont">I<sub>0</sub>(525nm)</th>
+                        <th class = "staticData columnTitle smallFont">I<sub>0</sub>(639nm)</th>
+                        <th class = "staticData columnTitle smallFont">I<sub>0</sub>(870nm)</th>
+                        <th class = "staticData columnTitle smallFont">I<sub>0</sub>(940nm)</th>
+                        <th class = "staticData columnTitle smallFont">I<sub>0</sub>(1050nm)</th>
+                    </tr>';
 
-                        // Display the filters and their newly assigned Exposure codes
-                        $x = 0;
-                        for ($i=0; $i < (sizeof($sites)*2); $i++) { 
-                            while ($row = mysqli_fetch_array($filtersResult[$i])) {
+                    // Display the filters and their newly assigned Exposure codes
+                    $x = 0;
+                    for ($i=0; $i < (sizeof($sites)*2); $i++) { 
+                        while ($row = mysqli_fetch_array($filtersResult[$i])) {
 
-                                echo '<tr>
-                                    <th class = "staticData smallFont">'.$row['aspID'].'</th>';
-                                    // Every Odd entry is Sunday
-                                    if( ($i % 2) == 0){
-                                        echo '<th class = "staticData smallFont">'.$wedSND[$x].' Y</th>';
-                                    } else {
-                                        echo '<th class = "staticData smallFont">'.$sunSND[$x].' R</th>';
-                                        $x++;
-                                    }
-                                    
-                                    echo
-                                    '<th class = "staticData smallFont">'.$row['Pre Filter Mass'].'</th>
-                                    <th class = "staticData smallFont">'.$row['I0 (405)'].'</th>
-                                    <th class = "staticData smallFont">'.$row['I0 (465)'].'</th>
-                                    <th class = "staticData smallFont">'.$row['I0 (525)'].'</th>
-                                    <th class = "staticData smallFont">'.$row['I0 (639)'].'</th>
-                                    <th class = "staticData smallFont">'.$row['I0 (870)'].'</th>
-                                    <th class = "staticData smallFont">'.$row['I0 (940)'].'</th>
-                                    <th class = "staticData smallFont">'.$row['I0 (1050)'].'</th>
-                                </tr>';
-                            }
+                            echo '<tr>
+                                <th class = "staticData smallFont">'.$row['aspID'].'</th>';
+                                // Every Odd entry is Sunday
+                                if( ($i % 2) == 0){
+                                    echo '<th class = "staticData smallFont">'.$wedSND[$x].' Y</th>';
+                                    // Temp Values
+                                    $code = $wedSND[$x];
+                                    $id = $minID+$i;
+                                    // Update the record after it's displayed
+                                    $updateQuery = "UPDATE asp SET Code = '$code' WHERE aspID = '$id'";
+                                    $updateResult = mysqli_query($connection, $updateQuery);
+                                } else {
+                                    echo '<th class = "staticData smallFont">'.$sunSND[$x].' R</th>';
+                                    // Temp Values
+                                    $code = $sunSND[$x];
+                                    $id = $minID+$i;
+                                    // Update the record after it's displayed
+                                    $updateQuery = "UPDATE asp SET Code = '$code' WHERE aspID = '$id'";
+                                    $updateResult = mysqli_query($connection, $updateQuery);
+                                    $x++;
+                                }
+                                
+                                echo
+                                '<th class = "staticData smallFont">'.$row['Pre Filter Mass'].'</th>
+                                <th class = "staticData smallFont">'.$row['I0 (405)'].'</th>
+                                <th class = "staticData smallFont">'.$row['I0 (465)'].'</th>
+                                <th class = "staticData smallFont">'.$row['I0 (525)'].'</th>
+                                <th class = "staticData smallFont">'.$row['I0 (639)'].'</th>
+                                <th class = "staticData smallFont">'.$row['I0 (870)'].'</th>
+                                <th class = "staticData smallFont">'.$row['I0 (940)'].'</th>
+                                <th class = "staticData smallFont">'.$row['I0 (1050)'].'</th>
+                            </tr>';
                         }
-                        
-                        echo "</table>";
-
-                        echo '<input class = "btn-ansto font-16 centeredItem" type = "button" value = "Generate" style = "margin-bottom:10px;" onclick = "Generate();">';
                     }
-                } else {
+                    
+                    echo "</table>";
+
+                    echo '<input class = "btn-ansto centeredItem" type = "button" value = "Generate Logsheets" style = "margin-bottom:10px; font-size:20px;" onclick = "Generate();">';
+                    
+                    
+                }  else {
                     echo '<div class = "container-ansto dynamic-content-700-570" style = "margin:10px 0px; width:500px;">';
                     echo "<p class = 'H190Width' style = 'font-size:20px;'>Not enough new filters available for allocation</p>";
                     echo '<input type = "button" class = "btn-ansto font-16 centeredItem" style = "margin-bottom:10px;"" onclick = "GoBack();" value = "Back">';
                 }
+            //------------------------------GAS------------------------------
+            } else if ($availableGasCQueryResult && $availableGasFQueryResult) { 
+
+                // Make sure enough new filters are available for allocation (in both course and fine tables)
+                $availableCFilters = mysqli_num_rows($availableGasCQueryResult);
+                $availableFFilters = mysqli_num_rows($availableGasFQueryResult);
+                if($availableCFilters >= (sizeof($sites)*2) && $availableFFilters >= (sizeof($sites)*2)) {
+
+                    // Get the ID of the first filter with no exposure code
+                    //$minCIDQuery = "SELECT gasCID FROM gasc WHERE gasCID =  ( SELECT MIN(gasCID) FROM gasc WHERE Code = '' )";
+                    $minCIDQuery = "SELECT `gasCID` FROM `gasc` WHERE `gasCID` = '10000' )";
+                    $minCIDResult = mysqli_query($connection, $minCIDQuery);
+                    while ($row = mysqli_fetch_array($minCIDResult)) {
+                        $minCID = $row['gasCID'];
+                    }
+                    //$minFIDQuery = "SELECT gasFID FROM gasf WHERE gasFID =  ( SELECT MIN(gasFID) FROM gasf WHERE Code = '' )";
+                    $minFIDQuery = "SELECT gasFID FROM gasf WHERE gasFID = '10000' )";
+                    $minFIDResult = mysqli_query($connection, $minFIDQuery);
+                    while ($row = mysqli_fetch_array($minFIDResult)) {
+                        $minFID = $row['gasFID'];
+                    }
+
+                    // Get 2 filters for each site that has been selected (1 for wed, 1 for sun)
+                    for ($i=0; $i < (sizeof($sites)*2); $i++) { 
+                        $CfiltersQuery[$i] = "SELECT * FROM gasc WHERE gasCID =  ( SELECT MIN(gasCID)+$i FROM gasc WHERE Code = ''  )";
+                        $CfiltersResult[$i] = mysqli_query($connection, $CfiltersQuery[$i]);
+                        $FfiltersQuery[$i] = "SELECT * FROM gasf WHERE gasFID =  ( SELECT MIN(gasFID)+$i FROM gasc WHERE Code = ''  )";
+                        $FfiltersResult[$i] = mysqli_query($connection, $FfiltersQuery[$i]);
+                    }
+
+                    // Display
+                    echo '<div class = "container-ansto dynamic-content-700-570" style = "margin:10px 0px;">';
+                    echo '<div class = "centeredItem">
+                    <p class = "H190Width">GAS Filters have been allocated for exposure</p>
+                
+                    <table class = "centeredItem" style = "margin:20px;">';
+
+                    // Table headings
+                    echo 
+                    '<tr>
+                        <th class = "staticData columnTitle smallFont">ID</th>
+                        <th class = "staticData columnTitle smallFont">Exposure Code</th>
+                        <th class = "staticData columnTitle smallFont">Pre-Mass</th>
+                        <th class = "staticData columnTitle smallFont">I<sub>0</sub>(405nm)</th>
+                        <th class = "staticData columnTitle smallFont">I<sub>0</sub>(465nm)</th>
+                        <th class = "staticData columnTitle smallFont">I<sub>0</sub>(525nm)</th>
+                        <th class = "staticData columnTitle smallFont">I<sub>0</sub>(639nm)</th>
+                        <th class = "staticData columnTitle smallFont">I<sub>0</sub>(870nm)</th>
+                        <th class = "staticData columnTitle smallFont">I<sub>0</sub>(940nm)</th>
+                        <th class = "staticData columnTitle smallFont">I<sub>0</sub>(1050nm)</th>
+                    </tr>';
+
+                    // Display the filters and their newly assigned Exposure codes
+                    $x = 0;
+                    for ($i=0; $i < (sizeof($sites)*2); $i++) { 
+                        // Gas Course
+                        while ($row = mysqli_fetch_array($CfiltersResult[$i])) {
+
+                            echo '<tr>
+                                <th class = "staticData smallFont">'.$row['gasCID'].'</th>';
+                                // Every Odd entry is Sunday
+                                if( ($i % 2) == 0){
+                                    echo '<th class = "staticData smallFont">'.$wedSND[$x].' Y</th>';
+                                    // Temp Values
+                                    $code = $wedSND[$x];
+                                    $id = $minCID+$i;
+                                    // Update the record after it's displayed
+                                    $updateQuery = "UPDATE gasc SET Code = '$code' WHERE gasCID = '$id'";
+                                    $updateResult = mysqli_query($connection, $updateQuery);
+                                } else {
+                                    echo '<th class = "staticData smallFont">'.$sunSND[$x].' R</th>';
+                                    // Temp Values
+                                    $code = $sunSND[$x];
+                                    $id = $minCID+$i;
+                                    // Update the record after it's displayed
+                                    $updateQuery = "UPDATE gasc SET Code = '$code' WHERE gasCID = '$id'";
+                                    $updateResult = mysqli_query($connection, $updateQuery);
+                                }
+                                
+                                echo
+                                '<th class = "staticData smallFont">'.$row['Pre Filter Mass'].'</th>
+                                <th class = "staticData smallFont">'.$row['I0 (405)'].'</th>
+                                <th class = "staticData smallFont">'.$row['I0 (465)'].'</th>
+                                <th class = "staticData smallFont">'.$row['I0 (525)'].'</th>
+                                <th class = "staticData smallFont">'.$row['I0 (639)'].'</th>
+                                <th class = "staticData smallFont">'.$row['I0 (870)'].'</th>
+                                <th class = "staticData smallFont">'.$row['I0 (940)'].'</th>
+                                <th class = "staticData smallFont">'.$row['I0 (1050)'].'</th>
+                            </tr>';
+                        }
+                        // Gas Fine
+                        while ($row = mysqli_fetch_array($FfiltersResult[$i])) {
+
+                            echo '<tr>
+                                <th class = "staticData smallFont">'.$row['gasFID'].'</th>';
+                                // Every Odd entry is Sunday
+                                if( ($i % 2) == 0){
+                                    echo '<th class = "staticData smallFont">'.$wedSND[$x].' Y</th>';
+                                    // Temp Values
+                                    $code = $wedSND[$x];
+                                    $id = $minFID+$i;
+                                    // Update the record after it's displayed
+                                    $updateQuery = "UPDATE gasf SET Code = '$code' WHERE gasFID = '$id'";
+                                    $updateResult = mysqli_query($connection, $updateQuery);
+                                } else {
+                                    echo '<th class = "staticData smallFont">'.$sunSND[$x].' R</th>';
+                                    // Temp Values
+                                    $code = $sunSND[$x];
+                                    $id = $minFID+$i;
+                                    // Update the record after it's displayed
+                                    $updateQuery = "UPDATE gasf SET Code = '$code' WHERE gasFID = '$id'";
+                                    $updateResult = mysqli_query($connection, $updateQuery);
+                                    $x++;
+                                }
+                                
+                                echo
+                                '<th class = "staticData smallFont">'.$row['Pre Filter Mass'].'</th>
+                                <th class = "staticData smallFont">'.$row['I0 (405)'].'</th>
+                                <th class = "staticData smallFont">'.$row['I0 (465)'].'</th>
+                                <th class = "staticData smallFont">'.$row['I0 (525)'].'</th>
+                                <th class = "staticData smallFont">'.$row['I0 (639)'].'</th>
+                                <th class = "staticData smallFont">'.$row['I0 (870)'].'</th>
+                                <th class = "staticData smallFont">'.$row['I0 (940)'].'</th>
+                                <th class = "staticData smallFont">'.$row['I0 (1050)'].'</th>
+                            </tr>';
+                        }
+                    }
+                    
+                    echo "</table>";
+
+                    echo '<input class = "btn-ansto centeredItem" type = "button" value = "Generate Logsheets" style = "margin-bottom:10px; font-size:20px;" onclick = "Generate();">';
+                    
+                    
+                }  else {
+                    echo '<div class = "container-ansto dynamic-content-700-570" style = "margin:10px 0px; width:500px;">';
+                    echo "<p class = 'H190Width' style = 'font-size:20px;'>Not enough new filters available for allocation</p>";
+                    echo '<input type = "button" class = "btn-ansto font-16 centeredItem" style = "margin-bottom:10px;"" onclick = "GoBack();" value = "Back">';
+                }
+
             } else {
                 echo '<div class = "container-ansto dynamic-content-700-570" style = "margin:10px 0px; width:300px;">';
                 echo "<p class = 'H190Width'>No Results</p>";

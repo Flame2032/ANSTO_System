@@ -67,10 +67,10 @@
                             //Get Site Code & Display sites as selectable checkbox options
                             if($row['SiteID'] < 10) {
                                 $siteCode = " (".$row['type']."0".$row['SiteID'].")";
-                                echo '<div class = "fill-half-width"><input type = "checkbox" name = "site[]" value = "'.$row['type'].'0'.$row['SiteID'].'">'.$row['siteName'].$siteCode.'</div>';
+                                echo '<div class = "fill-half-width"><input type = "checkbox" name = "site[]" value = "'.$row['type'].' 0'.$row['SiteID'].'">'.$row['siteName'].$siteCode.'</div>';
                             } else {
                                 $siteCode = " (".$row['type'].$row['SiteID'].")";
-                                echo '<div class = "fill-half-width"><input type = "checkbox" name = "site[]" value = "'.$row['type'].$row['SiteID'].'">'.$row['siteName'].$siteCode.'</div>';
+                                echo '<div class = "fill-half-width"><input type = "checkbox" name = "site[]" value = "'.$row['type'].' '.$row['SiteID'].'">'.$row['siteName'].$siteCode.'</div>';
                             }
                         }
 
@@ -85,10 +85,10 @@
                             //Get Site Code & Display sites as selectable checkbox options
                             if($row['SiteID'] < 10) {
                                 $siteCode = " (".$row['type']."0".$row['SiteID'].")";
-                                echo '<div class = "fill-half-width"><input type = "checkbox" name = "site[]" value = "'.$row['type'].'0'.$row['SiteID'].'">'.$row['siteName'].$siteCode.'</div>';
+                                echo '<div class = "fill-half-width"><input type = "checkbox" name = "site[]" value = "'.$row['type'].' 0'.$row['SiteID'].'">'.$row['siteName'].$siteCode.'</div>';
                             } else {
                                 $siteCode = " (".$row['type'].$row['SiteID'].")";
-                                echo '<div class = "fill-half-width"><input type = "checkbox" name = "site[]" value = "'.$row['type'].$row['SiteID'].'">'.$row['siteName'].$siteCode.'</div>';
+                                echo '<div class = "fill-half-width"><input type = "checkbox" name = "site[]" value = "'.$row['type'].' '.$row['SiteID'].'">'.$row['siteName'].$siteCode.'</div>';
                             }
                         }
 
@@ -115,7 +115,7 @@
                     </div>
                     <i class="fa fa-angle-double-right awesome-icon" aria-hidden="true" onclick = "NextWeek();"></i> 
                 </div>
-
+                <input id = "type" name = "type" type = "text" style = "display:none;">
                 <!--Buttons-->
                 <div clas = "row">
                     <input type = "button" class = "btn-ansto font-16" style = "margin-left:10px;margin-bottom:10px;" onclick = "GoAddSite();" value = "Edit Sites">
@@ -139,12 +139,14 @@
                 document.getElementById("typeSelect").style.display = "none";
                 document.getElementById("Form").style.display = "table";
                 document.getElementById("ASP").style.display = "table";
+                document.getElementById("type").value = "ASP";
             }
 
             function GoGAS () {
                 document.getElementById("typeSelect").style.display = "none";
                 document.getElementById("Form").style.display = "table";
                 document.getElementById("GAS").style.display = "table";
+                document.getElementById("type").value = "GAS";
             }
 
             var wedDD, wedMM, wedY, wednesdayDate;
