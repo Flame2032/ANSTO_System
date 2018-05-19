@@ -64,14 +64,14 @@
                         
 
                         while ($row = mysqli_fetch_array($ASPResult)) {
-                            //Get Site Code
+                            //Get Site Code & Display sites as selectable checkbox options
                             if($row['SiteID'] < 10) {
                                 $siteCode = " (".$row['type']."0".$row['SiteID'].")";
+                                echo '<div class = "fill-half-width"><input type = "checkbox" name = "site[]" value = "'.$row['type'].'0'.$row['SiteID'].'">'.$row['siteName'].$siteCode.'</div>';
                             } else {
                                 $siteCode = " (".$row['type'].$row['SiteID'].")";
+                                echo '<div class = "fill-half-width"><input type = "checkbox" name = "site[]" value = "'.$row['type'].$row['SiteID'].'">'.$row['siteName'].$siteCode.'</div>';
                             }
-                            //Display all sites as selectable checkbox options
-                            echo '<div class = "fill-half-width"><input type = "checkbox" name = "site[]" value = "'.$row['type'].$row['SiteID'].'">'.$row['siteName'].$siteCode.'</div>';
                         }
 
                         echo "</div>";
@@ -82,16 +82,15 @@
                         echo '<div id = "GAS" class = "width-90 container-white" style = "display:none;">';
 
                         while ($row = mysqli_fetch_array($GASResult)) {
-                            //Get Site Code
+                            //Get Site Code & Display sites as selectable checkbox options
                             if($row['SiteID'] < 10) {
                                 $siteCode = " (".$row['type']."0".$row['SiteID'].")";
+                                echo '<div class = "fill-half-width"><input type = "checkbox" name = "site[]" value = "'.$row['type'].'0'.$row['SiteID'].'">'.$row['siteName'].$siteCode.'</div>';
                             } else {
                                 $siteCode = " (".$row['type'].$row['SiteID'].")";
+                                echo '<div class = "fill-half-width"><input type = "checkbox" name = "site[]" value = "'.$row['type'].$row['SiteID'].'">'.$row['siteName'].$siteCode.'</div>';
                             }
-                            //Display all sites as selectable checkbox options
-                            echo '<div class = "fill-half-width"><input type = "checkbox" name = "site[]" value = "'.$row['type'].$row['SiteID'].'">'.$row['siteName'].$siteCode.'</div>';
                         }
-
 
                         echo "</div>";
                     }
@@ -120,7 +119,7 @@
                 <!--Buttons-->
                 <div clas = "row">
                     <input type = "button" class = "btn-ansto font-16" style = "margin-left:10px;margin-bottom:10px;" onclick = "GoAddSite();" value = "Edit Sites">
-                    <input type = "Submit" class = "btn-ansto font-16 floatRight" style = "margin-right:10px;margin-bottom:10px;" value = "View Results">
+                    <input type = "Submit" class = "btn-ansto font-16 floatRight" style = "margin-right:10px;margin-bottom:10px;" value = "Confirm">
                 </div>
             </form>
         </div>
