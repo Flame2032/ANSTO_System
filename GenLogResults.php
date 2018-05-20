@@ -151,9 +151,14 @@
                         }
                     }
                     
-                    echo "</table>";
-
-                    echo '<input class = "btn-ansto centeredItem" type = "button" value = "Generate Logsheets" style = "margin-bottom:10px; font-size:20px;" onclick = "Generate();">';
+                    echo '
+                    </table>
+                    <form action = "PrintASPLogsheets.php" method = "POST">
+                        <input type = "hidden" name = "minID" value="'.$minID.'">
+                        <input type = "hidden" name = "num" value="'.(sizeof($sites)*2).'">
+                        <input type = "hidden" name = "type" value="'.$type.'">
+                        <button class = "btn-ansto centeredItem" type = "submit" style = "margin-bottom:10px; font-size:20px;">Generate Logsheets</button>
+                    </form>';
                     
                     
                 }  else {
@@ -170,24 +175,25 @@
                 if($availableCFilters >= (sizeof($sites)*2) && $availableFFilters >= (sizeof($sites)*2)) {
 
                     // Get the ID of the first filter with no exposure code
-                    //$minCIDQuery = "SELECT gasCID FROM gasc WHERE gasCID =  ( SELECT MIN(gasCID) FROM gasc WHERE Code = '' )";
-                    $minCIDQuery = "SELECT `gasCID` FROM `gasc` WHERE `gasCID` = '10000' )";
+                    $minCIDQuery = "SELECT gasCID FROM gasc WHERE gasCID =  ( SELECT MIN(gasCID) FROM gasc WHERE Code = '' )";
                     $minCIDResult = mysqli_query($connection, $minCIDQuery);
                     while ($row = mysqli_fetch_array($minCIDResult)) {
                         $minCID = $row['gasCID'];
                     }
-                    //$minFIDQuery = "SELECT gasFID FROM gasf WHERE gasFID =  ( SELECT MIN(gasFID) FROM gasf WHERE Code = '' )";
-                    $minFIDQuery = "SELECT gasFID FROM gasf WHERE gasFID = '10000' )";
+                    $minFIDQuery = "SELECT gasFID FROM gasf WHERE gasFID =  ( SELECT MIN(gasFID) FROM gasf WHERE Code = '' )";
                     $minFIDResult = mysqli_query($connection, $minFIDQuery);
-                    while ($row = mysqli_fetch_array($minFIDResult)) {
-                        $minFID = $row['gasFID'];
+                    if ($minFIDResult) {
+                        while ($row = mysqli_fetch_array($minFIDResult)) {
+                            $minFID = $row['gasFID'];
+                        }
                     }
+                    
 
-                    // Get 2 filters for each site that has been selected (1 for wed, 1 for sun)
+                    // Get 4 filters for each site that has been selected (G+C for wed, G+C for sun)
                     for ($i=0; $i < (sizeof($sites)*2); $i++) { 
                         $CfiltersQuery[$i] = "SELECT * FROM gasc WHERE gasCID =  ( SELECT MIN(gasCID)+$i FROM gasc WHERE Code = ''  )";
                         $CfiltersResult[$i] = mysqli_query($connection, $CfiltersQuery[$i]);
-                        $FfiltersQuery[$i] = "SELECT * FROM gasf WHERE gasFID =  ( SELECT MIN(gasFID)+$i FROM gasc WHERE Code = ''  )";
+                        $FfiltersQuery[$i] = "SELECT * FROM gasf WHERE gasFID =  ( SELECT MIN(gasFID)+$i FROM gasf WHERE Code = ''  )";
                         $FfiltersResult[$i] = mysqli_query($connection, $FfiltersQuery[$i]);
                     }
 
@@ -220,23 +226,23 @@
                         while ($row = mysqli_fetch_array($CfiltersResult[$i])) {
 
                             echo '<tr>
-                                <th class = "staticData smallFont">'.$row['gasCID'].'</th>';
+                                <th class = "staticData smallFont">GC '.$row['gasCID'].'</th>';
                                 // Every Odd entry is Sunday
                                 if( ($i % 2) == 0){
-                                    echo '<th class = "staticData smallFont">'.$wedSND[$x].' Y</th>';
+                                    echo '<th class = "staticData smallFont">'.$wedSND[$x].' C</th>';
                                     // Temp Values
-                                    $code = $wedSND[$x];
+                                    $code = $wedSND[$x].' C';
                                     $id = $minCID+$i;
                                     // Update the record after it's displayed
-                                    $updateQuery = "UPDATE gasc SET Code = '$code' WHERE gasCID = '$id'";
+                                    $updateQuery = "UPDATE gasc SET Code = '$code', SamplingDay = 'Wednesday' WHERE gasCID = '$id'";
                                     $updateResult = mysqli_query($connection, $updateQuery);
                                 } else {
-                                    echo '<th class = "staticData smallFont">'.$sunSND[$x].' R</th>';
+                                    echo '<th class = "staticData smallFont">'.$sunSND[$x].' C</th>';
                                     // Temp Values
-                                    $code = $sunSND[$x];
+                                    $code = $sunSND[$x].' C';
                                     $id = $minCID+$i;
                                     // Update the record after it's displayed
-                                    $updateQuery = "UPDATE gasc SET Code = '$code' WHERE gasCID = '$id'";
+                                    $updateQuery = "UPDATE gasc SET Code = '$code', SamplingDay = 'Sunday' WHERE gasCID = '$id'";
                                     $updateResult = mysqli_query($connection, $updateQuery);
                                 }
                                 
@@ -255,20 +261,20 @@
                         while ($row = mysqli_fetch_array($FfiltersResult[$i])) {
 
                             echo '<tr>
-                                <th class = "staticData smallFont">'.$row['gasFID'].'</th>';
+                                <th class = "staticData smallFont">GF '.$row['gasFID'].'</th>';
                                 // Every Odd entry is Sunday
                                 if( ($i % 2) == 0){
-                                    echo '<th class = "staticData smallFont">'.$wedSND[$x].' Y</th>';
+                                    echo '<th class = "staticData smallFont">'.$wedSND[$x].' F</th>';
                                     // Temp Values
-                                    $code = $wedSND[$x];
+                                    $code = $wedSND[$x].' F';
                                     $id = $minFID+$i;
                                     // Update the record after it's displayed
                                     $updateQuery = "UPDATE gasf SET Code = '$code' WHERE gasFID = '$id'";
                                     $updateResult = mysqli_query($connection, $updateQuery);
                                 } else {
-                                    echo '<th class = "staticData smallFont">'.$sunSND[$x].' R</th>';
+                                    echo '<th class = "staticData smallFont">'.$sunSND[$x].' F</th>';
                                     // Temp Values
-                                    $code = $sunSND[$x];
+                                    $code = $sunSND[$x].' F';
                                     $id = $minFID+$i;
                                     // Update the record after it's displayed
                                     $updateQuery = "UPDATE gasf SET Code = '$code' WHERE gasFID = '$id'";
@@ -288,10 +294,13 @@
                             </tr>';
                         }
                     }
-                    
-                    echo "</table>";
-
-                    echo '<input class = "btn-ansto centeredItem" type = "button" value = "Generate Logsheets" style = "margin-bottom:10px; font-size:20px;" onclick = "Generate();">';
+                    echo '
+                    </table>
+                    <form action = "PrintGASLogsheets.php" method = "POST">
+                        <input type = "hidden" name = "idArray" value="">
+                        <input type = "hidden" name = "type" value="'.$type.'">
+                        <button class = "btn-ansto centeredItem" type = "submit" value = "Generate Logsheets" style = "margin-bottom:10px; font-size:20px;">Generate Logsheets</button>
+                    </form>';
                     
                     
                 }  else {
@@ -307,6 +316,7 @@
             }
             echo '</div>';
         ?>
+
     </body>
 
 </html>
@@ -314,9 +324,6 @@
 <script type="text/javascript">
     function GoBack () {
         window.location.href = "GenerateLogsheets.php";
-    }
-    function Generate () {
-        window.location.href = "PrintGeneratedLogsheets.php";
     }
 </script>
 
