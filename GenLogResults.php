@@ -10,8 +10,8 @@
         $sites = $_POST['site'];
 
         for ($i=0; $i < sizeof($sites); $i++) { 
-            $wedSND[$i] = $sites[$i]." ".$wedDate;
-            $sunSND[$i] = $sites[$i]." ".$sunDate;
+            $wedSND[$i] = $sites[$i]."&ensp;&ensp;".$wedDate;
+            $sunSND[$i] = $sites[$i]."&ensp;&ensp;".$sunDate;
         }
     }
 
@@ -120,17 +120,17 @@
                                 <th class = "staticData smallFont">'.$row['aspID'].'</th>';
                                 // Every Odd entry is Sunday
                                 if( ($i % 2) == 0){
-                                    echo '<th class = "staticData smallFont">'.$wedSND[$x].' Y</th>';
+                                    echo '<th class = "staticData smallFont">'.$wedSND[$x].'&ensp;&ensp;Y</th>';
                                     // Temp Values
-                                    $code = $wedSND[$x];
+                                    $code = $wedSND[$x].'&ensp;&ensp;Y';
                                     $id = $minID+$i;
                                     // Update the record after it's displayed
                                     $updateQuery = "UPDATE asp SET Code = '$code' WHERE aspID = '$id'";
                                     $updateResult = mysqli_query($connection, $updateQuery);
                                 } else {
-                                    echo '<th class = "staticData smallFont">'.$sunSND[$x].' R</th>';
+                                    echo '<th class = "staticData smallFont">'.$sunSND[$x].'&ensp;&ensp;R</th>';
                                     // Temp Values
-                                    $code = $sunSND[$x];
+                                    $code = $sunSND[$x].'&ensp;&ensp;R';
                                     $id = $minID+$i;
                                     // Update the record after it's displayed
                                     $updateQuery = "UPDATE asp SET Code = '$code' WHERE aspID = '$id'";
@@ -234,16 +234,16 @@
                                     $code = $wedSND[$x].' C';
                                     $id = $minCID+$i;
                                     // Update the record after it's displayed
-                                    $updateQuery = "UPDATE gasc SET Code = '$code', SamplingDay = 'Wednesday' WHERE gasCID = '$id'";
-                                    $updateResult = mysqli_query($connection, $updateQuery);
+                                    //$updateQuery = "UPDATE gasc SET Code = '$code', SamplingDay = 'Wednesday' WHERE gasCID = '$id'";
+                                    //$updateResult = mysqli_query($connection, $updateQuery);
                                 } else {
                                     echo '<th class = "staticData smallFont">'.$sunSND[$x].' C</th>';
                                     // Temp Values
                                     $code = $sunSND[$x].' C';
                                     $id = $minCID+$i;
                                     // Update the record after it's displayed
-                                    $updateQuery = "UPDATE gasc SET Code = '$code', SamplingDay = 'Sunday' WHERE gasCID = '$id'";
-                                    $updateResult = mysqli_query($connection, $updateQuery);
+                                    //$updateQuery = "UPDATE gasc SET Code = '$code', SamplingDay = 'Sunday' WHERE gasCID = '$id'";
+                                    //$updateResult = mysqli_query($connection, $updateQuery);
                                 }
                                 
                                 echo
@@ -269,16 +269,16 @@
                                     $code = $wedSND[$x].' F';
                                     $id = $minFID+$i;
                                     // Update the record after it's displayed
-                                    $updateQuery = "UPDATE gasf SET Code = '$code' WHERE gasFID = '$id'";
-                                    $updateResult = mysqli_query($connection, $updateQuery);
+                                    //$updateQuery = "UPDATE gasf SET Code = '$code' WHERE gasFID = '$id'";
+                                    //$updateResult = mysqli_query($connection, $updateQuery);
                                 } else {
                                     echo '<th class = "staticData smallFont">'.$sunSND[$x].' F</th>';
                                     // Temp Values
                                     $code = $sunSND[$x].' F';
                                     $id = $minFID+$i;
                                     // Update the record after it's displayed
-                                    $updateQuery = "UPDATE gasf SET Code = '$code' WHERE gasFID = '$id'";
-                                    $updateResult = mysqli_query($connection, $updateQuery);
+                                    //$updateQuery = "UPDATE gasf SET Code = '$code' WHERE gasFID = '$id'";
+                                    //$updateResult = mysqli_query($connection, $updateQuery);
                                     $x++;
                                 }
                                 

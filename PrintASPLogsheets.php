@@ -31,6 +31,20 @@
                 document.body.style.margin = "8px";
                 document.body.innerHTML = originalContents;
             }
+
+            function PrintSingleLogsheet (num) {
+                var id = num;
+                var printContents = document.getElementById(id).innerHTML;
+                var originalContents = document.body.innerHTML;
+
+                document.body.innerHTML = printContents;
+                document.body.style.margin = "0px";
+
+                window.print();
+
+                document.body.style.margin = "8px";
+                document.body.innerHTML = originalContents;
+            }
         </script>
 
         <style type="text/css">
@@ -40,7 +54,7 @@
                 width: 100px;
             }
             .barcodeR {
-                margin: 172px 0px 0px 300px;
+                margin: 173px 0px 0px 300px;
                 font-size: 16px;
                 width: 100px;
             }
@@ -49,7 +63,7 @@
                 font-size: 16px;
             }
             .field2 {
-                margin: 172px 0px 0px 470px;
+                margin: 173px 0px 0px 470px;
                 font-size: 16px;
             }
             .field3 {
@@ -109,22 +123,20 @@
             <h2>List of generated logsheets:</h2>';
 
             for ($i=0; $i < $num; $i+=2) { 
-                echo '<div class = "generatedSheet"><a href="SingleLogsheet.php">';
+                echo '<div class = "generatedSheet logsheetLink" onclick = "PrintSingleLogsheet('; echo "'$i'"; echo ');">';
                 while ($row = mysqli_fetch_array($filterResult[$i])) {
-                    echo "ID:".$row['aspID']." ";
-                    echo "(".$row['Code'].") & ";
+                    echo "[".$row['Code']."] + ";
                 }
                 while ($row = mysqli_fetch_array($filterResult[$i+1])) {
-                    echo "ID:".$row['aspID']." ";
-                    echo "(".$row['Code'].") ";
+                    echo "[".$row['Code']."] ";
                 }
-                echo '</a></div>';
+                echo '</div>';
             }
 
             echo '
             <div class = "bottomStrip"><button class = "printAllButton" onclick = "PrintAllLogsheets('; echo "'hiddenDiv'"; echo ');">Print All</button></div>
 
-            <div id = "hiddenDiv" style = "display:;">';
+            <div id = "hiddenDiv" style = "display:none;">';
 
             // Re-run the query
             for ($i=0; $i < $num; $i++) { 
@@ -133,7 +145,7 @@
             }
 
             for ($i=0; $i < $num; $i+=2) { 
-                echo '<div>';
+                echo '<div id = '; echo "'$i'"; echo '>';
                 while ($row = mysqli_fetch_array($filterResult[$i])) {
                     echo '
                     <input type = "text" class = "logsheetText barcodeY" value = "Barcode Y" readonly>
@@ -147,7 +159,7 @@
                     <input type = "text" class = "logsheetText field2" value = "'.$row['Code'].'" readonly>
                     <input type = "text" class = "logsheetText field4" value = "'.$row['Pre Filter Mass'].'" readonly>
                     <input type = "text" class = "logsheetText field6" value = "'.$row['Pre Laser'].'" readonly>
-                    <img class = "printA4" src="Images/LogsheetTemplate.jpg">';
+                    <img class = "printA4" src="Images/ASPLogsheet.jpg">';
                 }
                 echo '</div>';
             }

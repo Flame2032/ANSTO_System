@@ -220,10 +220,17 @@
     cursor: pointer;
 }
 
-.logsheetText{
+.logsheetText {
     position: absolute;
     border-style: none;
 }
+.logsheetLink {
+    color: #0000EE;
+}
+.logsheetLink:hover {
+    cursor: pointer;
+}
+
 
 /*600 x 200*/
 @media (min-height: 350px) and (min-width: 650px) {

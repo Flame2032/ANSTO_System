@@ -170,11 +170,23 @@
                 wedDD = wednesday.getDate();
                 wedMM = wednesday.getMonth() + 1;
                 wedY = wednesday.getFullYear();
+                if(wedDD < 10){
+                    wedDD = "0"+wedDD;
+                }
+                if(wedMM < 10){
+                    wedMM = "0"+wedMM;
+                }
                 wednesdayDate = wedDD + "-" + wedMM + "-" + wedY;
 
                 sunDD = sunday.getDate();
                 sunMM = sunday.getMonth() + 1;
                 sunY = sunday.getFullYear();
+                if(sunDD < 10){
+                    sunDD = "0"+sunDD;
+                }
+                if(sunMM < 10){
+                    sunMM = "0"+sunMM;
+                }
                 sundayDate = sunDD + "-" + sunMM + "-" + sunY;
             }
             // Update date on screen
