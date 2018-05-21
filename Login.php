@@ -1,3 +1,31 @@
+<?php
+session_start();
+$loginerror=false;
+if(isset($_POST['submit'])){
+	//$connection = new mysqli('localhost', 'twa057', 'twa057wi', 'eshop057');
+	$cuser=mysqli_real_escape_string($connection,$_POST['cuser']);
+	$pass=mysqli_real_escape_string($connection,$_POST['pass']);
+	$hashpass=hash('sha256',$pass);
+	$logintest="SELECT user_email, user_password, user_type FROM user WHERE user_email='".$cuser ."'"; //AND user_password=".$pass;
+	$login = mysqli_query($connection, $logintest);
+	if (mysqli_num_rows($login) > 0) {
+			while ($row = $login->fetch_assoc()) {
+				$_SESSION['cuser']=$cuser;
+				$_SESSION['type']=$row['user_type'];
+			}
+			$connection->close();
+		}
+		else{
+		$loginerror=true;
+		echo "<br/>No results<br/>";
+		}
+	}
+		if (isset($_SESSION['cuser'])){
+	header('Location: index.php');
+		return;
+	}
+	
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -28,7 +56,7 @@
                         </div>
                     </div>
                     <!--Login Form-->
-                    <form action = "index.php">
+                    <form action = "login.php">
                         <div class = "container-fluid">
                             <!--Username-->
                             <div class = "row justify-content-center" style = "margin-top:30px;">

@@ -1,3 +1,12 @@
+<?php
+    // Check if session is available
+	session_start();
+		if (isset($_SESSION['cuser'])){
+	$cuser=$_SESSION['cuser'];
+	$type=$_SESSION['type'];
+	}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
