@@ -24,8 +24,7 @@
         <div class = "secondBarContainer">
             <div class = "secondBar">
                 <button type = "button" onclick = "ToggleFilterMenu();" class = "btn-filter-menu">
-                    <i id = "chevDown" class="fa fa-chevron-down" aria-hidden="true" style = "font-size:20px; text-align:center; vertical-align:middle; color:white"></i>
-                    <i id = "chevUp" class="fa fa-chevron-up" aria-hidden="true" style = "display:none; font-size:20px; text-align:center; vertical-align:middle; color:white"></i>
+                    <p class = "whiteText" style = "font-weight:bold;">Display Filter Options</p>
                 </button>
 
                 <div class = "rightDiv">
