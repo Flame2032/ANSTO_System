@@ -75,9 +75,10 @@
                 // Make sure enough new filters are available for allocation
                 $availableFilters = mysqli_num_rows($availableFiltersQueryResult);
                 if($availableFilters >= (sizeof($sites)*2)) {
+                    echo $availableFilters;
 
                     // Get the ID of the first filter with no exposure code
-                    $minIDQuery = "SELECT aspID FROM asp WHERE aspID =  ( SELECT MIN(aspID) FROM asp WHERE Code = ''  )";
+                    $minIDQuery = "SELECT aspID FROM asp WHERE aspID =  ( SELECT MIN(aspID) FROM asp WHERE Code = '' )";
                     $minIDResult = mysqli_query($connection, $minIDQuery);
                     while ($row = mysqli_fetch_array($minIDResult)) {
                         $minID = $row['aspID'];
@@ -125,7 +126,7 @@
                                     $code = $wedSND[$x].'&ensp;&ensp;Y';
                                     $id = $minID+$i;
                                     // Update the record after it's displayed
-                                    $updateQuery = "UPDATE asp SET Code = '$code' WHERE aspID = '$id'";
+                                    $updateQuery = "UPDATE asp SET Code = '$code', Site = 'Egg', ExposureDate = '$wedDate', FilterType = 'Y'   WHERE aspID = '$id'";
                                     $updateResult = mysqli_query($connection, $updateQuery);
                                 } else {
                                     echo '<th class = "staticData smallFont">'.$sunSND[$x].'&ensp;&ensp;R</th>';
