@@ -103,14 +103,14 @@
                     <div class = "day-container" style = "border-color: yellow; margin-left:20px;">
                         <div class = "vertically-aligned">
                             <p class = "no-outer-spaces">Wednesday</p>
-                            <input type = "text" id = "wedDate" name = "wedDate" value = "" style = "font-family: Arial; font-size: 14px; border-style:none; width:100%; text-align:center;" readonly>
+                            <input type = "text" id = "wedDate" name = "wedDate" value = "" style = "font-family: Arial; font-size: 14px; border-style:none; width:90%; text-align:center;" readonly>
                         </div>
                         
                     </div>
                     <div class = "day-container" style = "border-color: red; margin-right:20px;">
                         <div class = "vertically-aligned">
                             <p class = "no-outer-spaces">Sunday</p>
-                            <input type = "text" id = "sunDate" name = "sunDate" value = "" style = "font-family: Arial; font-size: 14px; border-style:none; width:100%; text-align:center;" readonly>
+                            <input type = "text" id = "sunDate" name = "sunDate" value = "" style = "font-family: Arial; font-size: 14px; border-style:none; width:90%; text-align:center;" readonly>
                         </div>  
                     </div>
                     <i class="fa fa-angle-double-right awesome-icon" aria-hidden="true" onclick = "NextWeek();"></i> 

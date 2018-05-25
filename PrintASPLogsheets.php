@@ -48,15 +48,36 @@
         </script>
 
         <style type="text/css">
-            .barcodeY {
-                margin: 128px 0px 0px 300px;
-                font-size: 16px;
+            /*Load in custom barcode font*/
+            @font-face{
+                font-family: 'Code128';
+                src:url('CSS/Code_128/Code128.woff') format('woff'),
+                    url('CSS/Code_128/Code128.woff2') format('woff2');
+            }
+            .barcodeYDiv {
+                position: absolute;
                 width: 100px;
+                margin: 116px 0px 0px 284px;
             }
             .barcodeR {
-                margin: 173px 0px 0px 300px;
-                font-size: 16px;
-                width: 100px;
+                margin: 160px 0px 0px 284px;
+            }
+            .barcode {
+                font-family: 'Code128';
+                width: 126px;
+                padding: 0px;
+                text-align: center;
+                font-size: 40px;
+                border-style: none;
+                display: block;
+            }
+            .barcodeID {
+                width: 126px;
+                padding: 0px;
+                font-size: 12px;
+                text-align: center;
+                border-style: none;
+                display: block;
             }
             .field1 {
                 margin: 128px 0px 0px 470px;
@@ -125,10 +146,12 @@
             for ($i=0; $i < $num; $i+=2) { 
                 echo '<div class = "generatedSheet logsheetLink" onclick = "PrintSingleLogsheet('; echo "'$i'"; echo ');">';
                 while ($row = mysqli_fetch_array($filterResult[$i])) {
-                    echo "[".$row['Code']."] + ";
+                    echo "FilterID: ".$row['aspID'];
+                    echo " [".$row['Code']."] + ";
                 }
                 while ($row = mysqli_fetch_array($filterResult[$i+1])) {
-                    echo "[".$row['Code']."] ";
+                    echo "FilterID: ".$row['aspID'];
+                    echo " [".$row['Code']."] ";
                 }
                 echo '</div>';
             }
@@ -136,7 +159,7 @@
             echo '
             <div class = "bottomStrip"><button class = "printAllButton" onclick = "PrintAllLogsheets('; echo "'hiddenDiv'"; echo ');">Print All</button></div>
 
-            <div id = "hiddenDiv" style = "display:none;">';
+            <div id = "hiddenDiv">';
 
             // Re-run the query
             for ($i=0; $i < $num; $i++) { 
@@ -148,14 +171,12 @@
                 echo '<div id = '; echo "'$i'"; echo '>';
                 while ($row = mysqli_fetch_array($filterResult[$i])) {
                     echo '
-                    <input type = "text" class = "logsheetText barcodeY" value = "Barcode Y" readonly>
                     <input type = "text" class = "logsheetText field1" value = "'.$row['Code'].'" readonly>
                     <input type = "text" class = "logsheetText field3" value = "'.$row['Pre Filter Mass'].'" readonly>
                     <input type = "text" class = "logsheetText field5" value = "'.$row['Pre Laser'].'" readonly>';
                 } 
                 while ($row = mysqli_fetch_array($filterResult[$i+1])) {
                     echo '
-                    <input type = "text" class = "logsheetText barcodeR" value = "Barcode R" readonly>
                     <input type = "text" class = "logsheetText field2" value = "'.$row['Code'].'" readonly>
                     <input type = "text" class = "logsheetText field4" value = "'.$row['Pre Filter Mass'].'" readonly>
                     <input type = "text" class = "logsheetText field6" value = "'.$row['Pre Laser'].'" readonly>
@@ -165,5 +186,11 @@
             }
             echo '</div>';
         ?>
+
+        <script type="text/javascript">
+            window.onload = function HideDiv () {
+                document.getElementById('hiddenDiv').style.display = 'none';
+            }
+        </script>
     </body>
 </html>
