@@ -1,5 +1,6 @@
 <?php
     require_once("db_connect.php");
+    require_once('phpqrcode/qrlib.php');
 
     $hiddenDiv = "hiddenDiv";
 ?>
@@ -54,13 +55,21 @@
                 src:url('CSS/Code_128/Code128.woff') format('woff'),
                     url('CSS/Code_128/Code128.woff2') format('woff2');
             }
-            .barcodeYDiv {
-                position: absolute;
-                width: 100px;
-                margin: 116px 0px 0px 284px;
+            .barcodeY {
+                margin: 120px 0px 0px 285px;
+            }
+            .IDY {
+                margin: 135px 0px 0px 340px;
+                width: 70px;
+				text-align:center;
             }
             .barcodeR {
-                margin: 160px 0px 0px 284px;
+                margin: 175px 0px 0px 365px;
+            }
+            .IDR {
+                margin: 190px 0px 0px 285px;
+                width: 70px;
+				text-align:center;
             }
             .barcode {
                 font-family: 'Code128';
@@ -80,27 +89,27 @@
                 display: block;
             }
             .field1 {
-                margin: 128px 0px 0px 470px;
+                margin: 135px 0px 0px 470px;
                 font-size: 16px;
             }
             .field2 {
-                margin: 173px 0px 0px 470px;
+                margin: 190px 0px 0px 470px;
                 font-size: 16px;
             }
             .field3 {
-                margin: 209px 0px 0px 300px;
+                margin: 231px 0px 0px 300px;
                 font-size: 14px;
             }
             .field4 {
-                margin: 239px 0px 0px 300px;
+                margin: 261px 0px 0px 300px;
                 font-size: 14px;
             }
             .field5 {
-                margin: 269px 0px 0px 300px;
+                margin: 291px 0px 0px 300px;
                 font-size: 14px;
             }
             .field6 {
-                margin: 299px 0px 0px 300px;
+                margin: 321px 0px 0px 300px;
                 font-size: 14px;
             }
         </style>
@@ -161,6 +170,7 @@
 
             <div id = "hiddenDiv">';
 
+
             // Re-run the query
             for ($i=0; $i < $num; $i++) { 
                 $filterQuery[$i] = "SELECT * FROM asp WHERE aspID =  ".($min+$i);
@@ -170,21 +180,28 @@
             for ($i=0; $i < $num; $i+=2) { 
                 echo '<div id = '; echo "'$i'"; echo '>';
                 while ($row = mysqli_fetch_array($filterResult[$i])) {
+                    QRcode::png($row['aspID'], 'GeneratedCodes/qrCode'.$i.'.png', QR_ECLEVEL_L, 2, 1);
                     echo '
+                    <img class = "logsheetText barcodeY" style="-webkit-user-select: none;" src="GeneratedCodes/qrCode'.$i.'.png">
+                    <input type = "text" class = "logsheetText IDY" value = "'.$row['aspID'].'" readonly>
                     <input type = "text" class = "logsheetText field1" value = "'.$row['Code'].'" readonly>
                     <input type = "text" class = "logsheetText field3" value = "'.$row['Pre Filter Mass'].'" readonly>
                     <input type = "text" class = "logsheetText field5" value = "'.$row['Pre Laser'].'" readonly>';
                 } 
                 while ($row = mysqli_fetch_array($filterResult[$i+1])) {
+                    QRcode::png($row['aspID'], 'GeneratedCodes/qrCode'.($i+1).'.png', QR_ECLEVEL_L, 2, 1);
                     echo '
+                    <img class = "logsheetText barcodeR" style="-webkit-user-select: none;" src="GeneratedCodes/qrCode'.($i+1).'.png">
+                    <input type = "text" class = "logsheetText IDR" value = "'.$row['aspID'].'" readonly>
                     <input type = "text" class = "logsheetText field2" value = "'.$row['Code'].'" readonly>
                     <input type = "text" class = "logsheetText field4" value = "'.$row['Pre Filter Mass'].'" readonly>
                     <input type = "text" class = "logsheetText field6" value = "'.$row['Pre Laser'].'" readonly>
-                    <img class = "printA4" src="Images/ASPLogsheet.jpg">';
+                    <img class = "printA4" src="Images/ASPLogsheet2.jpg">';
                 }
                 echo '</div>';
             }
             echo '</div>';
+
         ?>
 
         <script type="text/javascript">

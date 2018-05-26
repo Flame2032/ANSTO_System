@@ -127,7 +127,8 @@
                                     $id = $minID+$i;
                                     $site = $sites[$x];
                                     // Update the record after it's displayed
-                                    $updateQuery = "UPDATE asp SET Code = '$code', Site = '$site', ExposureDate = '$wedDate', FilterType = 'Y'   WHERE aspID = '$id'";
+                                    //$updateQuery = "UPDATE asp SET Code = '$code', Site = '$site', ExposureDate = '$wedDate', FilterType = 'Y'   WHERE aspID = '$id'";
+                                    $updateQuery = "UPDATE asp SET Code = '$code' WHERE aspID = '$id'";
                                     $updateResult = mysqli_query($connection, $updateQuery);
                                 } else {
                                     echo '<th class = "staticData smallFont">'.$sunSND[$x].' R</th>';
@@ -136,7 +137,8 @@
                                     $id = $minID+$i;
                                     $site = $sites[$x];
                                     // Update the record after it's displayed
-                                    $updateQuery = "UPDATE asp SET Code = '$code', Site = '$site', ExposureDate = '$sunDate', FilterType = 'R'   WHERE aspID = '$id'";
+                                    //$updateQuery = "UPDATE asp SET Code = '$code', Site = '$site', ExposureDate = '$sunDate', FilterType = 'R'   WHERE aspID = '$id'";
+                                    $updateQuery = "UPDATE asp SET Code = '$code' WHERE aspID = '$id'";
                                     $updateResult = mysqli_query($connection, $updateQuery);
                                     $x++;
                                 }
@@ -178,25 +180,25 @@
                 if($availableCFilters >= (sizeof($sites)*2) && $availableFFilters >= (sizeof($sites)*2)) {
 
                     // Get the ID of the first filter with no exposure code
-                    $minCIDQuery = "SELECT gascID FROM gasc WHERE gascID =  ( SELECT MIN(gascID) FROM gasc WHERE Code = '' )";
+                    $minCIDQuery = "SELECT gasCID FROM gasc WHERE gasCID =  ( SELECT MIN(gasCID) FROM gasc WHERE Code = '' )";
                     $minCIDResult = mysqli_query($connection, $minCIDQuery);
                     while ($row = mysqli_fetch_array($minCIDResult)) {
-                        $minCID = $row['gascID'];
+                        $minCID = $row['gasCID'];
                     }
-                    $minFIDQuery = "SELECT gasfID FROM gasf WHERE gasfID =  ( SELECT MIN(gasfID) FROM gasf WHERE Code = '' )";
+                    $minFIDQuery = "SELECT gasFID FROM gasf WHERE gasFID =  ( SELECT MIN(gasFID) FROM gasf WHERE Code = '' )";
                     $minFIDResult = mysqli_query($connection, $minFIDQuery);
                     if ($minFIDResult) {
                         while ($row = mysqli_fetch_array($minFIDResult)) {
-                            $minFID = $row['gasfID'];
+                            $minFID = $row['gasFID'];
                         }
                     }
                     
 
                     // Get 4 filters for each site that has been selected (G+C for wed, G+C for sun)
                     for ($i=0; $i < (sizeof($sites)*2); $i++) { 
-                        $CfiltersQuery[$i] = "SELECT * FROM gasc WHERE gascID =  ( SELECT MIN(gascID)+$i FROM gasc WHERE Code = ''  )";
+                        $CfiltersQuery[$i] = "SELECT * FROM gasc WHERE gasCID =  ( SELECT MIN(gasCID)+$i FROM gasc WHERE Code = ''  )";
                         $CfiltersResult[$i] = mysqli_query($connection, $CfiltersQuery[$i]);
-                        $FfiltersQuery[$i] = "SELECT * FROM gasf WHERE gasfID =  ( SELECT MIN(gasfID)+$i FROM gasf WHERE Code = ''  )";
+                        $FfiltersQuery[$i] = "SELECT * FROM gasf WHERE gasFID =  ( SELECT MIN(gasFID)+$i FROM gasf WHERE Code = ''  )";
                         $FfiltersResult[$i] = mysqli_query($connection, $FfiltersQuery[$i]);
                     }
 
@@ -229,7 +231,7 @@
                         while ($row = mysqli_fetch_array($CfiltersResult[$i])) {
 
                             echo '<tr>
-                                <th class = "staticData smallFont">GC '.$row['gascID'].'</th>';
+                                <th class = "staticData smallFont">GC '.$row['gasCID'].'</th>';
                                 // Every Odd entry is Sunday
                                 if( ($i % 2) == 0){
                                     echo '<th class = "staticData smallFont">'.$wedSND[$x].' C</th>';
@@ -237,7 +239,7 @@
                                     $code = $wedSND[$x].' C';
                                     $id = $minCID+$i;
                                     // Update the record after it's displayed
-                                    $updateQuery = "UPDATE gasc SET Code = '$code' WHERE gascID = '$id'";
+                                    $updateQuery = "UPDATE gasc SET Code = '$code' WHERE gasCID = '$id'";
                                     $updateResult = mysqli_query($connection, $updateQuery);
                                 } else {
                                     echo '<th class = "staticData smallFont">'.$sunSND[$x].' C</th>';
@@ -245,7 +247,7 @@
                                     $code = $sunSND[$x].' C';
                                     $id = $minCID+$i;
                                     // Update the record after it's displayed
-                                    $updateQuery = "UPDATE gasc SET Code = '$code' WHERE gascID = '$id'";
+                                    $updateQuery = "UPDATE gasc SET Code = '$code' WHERE gasCID = '$id'";
                                     $updateResult = mysqli_query($connection, $updateQuery);
                                 }
                                 
@@ -264,7 +266,7 @@
                         while ($row = mysqli_fetch_array($FfiltersResult[$i])) {
 
                             echo '<tr>
-                                <th class = "staticData smallFont">GF '.$row['gasfID'].'</th>';
+                                <th class = "staticData smallFont">GF '.$row['gasFID'].'</th>';
                                 // Every Odd entry is Sunday
                                 if( ($i % 2) == 0){
                                     echo '<th class = "staticData smallFont">'.$wedSND[$x].' F</th>';
@@ -272,7 +274,7 @@
                                     $code = $wedSND[$x].' F';
                                     $id = $minFID+$i;
                                     // Update the record after it's displayed
-                                    $updateQuery = "UPDATE gasf SET Code = '$code' WHERE gasfID = '$id'";
+                                    $updateQuery = "UPDATE gasf SET Code = '$code' WHERE gasFID = '$id'";
                                     $updateResult = mysqli_query($connection, $updateQuery);
                                 } else {
                                     echo '<th class = "staticData smallFont">'.$sunSND[$x].' F</th>';
@@ -280,7 +282,7 @@
                                     $code = $sunSND[$x].' F';
                                     $id = $minFID+$i;
                                     // Update the record after it's displayed
-                                    $updateQuery = "UPDATE gasf SET Code = '$code' WHERE gasfID = '$id'";
+                                    $updateQuery = "UPDATE gasf SET Code = '$code' WHERE gasFID = '$id'";
                                     $updateResult = mysqli_query($connection, $updateQuery);
                                     $x++;
                                 }
