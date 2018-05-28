@@ -175,19 +175,19 @@
             for ($i=0; $i < $num; $i+=2) { 
                 echo '<div class = "generatedSheet logsheetLink" onclick = "PrintSingleLogsheet('; echo "'$i'"; echo ');">';
                 while ($row = mysqli_fetch_array($filterCResult[$i])) {
-                    echo "GAS-C ID: ".$row['gasCID'];
+                    echo "GC ".$row['gasCID'];
                     echo " [".$row['Code']."] + ";
                 }
                 while ($row = mysqli_fetch_array($filterCResult[$i+1])) {
-                    echo "GAS-C ID: ".$row['gasCID'];
+                    echo "GC ".$row['gasCID'];
                     echo " [".$row['Code']."] + ";
                 }
                 while ($row = mysqli_fetch_array($filterFResult[$i])) {
-                    echo "GAS-F ID: ".$row['gasFID'];
+                    echo "GF ".$row['gasFID'];
                     echo " [".$row['Code']."] + ";
                 }
                 while ($row = mysqli_fetch_array($filterFResult[$i+1])) {
-                    echo "GAS-F ID: ".$row['gasFID'];
+                    echo "GF ".$row['gasFID'];
                     echo " [".$row['Code']."] ";
                 }
                 echo '</div>';
@@ -196,7 +196,7 @@
             echo '
             <div class = "bottomStrip"><button class = "printAllButton" onclick = "PrintAllLogsheets('; echo "'hiddenDiv'"; echo ');">Print All</button></div>
 
-            <div id = "">';
+            <div id = "hiddenDiv">';
 
             // Re-run the query
             for ($i=0; $i < $num; $i++) { 
@@ -209,7 +209,7 @@
             for ($i=0; $i < $num; $i+=2) { 
                 echo '<div id = '; echo "'$i'"; echo '>';
                 while ($row = mysqli_fetch_array($filterCResult[$i])) {
-                    QRcode::png($row['gasCID'], 'GeneratedCodes/gasCQR_'.$i.'.png', QR_ECLEVEL_L, 2, 1);
+                    QRcode::png('GC '.$row['gasCID'], 'GeneratedCodes/gasCQR_'.$i.'.png', QR_ECLEVEL_L, 2, 1);
                     echo '
                     <img class = "logsheetText YC-Code" style="-webkit-user-select: none;" src="GeneratedCodes/gasCQR_'.$i.'.png">
                     <input type = "text" class = "logsheetText IDYC" value = "GC '.$row['gasCID'].'" readonly>
@@ -218,7 +218,7 @@
                     <input type = "text" class = "logsheetText field5CY" value = "'.$row['Pre Laser'].'" readonly>';
                 } 
                 while ($row = mysqli_fetch_array($filterCResult[$i+1])) {
-                    QRcode::png($row['gasCID'], 'GeneratedCodes/gasCQR_'.($i+1).'.png', QR_ECLEVEL_L, 2, 1);
+                    QRcode::png('GC '.$row['gasCID'], 'GeneratedCodes/gasCQR_'.($i+1).'.png', QR_ECLEVEL_L, 2, 1);
                     echo '
                     <img class = "logsheetText RC-Code" style="-webkit-user-select: none;" src="GeneratedCodes/gasCQR_'.($i+1).'.png">
                     <input type = "text" class = "logsheetText IDRC" value = "GC '.$row['gasCID'].'" readonly>
@@ -227,7 +227,7 @@
                     <input type = "text" class = "logsheetText field5CR" value = "'.$row['Pre Laser'].'" readonly>';
                 }
                 while ($row = mysqli_fetch_array($filterFResult[$i])) {
-                    QRcode::png($row['gasFID'], 'GeneratedCodes/gasFQR_'.$i.'.png', QR_ECLEVEL_L, 2, 1);
+                    QRcode::png('GF '.$row['gasFID'], 'GeneratedCodes/gasFQR_'.$i.'.png', QR_ECLEVEL_L, 2, 1);
                     echo '
                     <img class = "logsheetText YF-Code" style="-webkit-user-select: none;" src="GeneratedCodes/gasFQR_'.$i.'.png">
                     <input type = "text" class = "logsheetText IDYF" value = "GF '.$row['gasFID'].'" readonly>
@@ -236,7 +236,7 @@
                     <input type = "text" class = "logsheetText field6FY" value = "'.$row['Pre Laser'].'" readonly>';
                 } 
                 while ($row = mysqli_fetch_array($filterFResult[$i+1])) {
-                    QRcode::png($row['gasFID'], 'GeneratedCodes/gasFQR_'.($i+1).'.png', QR_ECLEVEL_L, 2, 1);
+                    QRcode::png('GF '.$row['gasFID'], 'GeneratedCodes/gasFQR_'.($i+1).'.png', QR_ECLEVEL_L, 2, 1);
                     echo '
                     <img class = "logsheetText RF-Code" style="-webkit-user-select: none;" src="GeneratedCodes/gasFQR_'.($i+1).'.png">
                     <input type = "text" class = "logsheetText IDRF" value = "GF '.$row['gasFID'].'" readonly>

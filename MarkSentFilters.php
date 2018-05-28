@@ -1,10 +1,8 @@
 <?php
     require_once("db_connect.php");
 
-    $ASPquery = 'SELECT * FROM sites';
-    $ASPResult = mysqli_query($connection, $ASPquery);
-    $GASquery = 'SELECT * FROM sites WHERE type = "GAS"';
-    $GASResult = mysqli_query($connection, $GASquery);
+    $Sitequery = 'SELECT * FROM sites';
+    $SiteResult = mysqli_query($connection, $Sitequery);
 ?>
 
 <!DOCTYPE html>
@@ -38,52 +36,28 @@
         </div>
         <!--Empty block so navbar doesn't overlap content-->
         <div class = "navSpacer"></div>
-
-        <!--ASP/GAS Button options-->
-        <div class = "centered-ASP-GAS" id = "typeSelect">
-            <input class = "btn-ASP-GAS" type = "button" onclick = "GoASP();" value = "ASP">
-            <input class = "btn-ASP-GAS"type = "button" onclick = "GoGAS();" value = "GAS">
-        </div>
         
-        <div id = "Form" class = "container-ansto dynamic-content-700-570" style = "width:700px; display:none;">
+        <div id = "Form" class = "container-ansto dynamic-content-700-570" style = "width:700px;">
             <!--Title-->
             <div class = "row">
                 <p class = "H190Width">Mark Filters as Sent</p>
             </div>
-            <form action = "PrintGeneratedLogsheets.php">
+            <form action = "MarkSentResults.php" method = "POST">
                 <!--Site selection-->
                 <?php
-                    if($ASPResult){
+                    if($SiteResult){
 
-                        echo '<div id = "ASP" class = "width-90 container-white noDisplay">';
+                        echo '<div id = "sites" class = "width-90 container-white">';
 
-                        while ($row = mysqli_fetch_array($ASPResult)) {
-                            //Get Site Code
+                        while ($row = mysqli_fetch_array($SiteResult)) {
+                            //Get Site Code & Display sites as selectable checkbox options
                             if($row['SiteID'] < 10) {
                                 $siteCode = " (".$row['type']."0".$row['SiteID'].")";
+                                echo '<div class = "fill-half-width"><input type = "checkbox" name = "site[]" value = "'.$row['type'].' 0'.$row['SiteID'].'">'.$row['siteName'].$siteCode.'</div>';
                             } else {
                                 $siteCode = " (".$row['type'].$row['SiteID'].")";
+                                echo '<div class = "fill-half-width"><input type = "checkbox" name = "site[]" value = "'.$row['type'].' '.$row['SiteID'].'">'.$row['siteName'].$siteCode.'</div>';
                             }
-                            //Display all sites as selectable checkbox options
-                            echo '<div class = "fill-half-width"><input type = "checkbox">'.$row['siteName'].$siteCode.'</div>';
-                        }
-
-                        echo "</div>";
-                    }
-
-                    if($GASResult){
-
-                        echo '<div id = "GAS" class = "width-90 container-white noDisplay">';
-
-                        while ($row = mysqli_fetch_array($GASResult)) {
-                            //Get Site Code
-                            if($row['SiteID'] < 10) {
-                                $siteCode = " (".$row['type']."0".$row['SiteID'].")";
-                            } else {
-                                $siteCode = " (".$row['type'].$row['SiteID'].")";
-                            }
-                            //Display all sites as selectable checkbox options
-                            echo '<div class = "fill-half-width"><input type = "checkbox">'.$row['siteName'].$siteCode.'</div>';;
                         }
 
                         echo "</div>";
@@ -95,143 +69,30 @@
                 <div class = "centeredContent">
                     <i class="fa fa-angle-double-left awesome-icon" aria-hidden="true" onclick = "PrevWeek();"></i> 
                     <div class = "day-container" style = "border-color: yellow; margin-left:20px;">
-                        <p class = "vertically-aligned no-outer-spaces" id = "wed">Wednesday <br> </p>
+                        <div class = "vertically-aligned">
+                            <p class = "no-outer-spaces">Wednesday</p>
+                            <input type = "text" id = "wedDate" name = "wedDate" value = "" style = "font-family: Arial; font-size: 14px; border-style:none; width:90%; text-align:center;" readonly>
+                        </div>
+                        
                     </div>
-                    <div class = "day-container" style = "border-color: red; margin-right:20px;">  
-                        <p class = "vertically-aligned no-outer-spaces" id = "sun">Sunday <br> </p>
+                    <div class = "day-container" style = "border-color: red; margin-right:20px;">
+                        <div class = "vertically-aligned">
+                            <p class = "no-outer-spaces">Sunday</p>
+                            <input type = "text" id = "sunDate" name = "sunDate" value = "" style = "font-family: Arial; font-size: 14px; border-style:none; width:90%; text-align:center;" readonly>
+                        </div>  
                     </div>
                     <i class="fa fa-angle-double-right awesome-icon" aria-hidden="true" onclick = "NextWeek();"></i> 
                 </div>
-                <!--Table-->
-                <div class = "width-90" id = "filterTable" style = "display:none;">
-                    <h2 class = "whiteText">Marking the following filters as sent:</h1>
-                    <table class = "centeredItem" style = "margin: 10px 0px;">
-                        <tr>
-                            <th class = "staticData columnTitle smallFont">ID</th>
-                            <th class = "staticData columnTitle smallFont">Exposure Code</th>
-                            <th class = "staticData columnTitle smallFont">Pre-Mass</th>
-                            <th class = "staticData columnTitle smallFont">405nm</th>
-                            <th class = "staticData columnTitle smallFont">455nm</th>
-                            <th class = "staticData columnTitle smallFont">525nm</th>
-                            <th class = "staticData columnTitle smallFont">639nm</th>
-                            <th class = "staticData columnTitle smallFont">870nm</th>
-                            <th class = "staticData columnTitle smallFont">940nm</th>
-                            <th class = "staticData columnTitle smallFont">1050nm</th>
-                        </tr>
-                        <tr>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                        </tr>
-                        <tr>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                        </tr>
-                        <tr>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                        </tr>
-                        <tr>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                        </tr>
-                        <tr>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                        </tr>
-                        <tr>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                        </tr>
-                        <tr>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                            <th class = "staticData smallFont">Data</th>
-                        </tr>
-                    </table>
-                </div>
 
                 <!--Buttons-->
-
                 <div class = "strip" id = "markStrip">
-                    <input type = "button" class = "btn-ansto width-90" style = " margin-bottom:20px; margin-top:20px; font-size:20px;" onclick = "ViewFilters();" value = "Mark as Sent">
-                </div>
-                <div class = "strip width-90" id = "confirmStrip" style = "display:none;">
-                    <input type = "button" class = "btn-ansto" style = "width:48%; margin-bottom:20px; margin-top:20px; font-size:20px;" onclick = "Cancel();" value = "Cancel">
-                    <input type = "button" class = "btn-ansto floatRight" style = "width:48%; margin-bottom:20px; margin-top:20px; font-size:20px;" onclick = "" value = "Confirm">
+                    <input type = "Submit" class = "btn-ansto width-90" style = " margin-bottom:20px; margin-top:20px; font-size:20px;" value = "Mark as Sent">
                 </div>
             </form>
         </div>
         
 
         <script type="text/javascript">
-            // Display either ASP or GAS options depending on which button is pressed
-            function GoASP () {
-                document.getElementById("typeSelect").style.display = "none";
-                document.getElementById("Form").style.display = "table";
-                document.getElementById("ASP").style.display = "table";
-            }
-
-            function GoGAS () {
-                document.getElementById("typeSelect").style.display = "none";
-                document.getElementById("Form").style.display = "table";
-                document.getElementById("GAS").style.display = "table";
-            }
-
             var wedDD, wedMM, wedY, wednesdayDate;
             var sunDD, sunMM, sunY, sundayDate;
 
@@ -253,17 +114,29 @@
                 wedDD = wednesday.getDate();
                 wedMM = wednesday.getMonth() + 1;
                 wedY = wednesday.getFullYear();
-                wednesdayDate = wedDD + "/" + wedMM + "/" + wedY;
+                if(wedDD < 10){
+                    wedDD = "0"+wedDD;
+                }
+                if(wedMM < 10){
+                    wedMM = "0"+wedMM;
+                }
+                wednesdayDate = wedDD + "-" + wedMM + "-" + wedY;
 
                 sunDD = sunday.getDate();
                 sunMM = sunday.getMonth() + 1;
                 sunY = sunday.getFullYear();
-                sundayDate = sunDD + "/" + sunMM + "/" + sunY;
+                if(sunDD < 10){
+                    sunDD = "0"+sunDD;
+                }
+                if(sunMM < 10){
+                    sunMM = "0"+sunMM;
+                }
+                sundayDate = sunDD + "-" + sunMM + "-" + sunY;
             }
             // Update date on screen
             function UpdateDate() {
-                document.getElementById("wed").innerHTML = "Wednesday <br> " +  wednesdayDate;
-                document.getElementById("sun").innerHTML = "Sunday <br> " +  sundayDate;
+                document.getElementById("wedDate").value = wednesdayDate;
+                document.getElementById("sunDate").value = sundayDate;
             }
 
             FormatDates();
@@ -287,18 +160,6 @@
             markStrip = document.getElementById('markStrip');
             confirmStrip = document.getElementById('confirmStrip');
             filterTable = document.getElementById('filterTable');
-
-            function ViewFilters () {
-                filterTable.style.display = "block";
-                markStrip.style.display = "none";
-                confirmStrip.style.display = "block";
-            }
-
-            function Cancel () {
-                filterTable.style.display = "none";
-                markStrip.style.display = "block";
-                confirmStrip.style.display = "none";
-            }
         </script>
     </body>
 </html>

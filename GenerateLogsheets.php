@@ -62,7 +62,6 @@
 
                         echo '<div id = "ASP" class = "width-90 container-white" style = "display:none;">';
                         
-
                         while ($row = mysqli_fetch_array($ASPResult)) {
                             //Get Site Code & Display sites as selectable checkbox options
                             if($row['SiteID'] < 10) {
