@@ -64,10 +64,10 @@
 				text-align:center;
             }
             .barcodeR {
-                margin: 175px 0px 0px 365px;
+                margin: 175px 0px 0px 285px;
             }
             .IDR {
-                margin: 190px 0px 0px 285px;
+                margin: 190px 0px 0px 340px;
                 width: 70px;
 				text-align:center;
             }
@@ -155,12 +155,12 @@
             for ($i=0; $i < $num; $i+=2) { 
                 echo '<div class = "generatedSheet logsheetLink" onclick = "PrintSingleLogsheet('; echo "'$i'"; echo ');">';
                 while ($row = mysqli_fetch_array($filterResult[$i])) {
-                    echo "FilterID: ".$row['aspID'];
-                    echo " [".$row['Code']."] + ";
+                    echo $row['aspID'];
+                    echo " [".$row['Code'].", ".$row['Exposure Date']." ".$row['Type']."] + ";
                 }
                 while ($row = mysqli_fetch_array($filterResult[$i+1])) {
-                    echo "FilterID: ".$row['aspID'];
-                    echo " [".$row['Code']."] ";
+                    echo $row['aspID'];
+                    echo " [".$row['Code'].", ".$row['Exposure Date']." ".$row['Type']."]";
                 }
                 echo '</div>';
             }
@@ -184,7 +184,7 @@
                     echo '
                     <img class = "logsheetText barcodeY" style="-webkit-user-select: none;" src="GeneratedCodes/qrCode'.$i.'.png">
                     <input type = "text" class = "logsheetText IDY" value = "'.$row['aspID'].'" readonly>
-                    <input type = "text" class = "logsheetText field1" value = "'.$row['Code'].'" readonly>
+                    <input type = "text" class = "logsheetText field1" value = "'.$row['Code'].' '.$row['Exposure Date'].' '.$row['Type'].'" readonly>
                     <input type = "text" class = "logsheetText field3" value = "'.$row['Pre Filter Mass'].'" readonly>
                     <input type = "text" class = "logsheetText field5" value = "'.$row['Pre Laser'].'" readonly>';
                 } 
@@ -193,7 +193,7 @@
                     echo '
                     <img class = "logsheetText barcodeR" style="-webkit-user-select: none;" src="GeneratedCodes/qrCode'.($i+1).'.png">
                     <input type = "text" class = "logsheetText IDR" value = "'.$row['aspID'].'" readonly>
-                    <input type = "text" class = "logsheetText field2" value = "'.$row['Code'].'" readonly>
+                    <input type = "text" class = "logsheetText field2" value = "'.$row['Code'].' '.$row['Exposure Date'].' '.$row['Type'].'" readonly>
                     <input type = "text" class = "logsheetText field4" value = "'.$row['Pre Filter Mass'].'" readonly>
                     <input type = "text" class = "logsheetText field6" value = "'.$row['Pre Laser'].'" readonly>
                     <img class = "printA4" src="Images/ASPLogsheet2.jpg">';

@@ -175,20 +175,16 @@
             for ($i=0; $i < $num; $i+=2) { 
                 echo '<div class = "generatedSheet logsheetLink" onclick = "PrintSingleLogsheet('; echo "'$i'"; echo ');">';
                 while ($row = mysqli_fetch_array($filterCResult[$i])) {
-                    echo "GC ".$row['gasCID'];
-                    echo " [".$row['Code']."] + ";
+                    echo " [".$row['Code'].", ".$row['Exposure Date']." ".$row['Type']."] + ";
                 }
                 while ($row = mysqli_fetch_array($filterCResult[$i+1])) {
-                    echo "GC ".$row['gasCID'];
-                    echo " [".$row['Code']."] + ";
+                    echo " [".$row['Code'].", ".$row['Exposure Date']." ".$row['Type']."] + ";
                 }
                 while ($row = mysqli_fetch_array($filterFResult[$i])) {
-                    echo "GF ".$row['gasFID'];
-                    echo " [".$row['Code']."] + ";
+                    echo " [".$row['Code'].", ".$row['Exposure Date']." ".$row['Type']."] + ";
                 }
                 while ($row = mysqli_fetch_array($filterFResult[$i+1])) {
-                    echo "GF ".$row['gasFID'];
-                    echo " [".$row['Code']."] ";
+                    echo " [".$row['Code'].", ".$row['Exposure Date']." ".$row['Type']."]";
                 }
                 echo '</div>';
             }
@@ -213,7 +209,7 @@
                     echo '
                     <img class = "logsheetText YC-Code" style="-webkit-user-select: none;" src="GeneratedCodes/gasCQR_'.$i.'.png">
                     <input type = "text" class = "logsheetText IDYC" value = "GC '.$row['gasCID'].'" readonly>
-                    <input type = "text" class = "logsheetText field1C" value = "'.$row['Code'].'" readonly>
+                    <input type = "text" class = "logsheetText field1C" value = "'.$row['Code'].' '.$row['Exposure Date'].' '.$row['Type'].'" readonly>
                     <input type = "text" class = "logsheetText field3CY" value = "'.$row['Pre Filter Mass'].'" readonly>
                     <input type = "text" class = "logsheetText field5CY" value = "'.$row['Pre Laser'].'" readonly>';
                 } 
@@ -222,7 +218,7 @@
                     echo '
                     <img class = "logsheetText RC-Code" style="-webkit-user-select: none;" src="GeneratedCodes/gasCQR_'.($i+1).'.png">
                     <input type = "text" class = "logsheetText IDRC" value = "GC '.$row['gasCID'].'" readonly>
-                    <input type = "text" class = "logsheetText field2C" value = "'.$row['Code'].'" readonly>
+                    <input type = "text" class = "logsheetText field2C" value = "'.$row['Code'].' '.$row['Exposure Date'].' '.$row['Type'].'" readonly>
                     <input type = "text" class = "logsheetText field3CR" value = "'.$row['Pre Filter Mass'].'" readonly>
                     <input type = "text" class = "logsheetText field5CR" value = "'.$row['Pre Laser'].'" readonly>';
                 }
@@ -231,7 +227,7 @@
                     echo '
                     <img class = "logsheetText YF-Code" style="-webkit-user-select: none;" src="GeneratedCodes/gasFQR_'.$i.'.png">
                     <input type = "text" class = "logsheetText IDYF" value = "GF '.$row['gasFID'].'" readonly>
-                    <input type = "text" class = "logsheetText field1F" value = "'.$row['Code'].'" readonly>
+                    <input type = "text" class = "logsheetText field1F" value = "'.$row['Code'].' '.$row['Exposure Date'].' '.$row['Type'].'" readonly>
                     <input type = "text" class = "logsheetText field4FY" value = "'.$row['Pre Filter Mass'].'" readonly>
                     <input type = "text" class = "logsheetText field6FY" value = "'.$row['Pre Laser'].'" readonly>';
                 } 
@@ -240,7 +236,7 @@
                     echo '
                     <img class = "logsheetText RF-Code" style="-webkit-user-select: none;" src="GeneratedCodes/gasFQR_'.($i+1).'.png">
                     <input type = "text" class = "logsheetText IDRF" value = "GF '.$row['gasFID'].'" readonly>
-                    <input type = "text" class = "logsheetText field2F" value = "'.$row['Code'].'" readonly>
+                    <input type = "text" class = "logsheetText field2F" value = "'.$row['Code'].' '.$row['Exposure Date'].' '.$row['Type'].'" readonly>
                     <input type = "text" class = "logsheetText field4FR" value = "'.$row['Pre Filter Mass'].'" readonly>
                     <input type = "text" class = "logsheetText field6FR" value = "'.$row['Pre Laser'].'" readonly>
                     <img class = "printA4" src="Images/GASLogsheet2.png">';

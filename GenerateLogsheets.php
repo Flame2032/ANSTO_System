@@ -102,19 +102,26 @@
                     <div class = "day-container" style = "border-color: yellow; margin-left:20px;">
                         <div class = "vertically-aligned">
                             <p class = "no-outer-spaces">Wednesday</p>
-                            <input type = "text" id = "wedDate" name = "wedDate" value = "" style = "font-family: Arial; font-size: 14px; border-style:none; width:90%; text-align:center;" readonly>
+                            <input class = "silentTextBox" type = "text" id = "wedDate" name = "wedDate" value = "" style = "width:90%;" readonly>
+                            <!--These values are hidden but need to be passed to the next screen-->
+                            <input type = "hidden" id = "wedDay" name = "wedDay" value = "">
+                            <input type = "hidden" id = "wedMonth" name = "wedMonth" value = "">
+                            <input type = "hidden" id = "wedYear" name = "wedYear" value = "">
                         </div>
-                        
                     </div>
                     <div class = "day-container" style = "border-color: red; margin-right:20px;">
                         <div class = "vertically-aligned">
                             <p class = "no-outer-spaces">Sunday</p>
-                            <input type = "text" id = "sunDate" name = "sunDate" value = "" style = "font-family: Arial; font-size: 14px; border-style:none; width:90%; text-align:center;" readonly>
+                            <input class = "silentTextBox" type = "text" id = "sunDate" name = "sunDate" value = "" style = "width:90%;" readonly>
+                            <!--These values are hidden but need to be passed to the next screen-->
+                            <input type = "hidden" id = "sunDay" name = "sunDay" value = "">
+                            <input type = "hidden" id = "sunMonth" name = "sunMonth" value = "">
+                            <input type = "hidden" id = "sunYear" name = "sunYear" value = "">
                         </div>  
                     </div>
                     <i class="fa fa-angle-double-right awesome-icon" aria-hidden="true" onclick = "NextWeek();"></i> 
                 </div>
-                <input id = "type" name = "type" type = "text" style = "display:none;">
+                <input id = "type" name = "type" type = "hidden">
                 <!--Buttons-->
                 <div clas = "row">
                     <input type = "button" class = "btn-ansto font-16" style = "margin-left:10px;margin-bottom:10px;" onclick = "GoAddSite();" value = "Edit Sites">
@@ -169,6 +176,12 @@
                 wedDD = wednesday.getDate();
                 wedMM = wednesday.getMonth() + 1;
                 wedY = wednesday.getFullYear();
+
+                // Set indiviudal values
+                document.getElementById('wedDay').value = wedDD;
+                document.getElementById('wedMonth').value = wedMM;
+                document.getElementById('wedYear').value = wedY;
+
                 if(wedDD < 10){
                     wedDD = "0"+wedDD;
                 }
@@ -180,6 +193,12 @@
                 sunDD = sunday.getDate();
                 sunMM = sunday.getMonth() + 1;
                 sunY = sunday.getFullYear();
+
+                // Set indiviudal values
+                document.getElementById('sunDay').value = sunDD;
+                document.getElementById('sunMonth').value = sunMM;
+                document.getElementById('sunYear').value = sunY;
+
                 if(sunDD < 10){
                     sunDD = "0"+sunDD;
                 }

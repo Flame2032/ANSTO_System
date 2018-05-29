@@ -3,12 +3,18 @@
 
     if (isset($_POST['wedDate'])) {
         $wedDate = $_POST['wedDate'];
+        $wedDay = $_POST['wedDay'];
+        $wedMonth = $_POST['wedMonth'];
+        $wedYear = $_POST['wedYear'];
+
         $sunDate = $_POST['sunDate'];
+        $sunDay = $_POST['sunDay'];
+        $sunMonth = $_POST['sunMonth'];
+        $sunYear = $_POST['sunYear'];
     }
 
     if (isset($_POST['site'])) {
         $sites = $_POST['site'];
-
         for ($i=0; $i < sizeof($sites); $i++) { 
             $wedSND[$i] = $sites[$i]." ".$wedDate;
             $sunSND[$i] = $sites[$i]." ".$sunDate;
@@ -23,6 +29,9 @@
     $availableFiltersQueryResult = false;
     $availableGasCQueryResult = false;
     $availableGasCQueryResult = false;
+
+    date_default_timezone_set('Australia/Sydney');
+    $today = date("d-m-Y");
 ?>
 
 <!DOCTYPE html>
@@ -75,7 +84,6 @@
                 // Make sure enough new filters are available for allocation
                 $availableFilters = mysqli_num_rows($availableFiltersQueryResult);
                 if($availableFilters >= (sizeof($sites)*2)) {
-                    echo $availableFilters;
 
                     // Get the ID of the first filter with no exposure code
                     $minIDQuery = "SELECT aspID FROM asp WHERE aspID =  ( SELECT MIN(aspID) FROM asp WHERE Code = '' )";
@@ -127,8 +135,16 @@
                                     $id = $minID+$i;
                                     $site = $sites[$x];
                                     // Update the record after it's displayed
-                                    //$updateQuery = "UPDATE asp SET Code = '$code', Site = '$site', ExposureDate = '$wedDate', FilterType = 'Y'   WHERE aspID = '$id'";
-                                    $updateQuery = "UPDATE asp SET Code = '$code' WHERE aspID = '$id'";
+                                    $updateQuery = "UPDATE asp SET 
+                                    `Exposed Day` = '$wedDay', 
+                                    `Exposed Month` = '$wedMonth', 
+                                    `Exposed Year` = '$wedYear',
+                                    `Exposure Date` = '$wedDate',
+                                    `Code` = '$site',
+                                    `SamplingDay` = 'Wednesday',
+                                    `QA` = '$today',
+                                    `Type` = 'Y' 
+                                    WHERE aspID = '$id'";
                                     $updateResult = mysqli_query($connection, $updateQuery);
                                 } else {
                                     echo '<th class = "staticData smallFont">'.$sunSND[$x].' R</th>';
@@ -138,7 +154,16 @@
                                     $site = $sites[$x];
                                     // Update the record after it's displayed
                                     //$updateQuery = "UPDATE asp SET Code = '$code', Site = '$site', ExposureDate = '$sunDate', FilterType = 'R'   WHERE aspID = '$id'";
-                                    $updateQuery = "UPDATE asp SET Code = '$code' WHERE aspID = '$id'";
+                                    $updateQuery = "UPDATE asp SET 
+                                    `Exposed Day` = '$sunDay', 
+                                    `Exposed Month` = '$sunMonth', 
+                                    `Exposed Year` = '$sunYear',
+                                    `Exposure Date` = '$sunDate',
+                                    `Code` = '$site',
+                                    `SamplingDay` = 'Sunday',
+                                    `QA` = '$today',
+                                    `Type` = 'R'  
+                                    WHERE aspID = '$id'";
                                     $updateResult = mysqli_query($connection, $updateQuery);
                                     $x++;
                                 }
@@ -238,16 +263,37 @@
                                     // Temp Values
                                     $code = $wedSND[$x].' C';
                                     $id = $minCID+$i;
+                                    $site = $sites[$x];
                                     // Update the record after it's displayed
-                                    $updateQuery = "UPDATE gasc SET Code = '$code' WHERE gasCID = '$id'";
+                                    //$updateQuery = "UPDATE gasc SET Code = '$code' WHERE gasCID = '$id'";
+                                    $updateQuery = "UPDATE gasc SET 
+                                    `Exposed Day` = '$wedDay', 
+                                    `Exposed Month` = '$wedMonth', 
+                                    `Exposed Year` = '$wedYear',
+                                    `Exposure Date` = '$wedDate',
+                                    `Code` = '$site',
+                                    `SamplingDay` = 'Wednesday',
+                                    `QA` = '$today',
+                                    `Type` = 'C'   
+                                    WHERE gasCID = '$id'";
                                     $updateResult = mysqli_query($connection, $updateQuery);
                                 } else {
                                     echo '<th class = "staticData smallFont">'.$sunSND[$x].' C</th>';
                                     // Temp Values
                                     $code = $sunSND[$x].' C';
                                     $id = $minCID+$i;
+                                    $site = $sites[$x];
                                     // Update the record after it's displayed
-                                    $updateQuery = "UPDATE gasc SET Code = '$code' WHERE gasCID = '$id'";
+                                    $updateQuery = "UPDATE gasc SET 
+                                    `Exposed Day` = '$sunDay', 
+                                    `Exposed Month` = '$sunMonth', 
+                                    `Exposed Year` = '$sunYear',
+                                    `Exposure Date` = '$sunDate',
+                                    `Code` = '$site',
+                                    `SamplingDay` = 'Sunday',
+                                    `QA` = '$today',
+                                    `Type` = 'C'  
+                                    WHERE gasCID = '$id'";
                                     $updateResult = mysqli_query($connection, $updateQuery);
                                 }
                                 
@@ -273,16 +319,36 @@
                                     // Temp Values
                                     $code = $wedSND[$x].' F';
                                     $id = $minFID+$i;
+                                    $site = $sites[$x];
                                     // Update the record after it's displayed
-                                    $updateQuery = "UPDATE gasf SET Code = '$code' WHERE gasFID = '$id'";
+                                    $updateQuery = "UPDATE gasf SET
+                                    `Exposed Day` = '$wedDay', 
+                                    `Exposed Month` = '$wedMonth', 
+                                    `Exposed Year` = '$wedYear',
+                                    `Exposure Date` = '$wedDate',
+                                    `Code` = '$site',
+                                    `SamplingDay` = 'Wednesday',
+                                    `QA` = '$today',
+                                    `Type` = 'F'   
+                                    WHERE gasFID = '$id'";
                                     $updateResult = mysqli_query($connection, $updateQuery);
                                 } else {
                                     echo '<th class = "staticData smallFont">'.$sunSND[$x].' F</th>';
                                     // Temp Values
                                     $code = $sunSND[$x].' F';
                                     $id = $minFID+$i;
+                                    $site = $sites[$x];
                                     // Update the record after it's displayed
-                                    $updateQuery = "UPDATE gasf SET Code = '$code' WHERE gasFID = '$id'";
+                                    $updateQuery = "UPDATE gasf SET
+                                    `Exposed Day` = '$sunDay', 
+                                    `Exposed Month` = '$sunMonth', 
+                                    `Exposed Year` = '$sunYear',
+                                    `Exposure Date` = '$sunDate',
+                                    `Code` = '$site',
+                                    `SamplingDay` = 'Sunday',
+                                    `QA` = '$today',
+                                    `Type` = 'F'  
+                                    WHERE gasFID = '$id'";
                                     $updateResult = mysqli_query($connection, $updateQuery);
                                     $x++;
                                 }

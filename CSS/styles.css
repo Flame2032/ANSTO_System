@@ -185,6 +185,14 @@
     display: block;
 }
 
+.silentTextBox {
+    border-style: none;
+    margin: none;
+    font-family: Arial;
+    font-size: 14px;
+    text-align: center;
+}
+
 /*Content Styles*/
 .centeredContent {
     display: table;
