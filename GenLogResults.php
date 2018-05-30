@@ -6,11 +6,13 @@
         $wedDay = $_POST['wedDay'];
         $wedMonth = $_POST['wedMonth'];
         $wedYear = $_POST['wedYear'];
+        $USAWedDate = $wedYear.'-'.$wedMonth.'-'.$wedDay;
 
         $sunDate = $_POST['sunDate'];
         $sunDay = $_POST['sunDay'];
         $sunMonth = $_POST['sunMonth'];
         $sunYear = $_POST['sunYear'];
+        $USASunDate = $sunYear.'-'.$sunMonth.'-'.$sunDay;
     }
 
     if (isset($_POST['site'])) {
@@ -73,10 +75,10 @@
         <?php
             // Check whether GAS or ASP has been selected
             if($type == "ASP" && isset($_POST['site'])) {
-                $availableFiltersQueryResult = mysqli_query($connection, "SELECT * FROM asp WHERE Code = ''");
+                $availableFiltersQueryResult = mysqli_query($connection, "SELECT * FROM asp WHERE Site = ''");
             } else if ($type == "GAS" && isset($_POST['site'])) {
-                $availableGasCQueryResult = mysqli_query($connection, "SELECT * FROM gasc WHERE Code = ''");
-                $availableGasFQueryResult = mysqli_query($connection, "SELECT * FROM gasf WHERE Code = ''");
+                $availableGasCQueryResult = mysqli_query($connection, "SELECT * FROM gasc WHERE Site = ''");
+                $availableGasFQueryResult = mysqli_query($connection, "SELECT * FROM gasf WHERE Site = ''");
             }
             
             // ------------------------------ASP------------------------------
@@ -86,7 +88,7 @@
                 if($availableFilters >= (sizeof($sites)*2)) {
 
                     // Get the ID of the first filter with no exposure code
-                    $minIDQuery = "SELECT aspID FROM asp WHERE aspID =  ( SELECT MIN(aspID) FROM asp WHERE Code = '' )";
+                    $minIDQuery = "SELECT aspID FROM asp WHERE aspID =  ( SELECT MIN(aspID) FROM asp WHERE Site = '' )";
                     $minIDResult = mysqli_query($connection, $minIDQuery);
                     while ($row = mysqli_fetch_array($minIDResult)) {
                         $minID = $row['aspID'];
@@ -94,7 +96,7 @@
 
                     // Get 2 filters for each site that has been selected (1 for wed, 1 for sun)
                     for ($i=0; $i < (sizeof($sites)*2); $i++) { 
-                        $filtersQuery[$i] = "SELECT * FROM asp WHERE aspID =  ( SELECT MIN(aspID)+$i FROM asp WHERE Code = ''  )";
+                        $filtersQuery[$i] = "SELECT * FROM asp WHERE aspID =  ( SELECT MIN(aspID)+$i FROM asp WHERE Site = ''  )";
                         $filtersResult[$i] = mysqli_query($connection, $filtersQuery[$i]);
                     }
 
@@ -136,11 +138,11 @@
                                     $site = $sites[$x];
                                     // Update the record after it's displayed
                                     $updateQuery = "UPDATE asp SET 
-                                    `Exposed Day` = '$wedDay', 
-                                    `Exposed Month` = '$wedMonth', 
-                                    `Exposed Year` = '$wedYear',
-                                    `Exposure Date` = '$wedDate',
-                                    `Code` = '$site',
+                                    `Exposure Day` = '$wedDay', 
+                                    `Exposure Month` = '$wedMonth', 
+                                    `Exposure Year` = '$wedYear',
+                                    `Exposure Date` = '$USAWedDate',
+                                    `Site` = '$site',
                                     `SamplingDay` = 'Wednesday',
                                     `QA` = '$today',
                                     `Type` = 'Y' 
@@ -153,18 +155,18 @@
                                     $id = $minID+$i;
                                     $site = $sites[$x];
                                     // Update the record after it's displayed
-                                    //$updateQuery = "UPDATE asp SET Code = '$code', Site = '$site', ExposureDate = '$sunDate', FilterType = 'R'   WHERE aspID = '$id'";
                                     $updateQuery = "UPDATE asp SET 
-                                    `Exposed Day` = '$sunDay', 
-                                    `Exposed Month` = '$sunMonth', 
-                                    `Exposed Year` = '$sunYear',
-                                    `Exposure Date` = '$sunDate',
-                                    `Code` = '$site',
+                                    `Exposure Day` = '$sunDay', 
+                                    `Exposure Month` = '$sunMonth', 
+                                    `Exposure Year` = '$sunYear',
+                                    `Exposure Date` = '$USASunDate',
+                                    `Site` = '$site',
                                     `SamplingDay` = 'Sunday',
                                     `QA` = '$today',
                                     `Type` = 'R'  
                                     WHERE aspID = '$id'";
-                                    $updateResult = mysqli_query($connection, $updateQuery);
+                                    //$updateResult = mysqli_query($connection, $updateQuery);
+                                    mysqli_query($connection, $updateQuery) or die(mysqli_error($connection));
                                     $x++;
                                 }
                                 
@@ -205,12 +207,12 @@
                 if($availableCFilters >= (sizeof($sites)*2) && $availableFFilters >= (sizeof($sites)*2)) {
 
                     // Get the ID of the first filter with no exposure code
-                    $minCIDQuery = "SELECT gasCID FROM gasc WHERE gasCID =  ( SELECT MIN(gasCID) FROM gasc WHERE Code = '' )";
+                    $minCIDQuery = "SELECT gasCID FROM gasc WHERE gasCID =  ( SELECT MIN(gasCID) FROM gasc WHERE Site = '' )";
                     $minCIDResult = mysqli_query($connection, $minCIDQuery);
                     while ($row = mysqli_fetch_array($minCIDResult)) {
                         $minCID = $row['gasCID'];
                     }
-                    $minFIDQuery = "SELECT gasFID FROM gasf WHERE gasFID =  ( SELECT MIN(gasFID) FROM gasf WHERE Code = '' )";
+                    $minFIDQuery = "SELECT gasFID FROM gasf WHERE gasFID =  ( SELECT MIN(gasFID) FROM gasf WHERE Site = '' )";
                     $minFIDResult = mysqli_query($connection, $minFIDQuery);
                     if ($minFIDResult) {
                         while ($row = mysqli_fetch_array($minFIDResult)) {
@@ -221,9 +223,9 @@
 
                     // Get 4 filters for each site that has been selected (G+C for wed, G+C for sun)
                     for ($i=0; $i < (sizeof($sites)*2); $i++) { 
-                        $CfiltersQuery[$i] = "SELECT * FROM gasc WHERE gasCID =  ( SELECT MIN(gasCID)+$i FROM gasc WHERE Code = ''  )";
+                        $CfiltersQuery[$i] = "SELECT * FROM gasc WHERE gasCID =  ( SELECT MIN(gasCID)+$i FROM gasc WHERE Site = ''  )";
                         $CfiltersResult[$i] = mysqli_query($connection, $CfiltersQuery[$i]);
-                        $FfiltersQuery[$i] = "SELECT * FROM gasf WHERE gasFID =  ( SELECT MIN(gasFID)+$i FROM gasf WHERE Code = ''  )";
+                        $FfiltersQuery[$i] = "SELECT * FROM gasf WHERE gasFID =  ( SELECT MIN(gasFID)+$i FROM gasf WHERE Site = ''  )";
                         $FfiltersResult[$i] = mysqli_query($connection, $FfiltersQuery[$i]);
                     }
 
@@ -264,14 +266,13 @@
                                     $code = $wedSND[$x].' C';
                                     $id = $minCID+$i;
                                     $site = $sites[$x];
+                                    echo $sunDay;
                                     // Update the record after it's displayed
-                                    //$updateQuery = "UPDATE gasc SET Code = '$code' WHERE gasCID = '$id'";
                                     $updateQuery = "UPDATE gasc SET 
-                                    `Exposed Day` = '$wedDay', 
-                                    `Exposed Month` = '$wedMonth', 
-                                    `Exposed Year` = '$wedYear',
-                                    `Exposure Date` = '$wedDate',
-                                    `Code` = '$site',
+                                    `Exposure Day` = '$wedDay', 
+                                    `Exposure Month` = '$wedMonth', 
+                                    `Exposure Year` = '$wedYear',
+                                    `Exposure Date` = '$USAWedDate',
                                     `SamplingDay` = 'Wednesday',
                                     `QA` = '$today',
                                     `Type` = 'C'   
@@ -285,11 +286,10 @@
                                     $site = $sites[$x];
                                     // Update the record after it's displayed
                                     $updateQuery = "UPDATE gasc SET 
-                                    `Exposed Day` = '$sunDay', 
-                                    `Exposed Month` = '$sunMonth', 
-                                    `Exposed Year` = '$sunYear',
-                                    `Exposure Date` = '$sunDate',
-                                    `Code` = '$site',
+                                    `Exposure Day` = '$sunDay', 
+                                    `Exposure Month` = '$sunMonth', 
+                                    `Exposure Year` = '$sunYear',
+                                    `Exposure Date` = '$USASunDate',
                                     `SamplingDay` = 'Sunday',
                                     `QA` = '$today',
                                     `Type` = 'C'  
@@ -322,11 +322,10 @@
                                     $site = $sites[$x];
                                     // Update the record after it's displayed
                                     $updateQuery = "UPDATE gasf SET
-                                    `Exposed Day` = '$wedDay', 
-                                    `Exposed Month` = '$wedMonth', 
-                                    `Exposed Year` = '$wedYear',
-                                    `Exposure Date` = '$wedDate',
-                                    `Code` = '$site',
+                                    `Exposure Day` = '$wedDay', 
+                                    `Exposure Month` = '$wedMonth', 
+                                    `Exposure Year` = '$wedYear',
+                                    `Exposure Date` = '$USAWedDate',
                                     `SamplingDay` = 'Wednesday',
                                     `QA` = '$today',
                                     `Type` = 'F'   
@@ -340,11 +339,10 @@
                                     $site = $sites[$x];
                                     // Update the record after it's displayed
                                     $updateQuery = "UPDATE gasf SET
-                                    `Exposed Day` = '$sunDay', 
-                                    `Exposed Month` = '$sunMonth', 
-                                    `Exposed Year` = '$sunYear',
-                                    `Exposure Date` = '$sunDate',
-                                    `Code` = '$site',
+                                    `Exposure Day` = '$sunDay', 
+                                    `Exposure Month` = '$sunMonth', 
+                                    `Exposure Year` = '$sunYear',
+                                    `Exposure Date` = '$USASunDate',
                                     `SamplingDay` = 'Sunday',
                                     `QA` = '$today',
                                     `Type` = 'F'  

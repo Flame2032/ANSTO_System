@@ -175,16 +175,24 @@
             for ($i=0; $i < $num; $i+=2) { 
                 echo '<div class = "generatedSheet logsheetLink" onclick = "PrintSingleLogsheet('; echo "'$i'"; echo ');">';
                 while ($row = mysqli_fetch_array($filterCResult[$i])) {
-                    echo " [".$row['Code'].", ".$row['Exposure Date']." ".$row['Type']."] + ";
+                    // Get date in AUS format
+                    $date = $row['Exposure Day'].'-'.$row['Exposure Month'].'-'.$row['Exposure Year'];
+                    echo " [".$row['Site'].", ".$date." ".$row['Type']."] + ";
                 }
                 while ($row = mysqli_fetch_array($filterCResult[$i+1])) {
-                    echo " [".$row['Code'].", ".$row['Exposure Date']." ".$row['Type']."] + ";
+                    // Get date in AUS format
+                    $date = $row['Exposure Day'].'-'.$row['Exposure Month'].'-'.$row['Exposure Year'];
+                    echo " [".$row['Site'].", ".$date." ".$row['Type']."] + ";
                 }
                 while ($row = mysqli_fetch_array($filterFResult[$i])) {
-                    echo " [".$row['Code'].", ".$row['Exposure Date']." ".$row['Type']."] + ";
+                    // Get date in AUS format
+                    $date = $row['Exposure Day'].'-'.$row['Exposure Month'].'-'.$row['Exposure Year'];
+                    echo " [".$row['Site'].", ".$date." ".$row['Type']."] + ";
                 }
                 while ($row = mysqli_fetch_array($filterFResult[$i+1])) {
-                    echo " [".$row['Code'].", ".$row['Exposure Date']." ".$row['Type']."]";
+                    // Get date in AUS format
+                    $date = $row['Exposure Day'].'-'.$row['Exposure Month'].'-'.$row['Exposure Year'];
+                    echo " [".$row['Site'].", ".$date." ".$row['Type']."]";
                 }
                 echo '</div>';
             }
@@ -205,38 +213,46 @@
             for ($i=0; $i < $num; $i+=2) { 
                 echo '<div id = '; echo "'$i'"; echo '>';
                 while ($row = mysqli_fetch_array($filterCResult[$i])) {
+                    // Get date in AUS format
+                    $date = $row['Exposure Day'].'-'.$row['Exposure Month'].'-'.$row['Exposure Year'];
                     QRcode::png('GC '.$row['gasCID'], 'GeneratedCodes/gasCQR_'.$i.'.png', QR_ECLEVEL_L, 2, 1);
                     echo '
                     <img class = "logsheetText YC-Code" style="-webkit-user-select: none;" src="GeneratedCodes/gasCQR_'.$i.'.png">
                     <input type = "text" class = "logsheetText IDYC" value = "GC '.$row['gasCID'].'" readonly>
-                    <input type = "text" class = "logsheetText field1C" value = "'.$row['Code'].' '.$row['Exposure Date'].' '.$row['Type'].'" readonly>
+                    <input type = "text" class = "logsheetText field1C" value = "'.$row['Site'].' '.$date.' '.$row['Type'].'" readonly>
                     <input type = "text" class = "logsheetText field3CY" value = "'.$row['Pre Filter Mass'].'" readonly>
                     <input type = "text" class = "logsheetText field5CY" value = "'.$row['Pre Laser'].'" readonly>';
                 } 
                 while ($row = mysqli_fetch_array($filterCResult[$i+1])) {
+                    // Get date in AUS format
+                    $date = $row['Exposure Day'].'-'.$row['Exposure Month'].'-'.$row['Exposure Year'];
                     QRcode::png('GC '.$row['gasCID'], 'GeneratedCodes/gasCQR_'.($i+1).'.png', QR_ECLEVEL_L, 2, 1);
                     echo '
                     <img class = "logsheetText RC-Code" style="-webkit-user-select: none;" src="GeneratedCodes/gasCQR_'.($i+1).'.png">
                     <input type = "text" class = "logsheetText IDRC" value = "GC '.$row['gasCID'].'" readonly>
-                    <input type = "text" class = "logsheetText field2C" value = "'.$row['Code'].' '.$row['Exposure Date'].' '.$row['Type'].'" readonly>
+                    <input type = "text" class = "logsheetText field2C" value = "'.$row['Site'].' '.$date.' '.$row['Type'].'" readonly>
                     <input type = "text" class = "logsheetText field3CR" value = "'.$row['Pre Filter Mass'].'" readonly>
                     <input type = "text" class = "logsheetText field5CR" value = "'.$row['Pre Laser'].'" readonly>';
                 }
                 while ($row = mysqli_fetch_array($filterFResult[$i])) {
+                    // Get date in AUS format
+                    $date = $row['Exposure Day'].'-'.$row['Exposure Month'].'-'.$row['Exposure Year'];
                     QRcode::png('GF '.$row['gasFID'], 'GeneratedCodes/gasFQR_'.$i.'.png', QR_ECLEVEL_L, 2, 1);
                     echo '
                     <img class = "logsheetText YF-Code" style="-webkit-user-select: none;" src="GeneratedCodes/gasFQR_'.$i.'.png">
                     <input type = "text" class = "logsheetText IDYF" value = "GF '.$row['gasFID'].'" readonly>
-                    <input type = "text" class = "logsheetText field1F" value = "'.$row['Code'].' '.$row['Exposure Date'].' '.$row['Type'].'" readonly>
+                    <input type = "text" class = "logsheetText field1F" value = "'.$row['Site'].' '.$date.' '.$row['Type'].'" readonly>
                     <input type = "text" class = "logsheetText field4FY" value = "'.$row['Pre Filter Mass'].'" readonly>
                     <input type = "text" class = "logsheetText field6FY" value = "'.$row['Pre Laser'].'" readonly>';
                 } 
                 while ($row = mysqli_fetch_array($filterFResult[$i+1])) {
+                    // Get date in AUS format
+                    $date = $row['Exposure Day'].'-'.$row['Exposure Month'].'-'.$row['Exposure Year'];
                     QRcode::png('GF '.$row['gasFID'], 'GeneratedCodes/gasFQR_'.($i+1).'.png', QR_ECLEVEL_L, 2, 1);
                     echo '
                     <img class = "logsheetText RF-Code" style="-webkit-user-select: none;" src="GeneratedCodes/gasFQR_'.($i+1).'.png">
                     <input type = "text" class = "logsheetText IDRF" value = "GF '.$row['gasFID'].'" readonly>
-                    <input type = "text" class = "logsheetText field2F" value = "'.$row['Code'].' '.$row['Exposure Date'].' '.$row['Type'].'" readonly>
+                    <input type = "text" class = "logsheetText field2F" value = "'.$row['Site'].' '.$date.' '.$row['Type'].'" readonly>
                     <input type = "text" class = "logsheetText field4FR" value = "'.$row['Pre Filter Mass'].'" readonly>
                     <input type = "text" class = "logsheetText field6FR" value = "'.$row['Pre Laser'].'" readonly>
                     <img class = "printA4" src="Images/GASLogsheet2.png">';

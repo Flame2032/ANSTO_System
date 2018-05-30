@@ -177,11 +177,6 @@
                 wedMM = wednesday.getMonth() + 1;
                 wedY = wednesday.getFullYear();
 
-                // Set indiviudal values
-                document.getElementById('wedDay').value = wedDD;
-                document.getElementById('wedMonth').value = wedMM;
-                document.getElementById('wedYear').value = wedY;
-
                 if(wedDD < 10){
                     wedDD = "0"+wedDD;
                 }
@@ -190,14 +185,14 @@
                 }
                 wednesdayDate = wedDD + "-" + wedMM + "-" + wedY;
 
+                // Set indiviudal values
+                document.getElementById('wedDay').value = wedDD;
+                document.getElementById('wedMonth').value = wedMM;
+                document.getElementById('wedYear').value = wedY;
+
                 sunDD = sunday.getDate();
                 sunMM = sunday.getMonth() + 1;
                 sunY = sunday.getFullYear();
-
-                // Set indiviudal values
-                document.getElementById('sunDay').value = sunDD;
-                document.getElementById('sunMonth').value = sunMM;
-                document.getElementById('sunYear').value = sunY;
 
                 if(sunDD < 10){
                     sunDD = "0"+sunDD;
@@ -206,6 +201,11 @@
                     sunMM = "0"+sunMM;
                 }
                 sundayDate = sunDD + "-" + sunMM + "-" + sunY;
+
+                 // Set indiviudal values
+                document.getElementById('sunDay').value = sunDD;
+                document.getElementById('sunMonth').value = sunMM;
+                document.getElementById('sunYear').value = sunY;
             }
             // Update date on screen
             function UpdateDate() {
