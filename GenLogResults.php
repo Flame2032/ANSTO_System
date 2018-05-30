@@ -266,13 +266,13 @@
                                     $code = $wedSND[$x].' C';
                                     $id = $minCID+$i;
                                     $site = $sites[$x];
-                                    echo $sunDay;
                                     // Update the record after it's displayed
                                     $updateQuery = "UPDATE gasc SET 
                                     `Exposure Day` = '$wedDay', 
                                     `Exposure Month` = '$wedMonth', 
                                     `Exposure Year` = '$wedYear',
                                     `Exposure Date` = '$USAWedDate',
+                                    `Site` = '$site',
                                     `SamplingDay` = 'Wednesday',
                                     `QA` = '$today',
                                     `Type` = 'C'   
@@ -290,6 +290,7 @@
                                     `Exposure Month` = '$sunMonth', 
                                     `Exposure Year` = '$sunYear',
                                     `Exposure Date` = '$USASunDate',
+                                    `Site` = '$site',
                                     `SamplingDay` = 'Sunday',
                                     `QA` = '$today',
                                     `Type` = 'C'  
@@ -326,6 +327,7 @@
                                     `Exposure Month` = '$wedMonth', 
                                     `Exposure Year` = '$wedYear',
                                     `Exposure Date` = '$USAWedDate',
+                                    `Site` = '$site',
                                     `SamplingDay` = 'Wednesday',
                                     `QA` = '$today',
                                     `Type` = 'F'   
@@ -343,6 +345,7 @@
                                     `Exposure Month` = '$sunMonth', 
                                     `Exposure Year` = '$sunYear',
                                     `Exposure Date` = '$USASunDate',
+                                    `Site` = '$site',
                                     `SamplingDay` = 'Sunday',
                                     `QA` = '$today',
                                     `Type` = 'F'  

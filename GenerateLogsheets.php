@@ -123,7 +123,7 @@
                 </div>
                 <input id = "type" name = "type" type = "hidden">
                 <!--Buttons-->
-                <div clas = "row">
+                <div>
                     <input type = "button" class = "btn-ansto font-16" style = "margin-left:10px;margin-bottom:10px;" onclick = "GoAddSite();" value = "Edit Sites">
                     <input type = "Submit" class = "btn-ansto font-16 floatRight" style = "margin-right:10px;margin-bottom:10px;" value = "Confirm">
                 </div>

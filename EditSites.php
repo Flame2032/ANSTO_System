@@ -62,6 +62,7 @@
 
             <?php   
                 if($result){
+                    $x = 0;
 
                     echo 
                     '<table style = "margin:0px 20px;">
@@ -74,6 +75,8 @@
                     ;
 
                     while ($row = mysqli_fetch_array($result)) {
+                        $siteIDArray[$x] = $row['SiteID'];
+                        $x++;
                         if($row['SiteID'] < 10) {
                             $siteCode = "(".$row['type']."0".$row['SiteID'].")";
                         } else {
@@ -167,10 +170,17 @@
 
     function AddSite () {
         var valid = true;
+        var existingID = false;
         var id = document.getElementById('newID').value;
         var name = document.getElementById('newName').value;
+        var usedSiteID = <?php echo json_encode($siteIDArray); ?>;
+        for (i=0; i<usedSiteID.length; i++){
+            if(usedSiteID[i] == id){
+                existingID = true;
+            }
+        }
         // Validation
-        if (id == "" || id < 0 || name == "") {
+        if (id == "" || id < 0 || name == "" || existingID) {
             valid = false;
         };
 
@@ -181,6 +191,8 @@
                 alert("ID can't be a negative number");
             } else if (name == "") {
                 alert("Site Name field is required");
+            } else if (existingID){
+                alert("This ID is already being used")
             };
             
         };
