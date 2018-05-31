@@ -384,8 +384,8 @@
                 }
 
             } else {
-                echo '<div class = "container-ansto dynamic-content-700-570" style = "margin:10px 0px; width:300px;">';
-                echo "<p class = 'H190Width'>No Results</p>";
+                echo '<div class = "container-ansto dynamic-content-700-570" style = "margin:10px 0px; width:500px;">';
+                echo "<p class = 'H190Width'>You did not select any sites</p>";
                 echo '<input type = "button" class = "btn-ansto font-16 centeredItem" style = "margin-bottom:10px;"" onclick = "GoBack();" value = "Back">';
             }
             echo '</div>';

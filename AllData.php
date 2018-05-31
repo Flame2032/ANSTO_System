@@ -1,3 +1,8 @@
+<?php
+    require_once("db_connect.php");
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -23,8 +28,7 @@
         <div class = "secondBarContainer">
             <div class = "secondBar">
                 <button type = "button" onclick = "ToggleFilterMenu();" class = "btn-filter-menu">
-                    <i id = "chevDown" class="fa fa-chevron-down" aria-hidden="true" style = "font-size:20px; text-align:center; vertical-align:middle; color:white"></i>
-                    <i id = "chevUp" class="fa fa-chevron-up" aria-hidden="true" style = "display:none; font-size:20px; text-align:center; vertical-align:middle; color:white"></i>
+                    <p class = 'whiteText'>Filter By Options</p>
                 </button>
 
                 <div class = "rightDiv">
@@ -37,7 +41,7 @@
 		
         <!--Dropdown filter bar-->
         <div class = 'filterBar' id = "filterBar">
-            <form>
+            <form action = "AllData.php" method = 'POST'>
                 <!--Filter by Searchbox section-->
                 <div class = 'row'>
                     <input type = 'checkbox' class = 'searchByCheckbox' name = 'column'><p class = 'searchBarText'>Filter by Search:</p>
@@ -96,19 +100,32 @@
                     <input type = 'checkbox' name = 'column'>Liverpool<br>
                 </div>
                 <div class = 'filterSeparator'></div>
-                <input type="submit" class = "btn-ansto" name="formSubmit" value = "ApplyFilterOptions" method ="POST" style = "width:100%;">
+                <input type = 'hidden' name = 'testInput' value = "YOMAMA">
+                <input type="submit" class = "btn-ansto" value = "ApplyFilterOptions" method ="POST" style = "width:100%;">
 				 
                 
             </form>
-			<?php
-if(isset($_POST["formSubmit"]) && $_POST["formSubmit"] == "ApplyFilterOptions") {
-	echo "hello";
-
-}
-
-?>
+			
         </div>
 
+        <?php
+            //Check if the field has been posted (basically check if the page has been refreshed after clicking the button)
+            if(isset($_POST["testInput"])) {
+                //Dispay the value of the posted field
+                echo $_POST["testInput"];
+
+            }
+
+            // Checks which of the filter checkboxes in the 'column' section have been checked
+            if (isset($_POST['filter'])) {
+                $columnFilter = $_POST['filter'];
+                // Display each ticked option
+                for ($i=0; $i < sizeof($columnFilter); $i++) { 
+                    echo "<br>".$columnFilter[$i];
+                }
+            }
+
+        ?>
 
         <script type="text/javascript">
             function ToggleFilterMenu () {

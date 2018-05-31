@@ -72,13 +72,20 @@
                         <div class = "vertically-aligned">
                             <p class = "no-outer-spaces">Wednesday</p>
                             <input type = "text" id = "wedDate" name = "wedDate" value = "" style = "font-family: Arial; font-size: 14px; border-style:none; width:90%; text-align:center;" readonly>
+                            <!--These values are hidden but need to be passed to the next screen-->
+                            <input type = "hidden" id = "wedDay" name = "wedDay" value = "">
+                            <input type = "hidden" id = "wedMonth" name = "wedMonth" value = "">
+                            <input type = "hidden" id = "wedYear" name = "wedYear" value = "">
                         </div>
-                        
                     </div>
                     <div class = "day-container" style = "border-color: red; margin-right:20px;">
                         <div class = "vertically-aligned">
                             <p class = "no-outer-spaces">Sunday</p>
                             <input type = "text" id = "sunDate" name = "sunDate" value = "" style = "font-family: Arial; font-size: 14px; border-style:none; width:90%; text-align:center;" readonly>
+                            <!--These values are hidden but need to be passed to the next screen-->
+                            <input type = "hidden" id = "sunDay" name = "sunDay" value = "">
+                            <input type = "hidden" id = "sunMonth" name = "sunMonth" value = "">
+                            <input type = "hidden" id = "sunYear" name = "sunYear" value = "">
                         </div>  
                     </div>
                     <i class="fa fa-angle-double-right awesome-icon" aria-hidden="true" onclick = "NextWeek();"></i> 
@@ -122,6 +129,11 @@
                 }
                 wednesdayDate = wedDD + "-" + wedMM + "-" + wedY;
 
+                // Set indiviudal values
+                document.getElementById('wedDay').value = wedDD;
+                document.getElementById('wedMonth').value = wedMM;
+                document.getElementById('wedYear').value = wedY;
+
                 sunDD = sunday.getDate();
                 sunMM = sunday.getMonth() + 1;
                 sunY = sunday.getFullYear();
@@ -132,6 +144,11 @@
                     sunMM = "0"+sunMM;
                 }
                 sundayDate = sunDD + "-" + sunMM + "-" + sunY;
+
+                // Set indiviudal values
+                document.getElementById('sunDay').value = sunDD;
+                document.getElementById('sunMonth').value = sunMM;
+                document.getElementById('sunYear').value = sunY;
             }
             // Update date on screen
             function UpdateDate() {
