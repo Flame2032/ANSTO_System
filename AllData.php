@@ -10,9 +10,8 @@
         <script type="text/javascript">
             //Load in navigation bar using jquery
             $(function(){
-              $("#navBar").load("NavigationBar.php"); 
+              $("#navBar").load("NavigationBar"); 
             });
-
         </script>
 
     </head>
@@ -24,7 +23,8 @@
         <div class = "secondBarContainer">
             <div class = "secondBar">
                 <button type = "button" onclick = "ToggleFilterMenu();" class = "btn-filter-menu">
-                    <p class = "whiteText" style = "font-weight:bold;">Display Filter Options</p>
+                    <i id = "chevDown" class="fa fa-chevron-down" aria-hidden="true" style = "font-size:20px; text-align:center; vertical-align:middle; color:white"></i>
+                    <i id = "chevUp" class="fa fa-chevron-up" aria-hidden="true" style = "display:none; font-size:20px; text-align:center; vertical-align:middle; color:white"></i>
                 </button>
 
                 <div class = "rightDiv">
@@ -34,6 +34,7 @@
         </div>
         <!--Empty block so navbar doesn't overlap content-->
         <div class = "navSpacer"></div>
+		
         <!--Dropdown filter bar-->
         <div class = 'filterBar' id = "filterBar">
             <form>
@@ -52,31 +53,33 @@
                     <input type = 'checkbox' class = 'searchByCheckbox' name = 'column'><p class = 'searchBarText'>By Columns:</p>
                 </div>
                 <div class = 'container-white'>
-                    <input type = 'checkbox' name = 'column'>Filter ID<br>
-                    <input type = 'checkbox' name = 'column'>ASP Code<br>
-                    <input type = 'checkbox' name = 'column'>Pre Mass<br>
-                    <input type = 'checkbox' name = 'column'>Pre Laser<br>
-                    <input type = 'checkbox' name = 'column'>Vacuum Valve Closed<br>
-                    <input type = 'checkbox' name = 'column'>Pre Vacuum<br>
-                    <input type = 'checkbox' name = 'column'>Pre-Mass Volume<br>
-                    <input type = 'checkbox' name = 'column'>Post Mass<br>
-                    <input type = 'checkbox' name = 'column'>Post Laser<br>
-                    <input type = 'checkbox' name = 'column'>Post Vacuum<br>
-                    <input type = 'checkbox' name = 'column'>Post Mass Volume<br>
-                    <input type = 'checkbox' name = 'column'>Finish Flow Rate<br>
-                    <input type = 'checkbox' name = 'column'>Elapsed Time<br>
-                    <input type = 'checkbox' name = 'column'>Temperature Max<br>
-                    <input type = 'checkbox' name = 'column'>Temperature Min<br>
-                    <input type = 'checkbox' name = 'column'>Comments<br>
-                    <input type = 'checkbox' name = 'column'>Pre QA Date<br>
-                    <input type = 'checkbox' name = 'column'>Sent Date<br>
-                    <input type = 'checkbox' name = 'column'>Return Date<br>
-                    <input type = 'checkbox' name = 'column'>Return QA Date<br>
-                    <input type = 'checkbox' name = 'column'>Site<br>
-                    <input type = 'checkbox' name = 'column'>Exposure Date<br>
-                    <input type = 'checkbox' name = 'column'>Filter Type<br>
-                    <input type = 'checkbox' name = 'column'>Pre-MABI<br>
-                    <input type = 'checkbox' name = 'column'>Post-MABI<br>
+					<input type="checkbox" name="filter[]" value ="FilterID"/> Filter ID<br>
+                    <input type = 'checkbox' name="filter[]" value ="Code"/>Code<br>
+					<input type = 'checkbox' name="filter[]" value ="ExposureDate"/>Exposure Date<br>
+					<input type = 'checkbox' name="filter[]" value ="Type"/>Type<br>
+                    <input type = 'checkbox' name="filter[]" value ="PreMass"/>Pre Mass<br>
+                    <input type = 'checkbox' name="filter[]" value ="PreLaser"/>Pre Laser<br>
+                    <input type = 'checkbox' name="filter[]" value ="VacuumValveClosed"/>Vacuum Valve Closed<br>
+                    <input type = 'checkbox' name="filter[]" value ="PreVacuum"/>Pre Vacuum<br>
+                    <input type = 'checkbox' name="filter[]" value ="PreMassVolume"/>Pre-Mass Volume<br>
+                    <input type = 'checkbox' name="filter[]" value ="PostMass"/>Post Mass<br>
+                    <input type = 'checkbox' name="filter[]" value ="PostLaser"/>Post Laser<br>
+                    <input type = 'checkbox' name="filter[]" value ="PostVacuum"/>Post Vacuum<br>
+                    <input type = 'checkbox' name="filter[]" value ="PostMassVolume"/>Post Mass Volume<br>
+                    <input type = 'checkbox' name="filter[]" value ="FinishFlowRate"/>Finish Flow Rate<br>
+                    <input type = 'checkbox' name="filter[]" value ="ElapsedTime"/>Elapsed Time<br>
+                    <input type = 'checkbox' name="filter[]" value ="TemperatureMax"/>Temperature Max<br>
+                    <input type = 'checkbox' name="filter[]" value ="TemperatureMin"/>Temperature Min<br>
+                    <input type = 'checkbox' name="filter[]" value ="Comments"/>Comments<br>
+                    <input type = 'checkbox' name="filter[]" value ="PreQADate"/>Pre QA Date<br>
+                    <input type = 'checkbox' name="filter[]" value ="SentDate"/>Sent Date<br>
+                    <input type = 'checkbox' name="filter[]" value ="ReturnDate"/>Return Date<br>
+                    <input type = 'checkbox' name="filter[]" value ="ReturnQADate"/>Return QA Date<br>
+                    <input type = 'checkbox' name="filter[]" value ="ExposureDate"/>Exposure Date<br>
+                    <input type = 'checkbox' name="filter[]" value ="FilterType"/>Filter Type<br>
+                    <input type = 'checkbox' name="filter[]" value ="PreMABI"/>Pre-MABI<br>
+                    <input type = 'checkbox' name="filter[]" value ="PostMABI"/>Post-MABI<br>
+					
                 </div>
                 <div class = 'filterSeparator'></div>
                 <!--By Site-->
@@ -93,37 +96,19 @@
                     <input type = 'checkbox' name = 'column'>Liverpool<br>
                 </div>
                 <div class = 'filterSeparator'></div>
-                <input type = "button" class = "btn-ansto" value = "Apply Filter Options" style = "width:100%;">
+                <input type="submit" class = "btn-ansto" name="formSubmit" value = "ApplyFilterOptions" method ="POST" style = "width:100%;">
+				 
                 
             </form>
-        </div>
-<?php
-include 'db_connect.php';
+			<?php
+if(isset($_POST["formSubmit"]) && $_POST["formSubmit"] == "ApplyFilterOptions") {
+	echo "hello";
 
-//get results from database
-$result = mysqli_query($connection,"SELECT * FROM asp");
-$all_property = array();  //declare an array for saving property
-
-//showing property
-echo '<table class="data-table" border="2" width="auto" overflow: "auto" ID="Table1" style="font-size: 70%;">
-        <tr class="data-heading">';  //initialize table tag
-while ($property = mysqli_fetch_field($result)) {
-    echo '<td>' . $property->name . '</td>';  //get field name for header
-    array_push($all_property, $property->name);  //save those to array
 }
-echo '</tr>'; //end tr tag
 
-//showing all data
-while ($row = mysqli_fetch_array($result)) {
-    echo "<tr>";
-    foreach ($all_property as $item) {
-        echo '<td>' . $row[$item] . '<div style= "width:180px;"</div></td>'; //get items using property value
-    }
-    echo '</tr>';
-}
-echo "</table>";
 ?>
- 
+        </div>
+
 
         <script type="text/javascript">
             function ToggleFilterMenu () {
