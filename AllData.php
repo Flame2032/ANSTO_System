@@ -57,19 +57,18 @@
                     <input type = 'checkbox' class = 'searchByCheckbox' name = 'column'><p class = 'searchBarText'>By Columns:</p>
                 </div>
                 <div class = 'container-white'>
-					<input type="checkbox" name="filter[]" value ="FilterID"/> Filter ID<br>
-                    <input type = 'checkbox' name="filter[]" value ="Code"/>Code<br>
-					<input type = 'checkbox' name="filter[]" value ="ExposureDate"/>Exposure Date<br>
+					<input type="checkbox" name="filter[]" value ="aspID"/> aspID<br>
+                    <input type = 'checkbox' name="filter[]" value ="Site"/>Site<br>
+					<input type = 'checkbox' name="filter[]" value ="Exposure Date"/>Exposure Date<br>
 					<input type = 'checkbox' name="filter[]" value ="Type"/>Type<br>
-                    <input type = 'checkbox' name="filter[]" value ="PreMass"/>Pre Mass<br>
-                    <input type = 'checkbox' name="filter[]" value ="PreLaser"/>Pre Laser<br>
-                    <input type = 'checkbox' name="filter[]" value ="VacuumValveClosed"/>Vacuum Valve Closed<br>
-                    <input type = 'checkbox' name="filter[]" value ="PreVacuum"/>Pre Vacuum<br>
-                    <input type = 'checkbox' name="filter[]" value ="PreMassVolume"/>Pre-Mass Volume<br>
-                    <input type = 'checkbox' name="filter[]" value ="PostMass"/>Post Mass<br>
-                    <input type = 'checkbox' name="filter[]" value ="PostLaser"/>Post Laser<br>
-                    <input type = 'checkbox' name="filter[]" value ="PostVacuum"/>Post Vacuum<br>
-                    <input type = 'checkbox' name="filter[]" value ="PostMassVolume"/>Post Mass Volume<br>
+                    <input type = 'checkbox' name="filter[]" value ="Pre Filter Mass"/>Pre Filter Mass<br>
+                    <input type = 'checkbox' name="filter[]" value ="Pre Laser"/>Pre Laser<br>
+                    <input type = 'checkbox' name="filter[]" value ="Date"/>Date<br>
+                    <input type = 'checkbox' name="filter[]" value ="Pre Vacuum"/>Pre Vacuum<br>
+                    <input type = 'checkbox' name="filter[]" value ="Post Mass"/>Post Mass<br>
+                    <input type = 'checkbox' name="filter[]" value ="Post Laser"/>Post Laser<br>
+                    <input type = 'checkbox' name="filter[]" value ="Post Vacuum"/>Post Vacuum<br>
+                    <input type = 'checkbox' name="filter[]" value ="Post Mass Volume"/>Post Mass Volume<br>
                     <input type = 'checkbox' name="filter[]" value ="FinishFlowRate"/>Finish Flow Rate<br>
                     <input type = 'checkbox' name="filter[]" value ="ElapsedTime"/>Elapsed Time<br>
                     <input type = 'checkbox' name="filter[]" value ="TemperatureMax"/>Temperature Max<br>
@@ -100,7 +99,7 @@
                     <input type = 'checkbox' name = 'column'>Liverpool<br>
                 </div>
                 <div class = 'filterSeparator'></div>
-                <input type = 'hidden' name = 'testInput' value = "YOMAMA">
+               
                 <input type="submit" class = "btn-ansto" value = "ApplyFilterOptions" method ="POST" style = "width:100%;">
 				 
                 
@@ -108,24 +107,23 @@
 			
         </div>
 
-        <?php
-            //Check if the field has been posted (basically check if the page has been refreshed after clicking the button)
-            if(isset($_POST["testInput"])) {
-                //Dispay the value of the posted field
-                echo $_POST["testInput"];
+<?php
+if(isset($_POST['filter'])) {
+ $chkbox = $_POST['filter'];
+ $i = 0;
+$sql_where = implode (" , ", $chkbox);
+ While($i < sizeof($sql_where))
+ {
+$result = "SELECT  $sql_where FROM asp WHERE `Exposure Date` >= now()-interval 3 month " ;
+ $i++;
 
-            }
 
-            // Checks which of the filter checkboxes in the 'column' section have been checked
-            if (isset($_POST['filter'])) {
-                $columnFilter = $_POST['filter'];
-                // Display each ticked option
-                for ($i=0; $i < sizeof($columnFilter); $i++) { 
-                    echo "<br>".$columnFilter[$i];
-                }
-            }
+ 
+ }
 
-        ?>
+ echo"$result"; 
+}
+ ?>
 
         <script type="text/javascript">
             function ToggleFilterMenu () {
