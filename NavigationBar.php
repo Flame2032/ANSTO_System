@@ -13,7 +13,7 @@
                 <i class="fa fa-caret-down"></i> 
             </button>
             <div class = "myDropdown-content">
-                <a href="AllData.php">All</a>
+                <a href="AllASPData.php">All</a>
                 <a href="PreData.php">Pre-Analysis</a>
                 <a href="PostData.php">Post-Analysis</a>
                 <a href="EditLog.php">Edit Log</a>

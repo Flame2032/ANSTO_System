@@ -137,7 +137,7 @@
     bottom: 0px;
     top: 83px;
     padding: 8px;
-    width: 190px;    
+    width: 220px;    
     overflow-y: scroll;
     display: none;
 }
@@ -416,7 +416,6 @@ input[type="checkbox"] {
 
 .btn-filter-menu {
     height: 80%;
-    width: 130px;
     margin-top: 5px;
     background-color: #0079c0;
     border-style: none;

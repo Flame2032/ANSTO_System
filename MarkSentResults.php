@@ -14,6 +14,12 @@
         $sunYear = $_POST['sunYear'];
         $USASunDate = $sunYear.'-'.$sunMonth.'-'.$sunDay;
     }
+
+    date_default_timezone_set('Australia/Sydney');
+    $today = date("d-m-Y");
+
+    $ASPResultsFound = false;
+    $GASResultsFound = false;
 ?>
 
 <!DOCTYPE html>
@@ -58,40 +64,160 @@
                     $sunSND[$i] = $sites[$i]." ".$sunDate;
                 }
 
+                // Get filters information to display for ASP
                 for ($i=0; $i < sizeof($sites); $i++) {
-                    $site = $sites[$i];
-                    $filtersQuery[$i] = mysqli_query($connection, "SELECT * FROM asp WHERE 
-                        `PostDate` = '' AND 
-                        `Site` = '$site' AND 
-                        (`Exposure Date` = '$USAWedDate' OR `Exposure Date` = '$USAWedDate'");
-                    if($filtersQuery[$i]){
-                        echo "YAY";
+                    $ASPSite = $sites[$i];
+                    $ASPQuery[$i] = mysqli_query($connection, "SELECT * FROM asp WHERE 
+                        (`PostDate` = '' OR `PostDate` IS NULL) AND 
+                        `Site` = '$ASPSite' AND 
+                        (`Exposure Day` = '$wedDay' OR `Exposure Day` = '$sunDay') AND 
+                        (`Exposure Month` = '$wedMonth' OR `Exposure Month` = '$sunMonth') AND 
+                        (`Exposure Year` = '$wedYear' OR `Exposure Year` = '$sunYear')");
+                    if (mysqli_num_rows($ASPQuery[$i]) > 0) {
+                        $ASPResultsFound = true;
                     }
                 }
 
-                if($filtersQuery[0]){
+                // Get filters information to display for GAS
+                for ($i=0; $i < sizeof($sites); $i++) {
+                    $GASSite = $sites[$i];
+                    $GASCQuery[$i] = mysqli_query($connection, "SELECT * FROM gasc WHERE 
+                        (`PostDate` = '' OR `PostDate` IS NULL) AND 
+                        `Site` = '$GASSite' AND 
+                        (`Exposure Day` = '$wedDay' OR `Exposure Day` = '$sunDay') AND 
+                        (`Exposure Month` = '$wedMonth' OR `Exposure Month` = '$sunMonth') AND 
+                        (`Exposure Year` = '$wedYear' OR `Exposure Year` = '$sunYear')");
+                    if (mysqli_num_rows($GASCQuery[$i]) > 0) {
+                        $GASResultsFound = true;
+                    }
+                    $GASFQuery[$i] = mysqli_query($connection, "SELECT * FROM gasf WHERE 
+                        (`PostDate` = '' OR `PostDate` IS NULL) AND 
+                        `Site` = '$GASSite' AND 
+                        (`Exposure Day` = '$wedDay' OR `Exposure Day` = '$sunDay') AND 
+                        (`Exposure Month` = '$wedMonth' OR `Exposure Month` = '$sunMonth') AND 
+                        (`Exposure Year` = '$wedYear' OR `Exposure Year` = '$sunYear')");
+                    if (mysqli_num_rows($GASFQuery[$i]) > 0) {
+                        $GASResultsFound = true;
+                    }
+                }
+
+                // Set the current date as PostDate for each resulting filter
+                for ($i=0; $i < sizeof($sites); $i++) {
+                    $site = $sites[$i];
+                    $ASPUpdateQuery[$i] = mysqli_query($connection, "UPDATE asp SET `PostDate` = '$today' WHERE 
+                        (`PostDate` = '' OR `PostDate` IS NULL) AND 
+                        `Site` = '$site' AND 
+                        (`Exposure Day` = '$wedDay' OR `Exposure Day` = '$sunDay') AND 
+                        (`Exposure Month` = '$wedMonth' OR `Exposure Month` = '$sunMonth') AND 
+                        (`Exposure Year` = '$wedYear' OR `Exposure Year` = '$sunYear')");
+                    $GASCUpdateQuery[$i] = mysqli_query($connection, "UPDATE gasc SET `PostDate` = '$today' WHERE 
+                        (`PostDate` = '' OR `PostDate` IS NULL) AND 
+                        `Site` = '$site' AND 
+                        (`Exposure Day` = '$wedDay' OR `Exposure Day` = '$sunDay') AND 
+                        (`Exposure Month` = '$wedMonth' OR `Exposure Month` = '$sunMonth') AND 
+                        (`Exposure Year` = '$wedYear' OR `Exposure Year` = '$sunYear')");
+                    $GASFUpdateQuery[$i] = mysqli_query($connection, "UPDATE gasf SET `PostDate` = '$today' WHERE 
+                        (`PostDate` = '' OR `PostDate` IS NULL) AND 
+                        `Site` = '$site' AND 
+                        (`Exposure Day` = '$wedDay' OR `Exposure Day` = '$sunDay') AND 
+                        (`Exposure Month` = '$wedMonth' OR `Exposure Month` = '$sunMonth') AND 
+                        (`Exposure Year` = '$wedYear' OR `Exposure Year` = '$sunYear')");
+                }
+
+                if(sizeof($sites) > 0 && $ASPResultsFound || $GASResultsFound){
+
                     echo '
-                    <div id = "sentDisplay" class = "container-ansto dynamic-content-700-570" style = "width:700px;">
+                    <div id = "sentDisplay" class = "container-ansto dynamic-content-700-570">
                         <!--Title-->
-                        <p class = "H190Width">The filters below have been marked as sent</p>
+                        <p class = "H190Width" style = "font-size:25px;">Filters below have been marked as sent</p>
                         <table class = "centeredItem" style = "margin:20px;">
                             <tr>
                                 <th class = "staticData columnTitle smallFont">ID</th>
-                                <th class = "staticData columnTitle smallFont">Exposure Code</th>
+                                <th class = "staticData columnTitle smallFont">Site</th>
+                                <th class = "staticData columnTitle smallFont">Exposure Date</th>
+                                <th class = "staticData columnTitle smallFont">Sampling Day</th>
                                 <th class = "staticData columnTitle smallFont">Pre-Mass</th>
-                                <th class = "staticData columnTitle smallFont">I<sub>0</sub>(405nm)</th>
-                                <th class = "staticData columnTitle smallFont">I<sub>0</sub>(465nm)</th>
-                                <th class = "staticData columnTitle smallFont">I<sub>0</sub>(525nm)</th>
-                                <th class = "staticData columnTitle smallFont">I<sub>0</sub>(639nm)</th>
-                                <th class = "staticData columnTitle smallFont">I<sub>0</sub>(870nm)</th>
-                                <th class = "staticData columnTitle smallFont">I<sub>0</sub>(940nm)</th>
-                                <th class = "staticData columnTitle smallFont">I<sub>0</sub>(1050nm)</th>
-                            </tr>
-                        <table>
+                                <th class = "staticData columnTitle smallFont">Pre-Laser</th>
+                                <th class = "staticData columnTitle smallFont">Sent Date</th>
+                            </tr>';
 
-                        </table>
+                    if($ASPResultsFound){
+                        for ($i=0; $i < sizeof($sites); $i++) {
+                            // Display all resulting rows for ASP
+                            while ($row = mysqli_fetch_array($ASPQuery[$i])) {
+                                // Construct AUS Exposure Date
+                                $day = $row['Exposure Day'];
+                                $month = $row['Exposure Month'];
+                                $year = $row['Exposure Year'];
+                                $date = $day.'-'.$month.'-'.$year;
+
+                                echo '
+                                    <tr>
+                                        <th class = "staticData smallFont">'.$row['aspID'].'</th>
+                                        <th class = "staticData smallFont">'.$row['Site'].'</th>
+                                        <th class = "staticData smallFont">'.$date.' '.$row['Type'].'</th>
+                                        <th class = "staticData smallFont">'.$row['SamplingDay'].'</th>
+                                        <th class = "staticData smallFont">'.$row['Pre Filter Mass'].'</th>
+                                        <th class = "staticData smallFont">'.$row['Pre Laser'].'</th>
+                                        <th class = "staticData smallFont">'.$today.'</th>
+                                    </tr>
+                                ';
+
+                            }
+                        }
+                    }
+                    if($GASResultsFound){
+                        for ($i=0; $i < sizeof($sites); $i++) {
+                            // Display all resulting rows for GAS-C
+                            while ($row = mysqli_fetch_array($GASCQuery[$i])) {
+                                // Construct AUS Exposure Date
+                                $day = $row['Exposure Day'];
+                                $month = $row['Exposure Month'];
+                                $year = $row['Exposure Year'];
+                                $date = $day.'-'.$month.'-'.$year;
+
+                                echo '
+                                    <tr>
+                                        <th class = "staticData smallFont">GC '.$row['gasCID'].'</th>
+                                        <th class = "staticData smallFont">'.$row['Site'].'</th>
+                                        <th class = "staticData smallFont">'.$date.' '.$row['Type'].'</th>
+                                        <th class = "staticData smallFont">'.$row['SamplingDay'].'</th>
+                                        <th class = "staticData smallFont">'.$row['Pre Filter Mass'].'</th>
+                                        <th class = "staticData smallFont">'.$row['Pre Laser'].'</th>
+                                        <th class = "staticData smallFont">'.$today.'</th>
+                                    </tr>
+                                ';
+
+                            }
+                            // Display all resulting rows for GAS-F
+                            while ($row = mysqli_fetch_array($GASFQuery[$i])) {
+                                // Construct AUS Exposure Date
+                                $day = $row['Exposure Day'];
+                                $month = $row['Exposure Month'];
+                                $year = $row['Exposure Year'];
+                                $date = $day.'-'.$month.'-'.$year;
+
+                                echo '
+                                    <tr>
+                                        <th class = "staticData smallFont">GF '.$row['gasFID'].'</th>
+                                        <th class = "staticData smallFont">'.$row['Site'].'</th>
+                                        <th class = "staticData smallFont">'.$date.' '.$row['Type'].'</th>
+                                        <th class = "staticData smallFont">'.$row['SamplingDay'].'</th>
+                                        <th class = "staticData smallFont">'.$row['Pre Filter Mass'].'</th>
+                                        <th class = "staticData smallFont">'.$row['Pre Laser'].'</th>
+                                        <th class = "staticData smallFont">'.$today.'</th>
+                                    </tr>
+                                ';
+
+                            }
+                        }
+                    }
+                        
+                    // End of Table
+                    echo '</table>
+                    <input type = "button" class = "btn-ansto font-16 centeredItem" style = "margin-bottom:10px;"" onclick = "GoBack();" value = "Continue">
                     </div>';
-                } else {
+                } else if (sizeof($sites) > 0 && !$ASPResultsFound && !$GASResultsFound) {
                     echo '<div class = "container-ansto dynamic-content-700-570" style = "margin:10px 0px; width:300px;">';
                     echo "<p class = 'H190Width'>No Results</p>";
                     echo '<input type = "button" class = "btn-ansto font-16 centeredItem" style = "margin-bottom:10px;"" onclick = "GoBack();" value = "Back">';
