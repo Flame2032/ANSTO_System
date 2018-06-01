@@ -10,7 +10,7 @@
         <script type="text/javascript">
             //Load in navigation bar using jquery
             $(function(){
-              $("#navBar").load("NavigationBar.php"); 
+              $("#navBar").load("NavigationBar"); 
             });
         </script>
 
@@ -30,17 +30,11 @@
         <!--Empty block so navbar doesn't overlap content-->
         <div class = "navSpacer"></div>
 
-		 <?php
+       <?php
 include 'db_connect.php';
-
-
-
 //get results from database
-
-$result = mysqli_query($connection,"SELECT aspID, `I0 (405)`, `I0 (465)`, `I0 (525)`, `I0 (639)`, `I0 (870)`,`I0 (940)`, `I0 (1050)`, `Pre Filter Mass`, `Pre Laser` From asp");
-
+$result = mysqli_query($connection,"SELECT `gasFID`, `Site`, `Pre Filter Mass`, `Pre Laser`, `Date1`, `Time1`, `Initials1`,`I0 (405)`, `I0 (465)`, `I0 (525)`, `I0 (639)`, `I0 (870)`, `I0 (940)`, `I0 (1050)`, `I (405)`, `I (465)`, `I (525)`, `I (639)`, `I (870)`, `I (940)`, `I (1050)` FROM `gasf`");
 $all_property = array();  //declare an array for saving property
-
 //showing property
 echo '<table class="data-table" border="2" width="auto" overflow: "auto" ID="Table1" style="font-size: 70%;">
         <tr class="data-heading">';  //initialize table tag
@@ -49,7 +43,6 @@ while ($property = mysqli_fetch_field($result)) {
     array_push($all_property, $property->name);  //save those to array
 }
 echo '</tr>'; //end tr tag
-
 //showing all data
 while ($row = mysqli_fetch_array($result)) {
     echo "<tr>";
@@ -61,14 +54,13 @@ while ($row = mysqli_fetch_array($result)) {
 }
 echo "</table>";
 ?>
-        <?php
 
+ <?php
+include 'db_connect.php';
 //get results from database
-
-$result = mysqli_query($connection,"SELECT gasCID, `I0 (405)`, `I0 (465)`, `I0 (525)`, `I0 (639)`, `I0 (870)`,`I0 (940)`, `I0 (1050)`, `Pre Filter Mass`, `Pre Laser` From gasc");
-
+$result = mysqli_query($connection,"SELECT `gasCID`, `Site`, `Pre Filter Mass`, `Pre Laser`, `Date1`, `Time1`, `Initials1`,`I0 (405)`, `I0 (465)`, `I0 (525)`, `I0 (639)`, `I0 (870)`, `I0 (940)`, `I0 (1050)`, `I (405)`, `I (465)`, `I (525)`, `I (639)`, `I (870)`, `I (940)`, `I (1050)` FROM `gasc` 
+");
 $all_property = array();  //declare an array for saving property
-
 //showing property
 echo '<table class="data-table" border="2" width="auto" overflow: "auto" ID="Table1" style="font-size: 70%;">
         <tr class="data-heading">';  //initialize table tag
@@ -77,7 +69,6 @@ while ($property = mysqli_fetch_field($result)) {
     array_push($all_property, $property->name);  //save those to array
 }
 echo '</tr>'; //end tr tag
-
 //showing all data
 while ($row = mysqli_fetch_array($result)) {
     echo "<tr>";
@@ -85,31 +76,7 @@ while ($row = mysqli_fetch_array($result)) {
         echo '<td>' . $row[$item] . '<div style= "width:180px;"</div></td>'; //get items using property value
     }
     echo '</tr>';
-}
-echo "</table>";
-?>
-<?php
-$result = mysqli_query($connection,"SELECT gasFID, `I0 (405)`, `I0 (465)`, `I0 (525)`, `I0 (639)`, `I0 (870)`,`I0 (940)`, `I0 (1050)`, `Pre Filter Mass`, `Pre Laser` From gasf");
-
-
-$all_property = array();  //declare an array for saving property
-
-//showing property
-echo '<table class="data-table" border="2" width="auto" overflow: "auto" ID="Table1" style="font-size: 70%;">
-        <tr class="data-heading">';  //initialize table tag
-while ($property = mysqli_fetch_field($result)) {
-    echo '<td>' . $property->name . '</td>';  //get field name for header
-    array_push($all_property, $property->name);  //save those to array
-}
-echo '</tr>'; //end tr tag
-
-//showing all data
-while ($row = mysqli_fetch_array($result)) {
-    echo "<tr>";
-    foreach ($all_property as $item) {
-        echo '<td>' . $row[$item] . '<div style= "width:180px;"</div></td>'; //get items using property value
-    }
-    echo '</tr>';
+	
 }
 echo "</table>";
 ?>
