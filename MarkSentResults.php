@@ -138,6 +138,13 @@
                                 <th class = "staticData columnTitle smallFont">Sampling Day</th>
                                 <th class = "staticData columnTitle smallFont">Pre-Mass</th>
                                 <th class = "staticData columnTitle smallFont">Pre-Laser</th>
+                                <th class = "staticData columnTitle smallFont">I<sub>0</sub>(405)</th>
+                                <th class = "staticData columnTitle smallFont">I<sub>0</sub>(465)</th>
+                                <th class = "staticData columnTitle smallFont">I<sub>0</sub>(525)</th>
+                                <th class = "staticData columnTitle smallFont">I<sub>0</sub>(639)</th>
+                                <th class = "staticData columnTitle smallFont">I<sub>0</sub>(870)</th>
+                                <th class = "staticData columnTitle smallFont">I<sub>0</sub>(940)</th>
+                                <th class = "staticData columnTitle smallFont">I<sub>0</sub>(1050)</th>
                                 <th class = "staticData columnTitle smallFont">Sent Date</th>
                             </tr>';
 
@@ -159,6 +166,13 @@
                                         <th class = "staticData smallFont">'.$row['SamplingDay'].'</th>
                                         <th class = "staticData smallFont">'.$row['Pre Filter Mass'].'</th>
                                         <th class = "staticData smallFont">'.$row['Pre Laser'].'</th>
+                                        <th class = "staticData smallFont">'.$row['I0 (405)'].'</th>
+                                        <th class = "staticData smallFont">'.$row['I0 (465)'].'</th>
+                                        <th class = "staticData smallFont">'.$row['I0 (525)'].'</th>
+                                        <th class = "staticData smallFont">'.$row['I0 (639)'].'</th>
+                                        <th class = "staticData smallFont">'.$row['I0 (870)'].'</th>
+                                        <th class = "staticData smallFont">'.$row['I0 (940)'].'</th>
+                                        <th class = "staticData smallFont">'.$row['I0 (1050)'].'</th>
                                         <th class = "staticData smallFont">'.$today.'</th>
                                     </tr>
                                 ';
@@ -184,6 +198,13 @@
                                         <th class = "staticData smallFont">'.$row['SamplingDay'].'</th>
                                         <th class = "staticData smallFont">'.$row['Pre Filter Mass'].'</th>
                                         <th class = "staticData smallFont">'.$row['Pre Laser'].'</th>
+                                        <th class = "staticData smallFont">'.$row['I0 (405)'].'</th>
+                                        <th class = "staticData smallFont">'.$row['I0 (465)'].'</th>
+                                        <th class = "staticData smallFont">'.$row['I0 (525)'].'</th>
+                                        <th class = "staticData smallFont">'.$row['I0 (639)'].'</th>
+                                        <th class = "staticData smallFont">'.$row['I0 (870)'].'</th>
+                                        <th class = "staticData smallFont">'.$row['I0 (940)'].'</th>
+                                        <th class = "staticData smallFont">'.$row['I0 (1050)'].'</th>
                                         <th class = "staticData smallFont">'.$today.'</th>
                                     </tr>
                                 ';
@@ -205,6 +226,13 @@
                                         <th class = "staticData smallFont">'.$row['SamplingDay'].'</th>
                                         <th class = "staticData smallFont">'.$row['Pre Filter Mass'].'</th>
                                         <th class = "staticData smallFont">'.$row['Pre Laser'].'</th>
+                                        <th class = "staticData smallFont">'.$row['I0 (405)'].'</th>
+                                        <th class = "staticData smallFont">'.$row['I0 (465)'].'</th>
+                                        <th class = "staticData smallFont">'.$row['I0 (525)'].'</th>
+                                        <th class = "staticData smallFont">'.$row['I0 (639)'].'</th>
+                                        <th class = "staticData smallFont">'.$row['I0 (870)'].'</th>
+                                        <th class = "staticData smallFont">'.$row['I0 (940)'].'</th>
+                                        <th class = "staticData smallFont">'.$row['I0 (1050)'].'</th>
                                         <th class = "staticData smallFont">'.$today.'</th>
                                     </tr>
                                 ';
