@@ -15,7 +15,7 @@
             });
 
             function uploadCSV() {
-                window.alert ("User will be able to select a CSV file from their local drive");
+                window.alert ("User will be able to select a CSV file from their local drive Hello!");
             }
         </script>
 
