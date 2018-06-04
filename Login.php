@@ -1,29 +1,61 @@
 <?php
-session_start();
-$loginerror=false;
-if(isset($_POST['submit'])){
-	//$connection = new mysqli('localhost', 'twa057', 'twa057wi', 'eshop057');
-	$cuser=mysqli_real_escape_string($connection,$_POST['cuser']);
-	$pass=mysqli_real_escape_string($connection,$_POST['pass']);
-	$hashpass=hash('sha256',$pass);
-	$logintest="SELECT user_email, user_password, user_type FROM user WHERE user_email='".$cuser ."'"; //AND user_password=".$pass;
-	$login = mysqli_query($connection, $logintest);
-	if (mysqli_num_rows($login) > 0) {
-			while ($row = $login->fetch_assoc()) {
-				$_SESSION['cuser']=$cuser;
-				$_SESSION['type']=$row['user_type'];
-			}
-			$connection->close();
-		}
-		else{
-		$loginerror=true;
-		echo "<br/>No results<br/>";
-		}
-	}
-		if (isset($_SESSION['cuser'])){
-	header('Location: index.php');
-		return;
-	}
+    session_start();
+    require_once("nocache.php");
+    require_once("db_connect.php");
+
+    $userQuery = mysqli_query($connection, "SELECT * FROM users");
+
+    if(isset($_POST['userName'])){
+        if ($_POST['userName'] == "") {
+            echo "+ Username Required";        
+        } else {
+            $userName = $_POST['userName'];
+        }    
+    } 
+
+    if(isset($_POST['pass'])){
+        $pass = $_POST['pass'];
+        //$pass = hash('sha256', $pass);
+    }
+
+    if (isset($userName) && isset($_POST['pass'])) {
+        $existingUserName = false;
+        $validPassword = false;
+        $admin = false;
+        while ($row = mysqli_fetch_array($userQuery)) {
+            if ($row['userName'] == $userName) {
+                $existingUserName = true;
+                if($row['password'] == $pass){
+                    // Successful Login Credentials
+                    $validPassword = true;
+                    // Check user privilege
+                    if($row['level'] == 1){
+                        $admin = true;
+                    }
+                } 
+            }
+        }
+
+        if ($validPassword) {
+            $_SESSION["user"] = $userName;
+            if($admin){
+                $_SESSION["admin"] = true;
+            } else {
+                $_SESSION["admin"] = false;
+            }
+            header("location:index.php");
+        } else {
+            // Display error message for 
+            // incorrect username or password
+            if(!$existingUserName){
+                echo "+ Invalid Username";
+            } else {
+                echo "+ Incorrect Password";
+            }
+        }
+    }
+
+    mysqli_close($connection);
 	
 ?>
 <!DOCTYPE html>
@@ -56,18 +88,18 @@ if(isset($_POST['submit'])){
                         </div>
                     </div>
                     <!--Login Form-->
-                    <form action = "login.php">
+                    <form action = "login.php" method = "POST">
                         <div class = "container-fluid">
                             <!--Username-->
                             <div class = "row justify-content-center" style = "margin-top:30px;">
                                 <div class = "col-4">
-                                    <input class = "form-control" type = "textbox" placeholder = "Username">
+                                    <input class = "form-control" type = "textbox" name = "userName" placeholder = "Username">
                                 </div>
                             </div>
                             <!--Password-->
                             <div class = "row justify-content-center" style = "margin-top:30px;">
                                 <div class = "col-4">
-                                    <input class = "form-control" type = "password" placeholder = "Password">
+                                    <input class = "form-control" type = "password" name = "pass" placeholder = "Password">
                                 </div>
                             </div>
                             <!--Confirm Button & Remember Me Checkbox-->
@@ -77,7 +109,7 @@ if(isset($_POST['submit'])){
                                         <div class = "checkbox">
                                             <label style = "color: white;"><input type = "checkbox" style = "margin-right:10px;">Remember Me</label>
                                         </div>
-                                        <input type = "submit" class = "btn btn-default" value = "Confirm"></input>
+                                        <button type = "submit" class = "btn btn-default">Confirm</button>
                                     </div>
                                 </div>
                             </div>

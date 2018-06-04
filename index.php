@@ -1,10 +1,18 @@
 <?php
-    // Check if session is available
 	session_start();
-		if (isset($_SESSION['cuser'])){
-	$cuser=$_SESSION['cuser'];
-	$type=$_SESSION['type'];
-	}
+    require_once("nocache.php");
+
+    $admin = null;
+
+	if (isset($_SESSION["user"])) {
+        if ($_SESSION["admin"] == true) {
+            $admin = true;
+        } else {
+            $admin = false;
+        }
+    } else {
+        header("location:Login.php");
+    }
 ?>
 
 <!DOCTYPE html>
@@ -49,7 +57,7 @@
         <div class = "secondBarContainer">
             <div class = "secondBar">
                 <div class = "rightDiv">
-                    <a href="login.php" style = "font-family:helvetica;">Logout</a>
+                    <a href="logoff.php" style = "font-family:helvetica;">Logout</a>
                 </div>
             </div>
         </div>
