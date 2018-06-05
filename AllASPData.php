@@ -1,12 +1,24 @@
 <?php
+    session_start();
+    require_once("nocache.php");
     require_once("db_connect.php");
-?>
 
+    $admin = null;
+
+    if (isset($_SESSION["user"])) {
+        if ($_SESSION["admin"] == true) {
+            $admin = true;
+        } else {
+            $admin = false;
+        }
+    } else {
+        header("location:Login.php");
+    }
+?>
 
 <!DOCTYPE html>
 <html lang="en">
     <head>
-
         <title>Viewing: All Data</title>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="CSS/styles.css">
@@ -57,11 +69,24 @@
                 <div class = 'row'>
                     <input type = 'checkbox' class = 'searchByCheckbox' name = 'column'><p class = 'searchBarText'>Filter by Search:</p>
                 </div>
-                <select name = 'filterBy' class = 'width-100' style = 'display:block; margin-bottom:6px;'>
-                    <option>Filter ID</option>
-                    <option>Post-Mass</option>
+                <select id = "filterBy" name = 'filterBy' class = 'width-100' style = 'display:block; margin-bottom:6px;' onchange = "FilterByChanged();">
+                    <option value = "FilterID">Filter ID</option>
+                    <option value = "Exposure">Exposure Date</option>
                 </select>
-                <input type = 'textbox' class = 'width-100 centeredItem' style = 'padding:3px;box-sizing: border-box;' placeholder = 'Search'>
+                <input id = "filterTextBox" type = 'textbox' class = 'width-100 centeredItem' style = 'padding:3px;box-sizing: border-box;' placeholder = 'Enter Filter ID'>
+                <div id = "exposureDiv" style = "display:none;">
+                    <div class = "strip">
+                        <p class = "whiteText" style = "width:20%;">From:</p>
+                        <input type = 'textbox' class = 'centeredItem' 
+                        style = 'padding:3px; width: 70%; display:inline-block;' placeholder = 'dd-mm-yy'>
+                    </div>
+                    <div class = "strip">
+                        <p class = "whiteText" style = "width:20%;">To:</p>
+                        <input type = 'textbox' class = 'centeredItem' 
+                        style = 'padding:3px; width: 70%; display:inline-block; margin-top:6px;' placeholder = 'dd-mm-yy'>
+                    </div>
+                </div>
+                    
                 <div class = 'filterSeparator'></div>
                 <!--By Columns-->
                 <div class = 'row'>
@@ -215,6 +240,19 @@ while ($row = mysqli_fetch_array($result)) {
             }
             function ViewGASFData () {
                 window.location.href = "AllGASFData.php";
+            }
+            function FilterByChanged () {
+                var filterBy = document.getElementById("filterBy");
+                var filterTB = document.getElementById("filterTextBox");
+                var exposureDiv = document.getElementById("exposureDiv");
+
+                if (filterBy.value == 'FilterID') {
+                    filterTB.style.display = "";
+                    exposureDiv.style.display = "none";
+                } else if (filterBy.value == 'Exposure'){
+                    filterTB.style.display = "none";
+                    exposureDiv.style.display = "";
+                };
             }
         </script>
         
