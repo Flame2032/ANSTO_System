@@ -4,10 +4,10 @@
     require_once("db_connect.php");
 
     $userQuery = mysqli_query($connection, "SELECT * FROM users");
-
+    echo "<ul class = 'errors'>";
     if(isset($_POST['userName'])){
         if ($_POST['userName'] == "") {
-            echo "+ Username Required";        
+            echo "<li>Username Required</li>";        
         } else {
             $userName = $_POST['userName'];
         }    
@@ -15,7 +15,7 @@
 
     if(isset($_POST['pass'])){
         $pass = $_POST['pass'];
-        //$pass = hash('sha256', $pass);
+        $pass = hash('sha256', $pass);
     }
 
     if (isset($userName) && isset($_POST['pass'])) {
@@ -48,12 +48,14 @@
             // Display error message for 
             // incorrect username or password
             if(!$existingUserName){
-                echo "+ Invalid Username";
+                echo "<li>Invalid Username</li>";
             } else {
-                echo "+ Incorrect Password";
+                echo "<li>Incorrect Password</li>";
             }
         }
     }
+
+    echo "</ul>";
 
     mysqli_close($connection);
 	

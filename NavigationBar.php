@@ -62,7 +62,7 @@
                         <i class="fa fa-caret-down"></i> 
                     </button>
                     <div class = "myDropdown-content">
-                        <a href="AllASPData.php">Create Account</a>
+                        <a href="ManageAccounts.php">Account Management</a>
                     </div>
                 </div>';
             } 
