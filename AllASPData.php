@@ -43,7 +43,7 @@
                 </button>
 
                 <div class = "rightDiv">
-                    <a href="login.php" style = "font-family:helvetica;">Logout</a>
+                    <a href="logoff.php" style = "font-family:helvetica;">Logout</a>
                 </div>
             </div>
         </div>

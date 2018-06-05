@@ -1,6 +1,20 @@
 <?php
+    session_start();
+    require_once("nocache.php");
     require_once("db_connect.php");
 
+    $admin = null;
+
+    if (isset($_SESSION["user"])) {
+        if ($_SESSION["admin"] == true) {
+            $admin = true;
+        } else {
+            $admin = false;
+        }
+    } else {
+        header("location:Login.php");
+    }
+    
     if (isset($_POST['wedDate'])) {
         $wedDate = $_POST['wedDate'];
         $wedDay = $_POST['wedDay'];
@@ -65,7 +79,7 @@
         <div class = "secondBarContainer">
             <div class = "secondBar">
                 <div class = "rightDiv">
-                    <a href="login.php" style = "font-family:helvetica;">Logout</a>
+                    <a href="logoff.php" style = "font-family:helvetica;">Logout</a>
                 </div>
             </div>
         </div>

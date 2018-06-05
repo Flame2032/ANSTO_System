@@ -109,9 +109,9 @@
                                 <div class = "col-4" style = "">
                                     <div class = "d-flex justify-content-between">
                                         <div class = "checkbox">
-                                            <label style = "color: white;"><input type = "checkbox" style = "margin-right:10px;">Remember Me</label>
+                                            <label  class = "vertically-aligned"style = "color: white; margin:0px; vertical-align:middle;"><input type = "checkbox" style = "margin-right:10px;">Remember Me</label>
                                         </div>
-                                        <button type = "submit" class = "btn btn-default">Confirm</button>
+                                        <button type = "submit" class = "btn-ansto">Confirm</button>
                                     </div>
                                 </div>
                             </div>
