@@ -31,7 +31,8 @@
         $name = $_GET['addName'];
         $pass = $_GET['addPass'];
         $pass = hash('sha256', $pass);
-        $addQuery = "INSERT INTO users (`userName`, `password`, `level`) VALUES ('".$name."', '".$pass."' ,'0')";
+        $level = $_GET['level'];
+        $addQuery = "INSERT INTO users (`userName`, `password`, `level`) VALUES ('".$name."', '".$pass."' ,'".$level."')";
         mysqli_query($connection, $addQuery);
         header("Refresh:0; url=ManageAccounts.php");
     }
@@ -129,7 +130,12 @@
                         <p class = "whiteText">Password: </p><input id = "pass" type = "password" class = "modernTextBox"
                         style = "display: block; width:130px; margin-bottom:10px;" required>
                         <p class = "whiteText">Confirm Password: </p><input id = "confirmPass" type = "password" class = "modernTextBox"
-                        style = "display: block; width:130px;" required>
+                        style = "display: block; width:130px; margin-bottom:10px;" required>
+                        <p class = "whiteText">Account Level:</p>
+                        <select id = "levelSelect" style = "display: block; width:130px;">
+                            <option value = "0">User</option>
+                            <option value = "1">Admin</option>
+                        </select>
                     </div>
                 </div>
                 
@@ -165,6 +171,7 @@
         var name = document.getElementById('newName').value;
         var pass = document.getElementById('pass').value;
         var confirmPass = document.getElementById('confirmPass').value;
+        var level = document.getElementById('levelSelect').value;
         // Validation
         if (name == "" || pass == "" || confirmPass == "" || pass != confirmPass) {
             valid = false;
@@ -183,7 +190,7 @@
         };
             
         if(valid){
-            window.location.href = "ManageAccounts.php?addName=" + name + "&addPass=" + pass;
+            window.location.href = "ManageAccounts.php?addName=" + name + "&addPass=" + pass + "&level=" + level;
         };
     }
 

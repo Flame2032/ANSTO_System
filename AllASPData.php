@@ -73,16 +73,16 @@
                     <option name="FilterID" value = "FilterID">Filter ID</option>
                     <option name="Exposure" value = "Exposure">Exposure Date</option>
                 </select>
-                <input id = "filterTextBox" type = 'textbox' class = 'width-100 centeredItem' style = 'padding:3px;box-sizing: border-box;' placeholder = 'Enter Filter ID'>
+                <input id = "filterTextBox" name = "filterTextBox" type = 'textbox' class = 'width-100 centeredItem' style = 'padding:3px;box-sizing: border-box;' placeholder = 'Enter Filter ID'>
                 <div id = "exposureDiv" style = "display:none;">
                     <div class = "strip">
                         <p class = "whiteText" style = "width:20%;">From:</p>
-                        <input type = 'textbox' class = 'centeredItem' 
+                        <input type = 'textbox' class = 'centeredItem' name = "fromDate"
                         style = 'padding:3px; width: 70%; display:inline-block;' placeholder = 'dd-mm-yy'>
                     </div>
                     <div class = "strip">
                         <p class = "whiteText" style = "width:20%;">To:</p>
-                        <input type = 'textbox' class = 'centeredItem' 
+                        <input type = 'textbox' class = 'centeredItem' name = "toDate"
                         style = 'padding:3px; width: 70%; display:inline-block; margin-top:6px;' placeholder = 'dd-mm-yy'>
                     </div>
                 </div>
@@ -171,7 +171,23 @@
             </form>
 			
         </div>
-              <?php
+        <?php
+
+        if (isset($_POST['filterBy'])) {
+            if($_POST['filterBy'] == "FilterID"){
+                // User has selected Filter ID from the dropdown
+                if (isset($_POST['filterTextBox'])) {
+                    echo "Filter ID entered was: ".$_POST['filterTextBox'];
+                }
+            } else {
+                // User has selected Exposure Code from the dropdown
+                if (isset($_POST['fromDate']) && $_POST['toDate'] != "") {
+                    echo "Display filters from:".$_POST['fromDate']." To:".$_POST['toDate'];
+                } else if(isset($_POST['fromDate'])) {
+                        echo "No 'To' date was entered. Display filters from ".$_POST['fromDate']." onwards.";    
+                }
+            }
+        }
                  
 if(isset($_POST['FilterID'])) {
  $filterTextBox = $_POST['filterTextBox'];

@@ -43,7 +43,7 @@
         $deleteAdmin = false;
         $getUser = mysqli_query($connection, "SELECT * FROM users WHERE usersID = $id");
         while ($row = mysqli_fetch_array($getUser)) {
-            if($row['level'] == '1'){
+            if($row['usersID'] == '1'){
                 // User tried to delete an admin account (don't allow)
                 $deleteAdmin = true;
             } else {
@@ -96,7 +96,7 @@
             }
             if (isset($_GET['delete'])) {
                 if($deleteAdmin){
-                    echo "<p>You cannot delete an admin account</p>";
+                    echo "<p>You cannot delete this account</p>";
                 }
             }
 
