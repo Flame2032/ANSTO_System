@@ -89,10 +89,10 @@
         <?php
             // Check whether GAS or ASP has been selected
             if($type == "ASP" && isset($_POST['site'])) {
-                $availableFiltersQueryResult = mysqli_query($connection, "SELECT * FROM asp WHERE Site = ''");
+                $availableFiltersQueryResult = mysqli_query($connection, "SELECT * FROM asp WHERE Site IS NULL");
             } else if ($type == "GAS" && isset($_POST['site'])) {
-                $availableGasCQueryResult = mysqli_query($connection, "SELECT * FROM gasc WHERE Site = ''");
-                $availableGasFQueryResult = mysqli_query($connection, "SELECT * FROM gasf WHERE Site = ''");
+                $availableGasCQueryResult = mysqli_query($connection, "SELECT * FROM gasc WHERE Site IS NULL");
+                $availableGasFQueryResult = mysqli_query($connection, "SELECT * FROM gasf WHERE Site IS NULL");
             }
             
             // ------------------------------ASP------------------------------
@@ -102,7 +102,7 @@
                 if($availableFilters >= (sizeof($sites)*2)) {
 
                     // Get the ID of the first filter with no exposure code
-                    $minIDQuery = "SELECT aspID FROM asp WHERE aspID =  ( SELECT MIN(aspID) FROM asp WHERE Site = '' )";
+                    $minIDQuery = "SELECT aspID FROM asp WHERE aspID =  ( SELECT MIN(aspID) FROM asp WHERE Site IS NULL )";
                     $minIDResult = mysqli_query($connection, $minIDQuery);
                     while ($row = mysqli_fetch_array($minIDResult)) {
                         $minID = $row['aspID'];
@@ -110,7 +110,7 @@
 
                     // Get 2 filters for each site that has been selected (1 for wed, 1 for sun)
                     for ($i=0; $i < (sizeof($sites)*2); $i++) { 
-                        $filtersQuery[$i] = "SELECT * FROM asp WHERE aspID =  ( SELECT MIN(aspID)+$i FROM asp WHERE Site = ''  )";
+                        $filtersQuery[$i] = "SELECT * FROM asp WHERE aspID =  ( SELECT MIN(aspID)+$i FROM asp WHERE Site IS NULL )";
                         $filtersResult[$i] = mysqli_query($connection, $filtersQuery[$i]);
                     }
 
@@ -208,7 +208,7 @@
                     
                     
                 }  else {
-                    echo '<div class = "container-ansto dynamic-content-700-570" style = "margin:10px 0px; width:500px;">';
+                    echo '<div class = "container-ansto fully-centered-known-size" style = "margin:10px 0px; width:500px;">';
                     echo "<p class = 'H190Width' style = 'font-size:20px;'>Not enough new filters available for allocation</p>";
                     echo '<input type = "button" class = "btn-ansto font-16 centeredItem" style = "margin-bottom:10px;"" onclick = "GoBack();" value = "Back">';
                 }
@@ -221,12 +221,12 @@
                 if($availableCFilters >= (sizeof($sites)*2) && $availableFFilters >= (sizeof($sites)*2)) {
 
                     // Get the ID of the first filter with no exposure code
-                    $minCIDQuery = "SELECT gasCID FROM gasc WHERE gasCID =  ( SELECT MIN(gasCID) FROM gasc WHERE Site = '' )";
+                    $minCIDQuery = "SELECT gasCID FROM gasc WHERE gasCID =  ( SELECT MIN(gasCID) FROM gasc WHERE Site IS NULL )";
                     $minCIDResult = mysqli_query($connection, $minCIDQuery);
                     while ($row = mysqli_fetch_array($minCIDResult)) {
                         $minCID = $row['gasCID'];
                     }
-                    $minFIDQuery = "SELECT gasFID FROM gasf WHERE gasFID =  ( SELECT MIN(gasFID) FROM gasf WHERE Site = '' )";
+                    $minFIDQuery = "SELECT gasFID FROM gasf WHERE gasFID =  ( SELECT MIN(gasFID) FROM gasf WHERE Site IS NULL )";
                     $minFIDResult = mysqli_query($connection, $minFIDQuery);
                     if ($minFIDResult) {
                         while ($row = mysqli_fetch_array($minFIDResult)) {
@@ -237,9 +237,9 @@
 
                     // Get 4 filters for each site that has been selected (G+C for wed, G+C for sun)
                     for ($i=0; $i < (sizeof($sites)*2); $i++) { 
-                        $CfiltersQuery[$i] = "SELECT * FROM gasc WHERE gasCID =  ( SELECT MIN(gasCID)+$i FROM gasc WHERE Site = ''  )";
+                        $CfiltersQuery[$i] = "SELECT * FROM gasc WHERE gasCID =  ( SELECT MIN(gasCID)+$i FROM gasc WHERE Site IS NULL  )";
                         $CfiltersResult[$i] = mysqli_query($connection, $CfiltersQuery[$i]);
-                        $FfiltersQuery[$i] = "SELECT * FROM gasf WHERE gasFID =  ( SELECT MIN(gasFID)+$i FROM gasf WHERE Site = ''  )";
+                        $FfiltersQuery[$i] = "SELECT * FROM gasf WHERE gasFID =  ( SELECT MIN(gasFID)+$i FROM gasf WHERE Site IS NULL  )";
                         $FfiltersResult[$i] = mysqli_query($connection, $FfiltersQuery[$i]);
                     }
 
@@ -392,13 +392,13 @@
                     
                     
                 }  else {
-                    echo '<div class = "container-ansto dynamic-content-700-570" style = "margin:10px 0px; width:500px;">';
+                    echo '<div class = "container-ansto fully-centered-known-size" style = "margin:10px 0px; width:500px;">';
                     echo "<p class = 'H190Width' style = 'font-size:20px;'>Not enough new filters available for allocation</p>";
                     echo '<input type = "button" class = "btn-ansto font-16 centeredItem" style = "margin-bottom:10px;"" onclick = "GoBack();" value = "Back">';
                 }
 
             } else {
-                echo '<div class = "container-ansto dynamic-content-700-570" style = "margin:10px 0px; width:500px;">';
+                echo '<div class = "container-ansto fully-centered-known-size" style = "margin:10px 0px; width:500px;">';
                 echo "<p class = 'H190Width'>You did not select any sites</p>";
                 echo '<input type = "button" class = "btn-ansto font-16 centeredItem" style = "margin-bottom:10px;"" onclick = "GoBack();" value = "Back">';
             }

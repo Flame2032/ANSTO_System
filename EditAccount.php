@@ -123,7 +123,7 @@
         ?>
 
         <!--Overview interface-->
-        <div id = "overViewDiv" class = "container-ansto centeredItem marginT-20" style = "padding:20px; display:;">
+        <div id = "overViewDiv" class = "container-ansto fully-centered-known-size marginT-20" style = "padding:20px; display:;">
             <p class = "H290Width" style = "margin-top:0px;"> Edit Account:</p>
                 
             <?php 
@@ -151,7 +151,7 @@
         </div>
 
         <!--Change Name interface-->
-        <div id = "editNameDiv" class = "container-ansto centeredItem marginT-20" style = "padding:20px; display:none;">
+        <div id = "editNameDiv" class = "container-ansto fully-centered-known-size marginT-20" style = "padding:20px; display:none;">
             <div class = "strip">
                 <p class = "H290Width" style = "margin-top:0px;">Edit Username</p>
                 <p class = "whiteText">New Username: </p><input class = "modernTextBox" type = "textbox" id = "newName" value = "<?php echo $userName ?>">
@@ -167,7 +167,7 @@
         </div>
 
         <!--Change Password interface-->
-        <div id = "changePassDiv" class = "container-ansto centeredItem marginT-20" style = "padding:20px; display:none; width:300px;">
+        <div id = "changePassDiv" class = "container-ansto fully-centered-known-size marginT-20" style = "padding:20px; display:none; width:300px;">
             <p class = "H290Width" style = "margin-top:0px;">Change Password</p>
             <form action = "EditAccount.php" method = "POST">
             <div class = "centeredContent">
@@ -193,7 +193,7 @@
         </div>
 
         <!-- Delete Account interface-->
-        <div id = "deleteAccountDiv" class = "container-ansto centeredItem marginT-20" style = "padding:20px; display:none; width: 600px;">
+        <div id = "deleteAccountDiv" class = "container-ansto fully-centered-known-size marginT-20" style = "padding:20px; display:none; width: 600px;">
             <h1 class = "H290Width" style = "margin-top:0px;">Are you sure you want to delete this account?</h1>
             <div class = "centeredContent">
                 <button class = "btn-ansto" onclick = "GoMenu();"

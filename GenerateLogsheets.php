@@ -64,7 +64,7 @@
             <input class = "btn-ASP-GAS"type = "button" onclick = "GoGAS();" value = "GAS">
         </div>
         
-        <div id = "Form" class = "container-ansto dynamic-content-700-570" style = "width:700px;">
+        <div id = "Form" class = "container-ansto fully-centered-known-size" style = "width:700px;">
             <!--Title-->
             <div class = "row">
                 <p class = "H190Width">Generate Logsheets</p>

@@ -71,7 +71,7 @@
         <div class = "navSpacer"></div>
 
         <!--Table interface-->
-        <div id = "tableContainer" class = "container-ansto centeredItem marginT-20" style = "padding:20px;">
+        <div id = "tableContainer" class = "container-ansto dynamic-content-700-570 marginT-20" style = "padding:20px;">
             <p class = "H290Width" style = "margin-top:0px;">Site List</p>
 
             <?php   
@@ -116,7 +116,7 @@
         </div>
 
         <!--Confirmation interface which is initially invisible-->
-        <div id = "confirmationContainer" class = "container-ansto centered-800-X marginT-20" style = " width:600px; display:none;">
+        <div id = "confirmationContainer" class = "container-ansto fully-centered-known-size marginT-20" style = " width:600px; display:none;">
             <h1 id = "confirmationMsg" class = "H290Width" style = "padding-top:20px;"></h1>
             
             <div class = "strip width-90">  
@@ -126,7 +126,7 @@
         </div>
 
         <!--Add a site interface which is also initially invisible-->
-        <div id = "addSiteContainer" class = "container-ansto centered-800-X marginT-20" style = " width:600px; display:none; padding-bottom:20px;">
+        <div id = "addSiteContainer" class = "container-ansto fully-centered-known-size marginT-20" style = " width:600px; display:none; padding-bottom:20px;">
             <h1 class = "H290Width" style = "padding-top:20px;">Add a new site</h1>
             <div class = "width-90">
                 <div class = "centeredContent">

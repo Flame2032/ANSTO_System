@@ -82,7 +82,7 @@
                 for ($i=0; $i < sizeof($sites); $i++) {
                     $ASPSite = $sites[$i];
                     $ASPQuery[$i] = mysqli_query($connection, "SELECT * FROM asp WHERE 
-                        (`PostDate` = '' OR `PostDate` IS NULL) AND 
+                        `PostDate` IS NULL AND 
                         `Site` = '$ASPSite' AND 
                         (`Exposure Day` = '$wedDay' OR `Exposure Day` = '$sunDay') AND 
                         (`Exposure Month` = '$wedMonth' OR `Exposure Month` = '$sunMonth') AND 
@@ -96,7 +96,7 @@
                 for ($i=0; $i < sizeof($sites); $i++) {
                     $GASSite = $sites[$i];
                     $GASCQuery[$i] = mysqli_query($connection, "SELECT * FROM gasc WHERE 
-                        (`PostDate` = '' OR `PostDate` IS NULL) AND 
+                        `PostDate` IS NULL AND 
                         `Site` = '$GASSite' AND 
                         (`Exposure Day` = '$wedDay' OR `Exposure Day` = '$sunDay') AND 
                         (`Exposure Month` = '$wedMonth' OR `Exposure Month` = '$sunMonth') AND 
@@ -105,7 +105,7 @@
                         $GASResultsFound = true;
                     }
                     $GASFQuery[$i] = mysqli_query($connection, "SELECT * FROM gasf WHERE 
-                        (`PostDate` = '' OR `PostDate` IS NULL) AND 
+                        `PostDate` IS NULL AND 
                         `Site` = '$GASSite' AND 
                         (`Exposure Day` = '$wedDay' OR `Exposure Day` = '$sunDay') AND 
                         (`Exposure Month` = '$wedMonth' OR `Exposure Month` = '$sunMonth') AND 
@@ -119,19 +119,19 @@
                 for ($i=0; $i < sizeof($sites); $i++) {
                     $site = $sites[$i];
                     $ASPUpdateQuery[$i] = mysqli_query($connection, "UPDATE asp SET `PostDate` = '$today' WHERE 
-                        (`PostDate` = '' OR `PostDate` IS NULL) AND 
+                        `PostDate` IS NULL AND 
                         `Site` = '$site' AND 
                         (`Exposure Day` = '$wedDay' OR `Exposure Day` = '$sunDay') AND 
                         (`Exposure Month` = '$wedMonth' OR `Exposure Month` = '$sunMonth') AND 
                         (`Exposure Year` = '$wedYear' OR `Exposure Year` = '$sunYear')");
                     $GASCUpdateQuery[$i] = mysqli_query($connection, "UPDATE gasc SET `PostDate` = '$today' WHERE 
-                        (`PostDate` = '' OR `PostDate` IS NULL) AND 
+                        `PostDate` IS NULL AND 
                         `Site` = '$site' AND 
                         (`Exposure Day` = '$wedDay' OR `Exposure Day` = '$sunDay') AND 
                         (`Exposure Month` = '$wedMonth' OR `Exposure Month` = '$sunMonth') AND 
                         (`Exposure Year` = '$wedYear' OR `Exposure Year` = '$sunYear')");
                     $GASFUpdateQuery[$i] = mysqli_query($connection, "UPDATE gasf SET `PostDate` = '$today' WHERE 
-                        (`PostDate` = '' OR `PostDate` IS NULL) AND 
+                        `PostDate` IS NULL AND 
                         `Site` = '$site' AND 
                         (`Exposure Day` = '$wedDay' OR `Exposure Day` = '$sunDay') AND 
                         (`Exposure Month` = '$wedMonth' OR `Exposure Month` = '$sunMonth') AND 
@@ -260,12 +260,12 @@
                     <input type = "button" class = "btn-ansto font-16 centeredItem" style = "margin-bottom:10px;"" onclick = "GoBack();" value = "Continue">
                     </div>';
                 } else if (sizeof($sites) > 0 && !$ASPResultsFound && !$GASResultsFound) {
-                    echo '<div class = "container-ansto dynamic-content-700-570" style = "margin:10px 0px; width:300px;">';
+                    echo '<div class = "container-ansto fully-centered-known-size" style = "margin:10px 0px; width:300px;">';
                     echo "<p class = 'H190Width'>No Results</p>";
                     echo '<input type = "button" class = "btn-ansto font-16 centeredItem" style = "margin-bottom:10px;"" onclick = "GoBack();" value = "Back">';
                 }
             } else {
-                echo '<div class = "container-ansto dynamic-content-700-570" style = "margin:10px 0px; width:500px;">';
+                echo '<div class = "container-ansto fully-centered-known-size" style = "margin:10px 0px; width:500px;">';
                 echo "<p class = 'H190Width'>You did not select any sites</p>";
                 echo '<input type = "button" class = "btn-ansto font-16 centeredItem" style = "margin-bottom:10px;"" onclick = "GoBack();" value = "Back">';
             }

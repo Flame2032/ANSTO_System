@@ -198,6 +198,31 @@ ul.errors {
 }
 
 /*Content Styles*/
+.fully-centered-height-unknown {
+    position: absolute;
+    left: 50%;
+    width: 400px;
+    top: 20%;
+    bottom:20%;
+    transform:translateX(-50%);
+}
+
+.fully-centered-all-unknown {
+    position: absolute;
+    left: 20%;
+    right: 20%;
+    top: 20%;
+    bottom:20%;
+    transform:translateX(-50%);
+}
+
+.fully-centered-known-size {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform:translate(-50%, -50%);
+}
+
 .centeredContent {
     display: table;
     margin: 0 auto;

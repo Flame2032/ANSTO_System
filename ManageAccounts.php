@@ -120,7 +120,7 @@
         </div>
 
         <!--Add a site interface which is also initially invisible-->
-        <div id = "addAccountContainer" class = "container-ansto centered-800-X marginT-20" style = " width:400px; display:none; padding-bottom:20px;">
+        <div id = "addAccountContainer" class = "container-ansto fully-centered-known-size marginT-20" style = " width:400px; display:none; padding-bottom:20px;">
             <h1 class = "H290Width" style = "padding-top:20px;">Create a new user account</h1>
             <div class = "width-90">
                 <div class = "centeredContent">

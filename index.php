@@ -64,7 +64,7 @@
         <!--Empty block so navbar doesn't overlap content-->
         <div class = "navSpacer"></div>
     
-        <div class = "container-ansto centeredItem marginT-20" style = "width:400px; padding:20px;">
+        <div class = "container-ansto fully-centered-known-size marginT-20" style = "width:400px; padding:20px;">
             <h1 class = "H190Width">Home</h1>
             <div class = "centeredItem">
                 <button class = "btn btn-ansto indexOption" onclick = "GoPrepFilters();">Prepare Filters</button>
