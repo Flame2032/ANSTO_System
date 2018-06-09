@@ -43,60 +43,7 @@
 
         ?>
 
-        <?php
-        ini_set('display errors', 1);
-        $table = 'gasc';
-        $found = 'Intensity Results';
-        //$result = array();
-        require_once("db_connect.php");
 
-        //This will allow user to select CSV file and submit to Table
-        if(isset($_POST['submit1'])){
-            $fname = $_FILES['select_file']['name'];
-            echo 'upload file name: '.$fname.' ';
-
-            $check_ext = explode(".",$fname);
-
-            //Validation that checks if file type is csv
-            if(strtolower(end($check_ext)) == "csv"){
-                $filename = $_FILES['select_file']['tmp_name'];
-                //Will open and read file with "r"
-                $handle = fopen($filename, "r");
-
-                $result =[];
-
-                $first = strtolower(fgets($handle, 4096));
-                $keys = str_getcsv($first);
-
-                while(($buffer = fgets($handle, 4096)) !== false){
-
-                    $array = str_getcsv($buffer);
-                    if(empty($array)) continue;
-
-                        $row = [];
-                        $i=0;
-
-                        foreach($keys as $key){
-                        $row[$key] = $array[$i];
-                        $i++;
-                        }
-                            $result[] = $row;
-                            print_r($result);
-
-                }
-                echo "!----successfully imported----!";
-                fclose($handle);
-                return $result;                                  
-                                                      
-            }
-                            
-             
-            else{
-                // Validation to prompt user that file has to be CSV
-                echo " --INVALID FILE, PLEASE SELECT CSV FILE-- ";
-                }
-       }
-        ?>
 
         <div class = "container-ansto centered-800-X marginT-20" style = "padding:20px;">
             <div class = "strip">
@@ -133,12 +80,66 @@
                 <?php
                     $currentDate = date('d-m-Y');
 
-                    $maxIDQuery = "SELECT * FROM asp WHERE ID = (SELECT MAX(aspID) FROM asp)";
-                    $maxIDResult = mysqli_query($connection, $maxIDQuery);
-                    //while ($row = mysqli_fetch_array($maxIDResult)){
-                       //$maxID = $row['aspID'];
-                    //}
+                    ini_set('display errors', 1);
+                    $table = 'gasc';
+                    $found = 'Intensity Results';
+                    //$result = array();
+                    require_once("db_connect.php");
 
+                    //This will allow user to select CSV file and submit to Table
+                    if(isset($_POST['submit2'])){
+                    $fname = $_FILES['select_file']['name'];
+                    echo 'upload file name: '.$fname.' ';
+
+                    $check_ext = explode(".",$fname);
+
+                    //Validation that checks if file type is csv
+                    if(strtolower(end($check_ext)) == "csv"){
+                    $filename = $_FILES['select_file']['tmp_name'];
+                    //Will open and read file with "r"
+                    $handle = fopen($filename, "r");
+
+                    $result =[];
+
+                    $first = strtolower(fgets($handle, 4096));
+                    $keys = str_getcsv($first);
+
+                    while(($buffer = fgets($handle, 4096)) !== false){
+
+                    $array = str_getcsv($buffer);
+                    if(empty($array)) continue;
+
+                        $row = [];
+                        $i=0;
+
+                        foreach($keys as $key){
+                        $row[$key] = $array[$i];
+                        $i++;
+                        }
+                            $result[] = $row;
+                            //print_r($result);
+
+
+                    }
+                    echo "!----successfully imported----!";
+                    fclose($handle);
+                    return $result;
+
+
+                                                      
+                    }
+                            
+             
+                    else{
+                    // Validation to prompt user that file has to be CSV
+                    echo " --INVALID FILE, PLEASE SELECT CSV FILE-- ";
+                        }
+                    }
+
+
+
+
+                    //************************* This will input the row number of user input ******************************
                     if (isset($_POST['number'])) {
                         for ($i=0; $i < $number; $i++) { 
 
@@ -160,10 +161,10 @@
                     }
                     
 
-                    if(isset($_POST['$buffer'])){
+                    if(isset($_POST['number'])){
                         for ($j=0; $j < sizeof($number); $j++) { 
                         # code...
-                        echo "hello";
+                        //echo "hello";
                         }
                     }
 
