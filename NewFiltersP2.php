@@ -15,7 +15,7 @@
             });
 
             function uploadCSV() {
-                window.alert ("User will be able to select a CSV file from their local drive Hello!");
+                window.alert ("User will be able to select a CSV file from their local drive");
             }
         </script>
 
@@ -29,7 +29,7 @@
             <div class = "secondBar">
                 <a href="NewFilters.php" style = "font-family:helvetica;">Back</a>
                 <div class = "rightDiv">
-                    <a href="logoff.php" style = "font-family:helvetica;">Logout</a>
+                    <a href="login.php" style = "font-family:helvetica;">Logout</a>
                 </div>
             </div>
         </div>
@@ -37,15 +37,83 @@
         <div class = "navSpacer"></div>
 
         <?php
-            $number = $_POST['number'];
+            if (isset($_POST['number'])) {
+                $number = $_POST['number'];
+            }
+
+        ?>
+
+        <?php
+        ini_set('display errors', 1);
+        $table = 'gasc';
+        $found = 'Intensity Results';
+        //$result = array();
+        require_once("db_connect.php");
+
+        //This will allow user to select CSV file and submit to Table
+        if(isset($_POST['submit1'])){
+            $fname = $_FILES['select_file']['name'];
+            echo 'upload file name: '.$fname.' ';
+
+            $check_ext = explode(".",$fname);
+
+            //Validation that checks if file type is csv
+            if(strtolower(end($check_ext)) == "csv"){
+                $filename = $_FILES['select_file']['tmp_name'];
+                //Will open and read file with "r"
+                $handle = fopen($filename, "r");
+
+                $result =[];
+
+                $first = strtolower(fgets($handle, 4096));
+                $keys = str_getcsv($first);
+
+                while(($buffer = fgets($handle, 4096)) !== false){
+
+                    $array = str_getcsv($buffer);
+                    if(empty($array)) continue;
+
+                        $row = [];
+                        $i=0;
+
+                        foreach($keys as $key){
+                        $row[$key] = $array[$i];
+                        $i++;
+                        }
+                            $result[] = $row;
+                            print_r($result);
+
+                }
+                echo "!----successfully imported----!";
+                fclose($handle);
+                return $result;                                  
+                                                      
+            }
+                            
+             
+            else{
+                // Validation to prompt user that file has to be CSV
+                echo " --INVALID FILE, PLEASE SELECT CSV FILE-- ";
+                }
+       }
         ?>
 
         <div class = "container-ansto centered-800-X marginT-20" style = "padding:20px;">
             <div class = "strip">
                 <h2 class = "H290Width-left"> <?php echo ($number); ?> Pre-Analysis filter entries have been generated</h2>
                 <button class = "btn-ansto font-16 floatRight" style = "padding:10px;" onclick = "uploadCSV()">Import MABI</button>
+
+                    <!-- This is for selection of CSV file with browse button 
+                    Once the user selects the file they will need to press submit to add csv data to table -->
+                    <form action='<?php echo $_SERVER["PHP_SELF"];?>' method='post' enctype="multipart/form-data">
+                        <input type='file' name='select_file' size='20' >
+                        <input type='submit' name='submit1' value='submit'>
+                        <button type = 'submit' name=submit2' value='submit'>Confirm</button>
+                    </form>
+
             </div>
             
+            <!-- Table will allow user to manually input data for Pre Mass and will output data from CSV file -->
             <table>
                 <tr>
                     <th class = "staticData columnTitle">ID</th>
@@ -63,6 +131,13 @@
 
                 <?php
                     $currentDate = date('d-m-Y');
+
+                    $maxIDQuery = "SELECT * FROM asp WHERE ID = (SELECT MAX(aspID) FROM asp)";
+                    $maxIDResult = mysqli_query($connection, $maxIDQuery);
+                    //while ($row = mysqli_fetch_array($maxIDResult)){
+                       //$maxID = $row['aspID'];
+                    //}
+
                     for ($i=0; $i < $number; $i++) { 
 
                         echo 
@@ -80,8 +155,19 @@
                             <th class = 'staticData'>--</th>
                         </tr>";
                     }
+                    
+
+                    if(isset($_POST['$buffer'])){
+                        for ($j=0; $j < sizeof($number); $j++) { 
+                        # code...
+                        echo "hello";
+                        }
+                    }
+
                 ?>
+
             </table>
+
             <div class = "bottomStrip">
                 <form action = "PreData.html">
                     <input class = "btn-ansto font-16 floatRight" type = "submit" value = "Save to Database" style = "height:35px; margin-top:5px;"></input>
