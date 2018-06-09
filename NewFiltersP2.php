@@ -33,7 +33,7 @@
                 </div>
             </div>
         </div>
-        <!--Empty block so navbar doesn't overlap content-->
+        <!--Empty block so navbar doesn't overlap contents-->
         <div class = "navSpacer"></div>
 
         <?php
