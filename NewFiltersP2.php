@@ -138,22 +138,24 @@
                        //$maxID = $row['aspID'];
                     //}
 
-                    for ($i=0; $i < $number; $i++) { 
+                    if (isset($_POST['number'])) {
+                        for ($i=0; $i < $number; $i++) { 
 
-                        echo 
-                        "<tr>
-                            <th class = 'staticData'>$i</th>
-                            <th><input type = 'text' class = 'dbTextbox'></input></th>
-                            <th class = 'staticData'>--</th>
-                            <th class = 'staticData'>--</th>
-                            <th class = 'staticData'>--</th>
-                            <th class = 'staticData'>--</th>
-                            <th class = 'staticData'>--</th>
-                            <th class = 'staticData'>--</th>
-                            <th class = 'staticData'>--</th>
-                            <th class = 'staticData'>--</th>
-                            <th class = 'staticData'>--</th>
-                        </tr>";
+                            echo 
+                            "<tr>
+                                <th class = 'staticData'>$i</th>
+                                <th><input type = 'text' class = 'dbTextbox'></input></th>
+                                <th class = 'staticData'>--</th>
+                                <th class = 'staticData'>--</th>
+                                <th class = 'staticData'>--</th>
+                                <th class = 'staticData'>--</th>
+                                <th class = 'staticData'>--</th>
+                                <th class = 'staticData'>--</th>
+                                <th class = 'staticData'>--</th>
+                                <th class = 'staticData'>--</th>
+                                <th class = 'staticData'>--</th>
+                            </tr>";
+                        }
                     }
                     
 
