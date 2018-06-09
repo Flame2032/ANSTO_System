@@ -29,7 +29,7 @@
             <div class = "secondBar">
                 <a href="NewFilters.php" style = "font-family:helvetica;">Back</a>
                 <div class = "rightDiv">
-                    <a href="login.php" style = "font-family:helvetica;">Logout</a>
+                    <a href="logoff.php" style = "font-family:helvetica;">Logout</a>
                 </div>
             </div>
         </div>

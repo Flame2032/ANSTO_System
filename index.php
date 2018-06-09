@@ -1,10 +1,18 @@
 <?php
-    // Check if session is available
 	session_start();
-		if (isset($_SESSION['cuser'])){
-	$cuser=$_SESSION['cuser'];
-	$type=$_SESSION['type'];
-	}
+    require_once("nocache.php");
+
+    $admin = null;
+
+	if (isset($_SESSION["user"])) {
+        if ($_SESSION["admin"] == true) {
+            $admin = true;
+        } else {
+            $admin = false;
+        }
+    } else {
+        header("location:Login.php");
+    }
 ?>
 
 <!DOCTYPE html>
@@ -49,14 +57,14 @@
         <div class = "secondBarContainer">
             <div class = "secondBar">
                 <div class = "rightDiv">
-                    <a href="login.php" style = "font-family:helvetica;">Logout</a>
+                    <a href="logoff.php" style = "font-family:helvetica;">Logout</a>
                 </div>
             </div>
         </div>
         <!--Empty block so navbar doesn't overlap content-->
         <div class = "navSpacer"></div>
     
-        <div class = "container-ansto centeredItem marginT-20" style = "width:400px; padding:20px;">
+        <div class = "container-ansto fully-centered-known-size marginT-20" style = "width:400px; padding:20px;">
             <h1 class = "H190Width">Home</h1>
             <div class = "centeredItem">
                 <button class = "btn btn-ansto indexOption" onclick = "GoPrepFilters();">Prepare Filters</button>

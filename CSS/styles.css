@@ -121,6 +121,10 @@
     color: #0000EE;
 }
 
+ul.errors {
+    color: red;
+}
+
 .rightDiv {
     display: inline-block;
     float: right;
@@ -194,6 +198,31 @@
 }
 
 /*Content Styles*/
+.fully-centered-height-unknown {
+    position: absolute;
+    left: 50%;
+    width: 400px;
+    top: 20%;
+    bottom:20%;
+    transform:translateX(-50%);
+}
+
+.fully-centered-all-unknown {
+    position: absolute;
+    left: 20%;
+    right: 20%;
+    top: 20%;
+    bottom:20%;
+    transform:translateX(-50%);
+}
+
+.fully-centered-known-size {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform:translate(-50%, -50%);
+}
+
 .centeredContent {
     display: table;
     margin: 0 auto;
@@ -438,6 +467,28 @@ input[type="checkbox"] {
 .btn-ASP-GAS:hover {
     background-color: #0079c0;
     color: white;
+    cursor: pointer;
+}
+
+.modernTextBox {
+    padding: 5px;
+    border-radius: 5px;
+    border-style: none;
+}
+
+.btn-blue-white {
+    background-color: #0079c0;
+    color: white;
+    font-size: 25px;
+    border-style: none;
+    border-radius: 15px;
+    border: 3px solid white;
+    display: inline-block;
+}
+
+.btn-blue-white:hover {
+    background-color: white;
+    color: #0079c0;
     cursor: pointer;
 }
 

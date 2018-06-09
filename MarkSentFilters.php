@@ -1,5 +1,19 @@
 <?php
+    session_start();
+    require_once("nocache.php");
     require_once("db_connect.php");
+
+    $admin = null;
+
+    if (isset($_SESSION["user"])) {
+        if ($_SESSION["admin"] == true) {
+            $admin = true;
+        } else {
+            $admin = false;
+        }
+    } else {
+        header("location:Login.php");
+    }
 
     $Sitequery = 'SELECT * FROM sites';
     $SiteResult = mysqli_query($connection, $Sitequery);
@@ -30,14 +44,14 @@
         <div class = "secondBarContainer">
             <div class = "secondBar">
                 <div class = "rightDiv">
-                    <a href="login.php" style = "font-family:helvetica;">Logout</a>
+                    <a href="logoff.php" style = "font-family:helvetica;">Logout</a>
                 </div>
             </div>
         </div>
         <!--Empty block so navbar doesn't overlap content-->
         <div class = "navSpacer"></div>
         
-        <div id = "Form" class = "container-ansto dynamic-content-700-570" style = "width:700px;">
+        <div id = "Form" class = "container-ansto fully-centered-known-size" style = "width:700px;">
             <!--Title-->
             <div class = "row">
                 <p class = "H190Width">Mark Filters as Sent</p>

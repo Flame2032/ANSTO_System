@@ -1,3 +1,18 @@
+<?php
+    session_start();
+    require_once("nocache.php");
+
+    $admin = null;
+
+    if (isset($_SESSION["user"])) {
+        if ($_SESSION["admin"] == true) {
+            $admin = true;
+        } else {
+            $admin = false;
+        }
+    }
+?>
+
 <script type="text/javascript">
     function GoHome () {
         window.location.href = "index.php";
@@ -39,5 +54,18 @@
                 <a href="ReturnedLogsheets.php">Edit Returned Logsheets</a>
             </div>
         </div>
+        <?php 
+            if ($_SESSION["admin"]) {
+                echo '
+                <div class = "myDropdown">
+                    <button class = "myDropbtn">Management
+                        <i class="fa fa-caret-down"></i> 
+                    </button>
+                    <div class = "myDropdown-content">
+                        <a href="ManageAccounts.php">Account Management</a>
+                    </div>
+                </div>';
+            } 
+        ?>
     </div>
 </div> 
