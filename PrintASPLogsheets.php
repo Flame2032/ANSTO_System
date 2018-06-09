@@ -69,8 +69,12 @@
                 src:url('CSS/Code_128/Code128.woff') format('woff'),
                     url('CSS/Code_128/Code128.woff2') format('woff2');
             }
+            .OFF {
+                margin: 200px 0px 0px 885px;
+                width: 1000px;
+            }
             .barcodeY {
-                margin: 120px 0px 0px 285px;
+                margin: 118px 0px 0px 285px;
             }
             .IDY {
                 margin: 135px 0px 0px 340px;
@@ -78,7 +82,7 @@
 				text-align:center;
             }
             .barcodeR {
-                margin: 175px 0px 0px 285px;
+                margin: 174px 0px 0px 285px;
             }
             .IDR {
                 margin: 190px 0px 0px 340px;
@@ -198,18 +202,25 @@
                 while ($row = mysqli_fetch_array($filterResult[$i])) {
                     // Get date in AUS format
                     $date = $row['Exposure Day'].'-'.$row['Exposure Month'].'-'.$row['Exposure Year'];
-                    QRcode::png($row['aspID'], 'GeneratedCodes/qrCode'.$i.'.png', QR_ECLEVEL_L, 2, 1);
+                    $qrString = $row['aspID'].' | '.$row['Site'].' '.$date.' '.$row['Type'].' | Wt '.round($row['Pre Filter Mass'],3).
+                    ' | LA '.round($row['Pre Laser'],3).' | MABI '.round($row['I0 (405)'],3).' '.round($row['I0 (465)'],3).' '.round($row['I0 (525)'],3).' '
+                    .round($row['I0 (639)'],3).' '.round($row['I0 (870)'],3).' '.round($row['I0 (940)'],3).' '.round($row['I0 (1050)'],3);
+                    QRcode::png($qrString, 'GeneratedCodes/qrCode'.$i.'.png', QR_ECLEVEL_L, 1.3, 1);
                     echo '
                     <img class = "logsheetText barcodeY" style="-webkit-user-select: none;" src="GeneratedCodes/qrCode'.$i.'.png">
                     <input type = "text" class = "logsheetText IDY" value = "'.$row['aspID'].'" readonly>
                     <input type = "text" class = "logsheetText field1" value = "'.$row['Site'].' '.$date.' '.$row['Type'].'" readonly>
                     <input type = "text" class = "logsheetText field3" value = "'.$row['Pre Filter Mass'].'" readonly>
                     <input type = "text" class = "logsheetText field5" value = "'.$row['Pre Laser'].'" readonly>';
+
                 } 
                 while ($row = mysqli_fetch_array($filterResult[$i+1])) {
                     // Get date in AUS format
                     $date = $row['Exposure Day'].'-'.$row['Exposure Month'].'-'.$row['Exposure Year'];
-                    QRcode::png($row['aspID'], 'GeneratedCodes/qrCode'.($i+1).'.png', QR_ECLEVEL_L, 2, 1);
+                    $qrString = $row['aspID'].' | '.$row['Site'].' '.$date.' '.$row['Type'].' | Wt '.round($row['Pre Filter Mass'],3).
+                    ' | LA '.round($row['Pre Laser'],3).' | MABI '.round($row['I0 (405)'],3).' '.round($row['I0 (465)'],3).' '.round($row['I0 (525)'],3).' '
+                    .round($row['I0 (639)'],3).' '.round($row['I0 (870)'],3).' '.round($row['I0 (940)'],3).' '.round($row['I0 (1050)'],3);
+                    QRcode::png($qrString, 'GeneratedCodes/qrCode'.($i+1).'.png', QR_ECLEVEL_L, 1.3, 1);
                     echo '
                     <img class = "logsheetText barcodeR" style="-webkit-user-select: none;" src="GeneratedCodes/qrCode'.($i+1).'.png">
                     <input type = "text" class = "logsheetText IDR" value = "'.$row['aspID'].'" readonly>
