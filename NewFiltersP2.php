@@ -106,9 +106,10 @@
                     <!-- This is for selection of CSV file with browse button 
                     Once the user selects the file they will need to press submit to add csv data to table -->
                     <form action='<?php echo $_SERVER["PHP_SELF"];?>' method='post' enctype="multipart/form-data">
+                        <input type = 'hidden' name = 'number' value = '<?php echo ($number); ?>'>
                         <input type='file' name='select_file' size='20' >
                         <input type='submit' name='submit1' value='submit'>
-                        <button type = 'submit' name=submit2' value='submit'>Confirm</button>
+                        <button type = 'submit' name='submit2' value='submit'>Confirm</button>
                     </form>
 
             </div>
