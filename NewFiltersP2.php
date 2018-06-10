@@ -78,6 +78,37 @@
                 </tr>
 
                 <?php
+
+
+                    //************************* This will input the row num of user input ******************************
+                    if (isset($_POST['number'])) {
+                        for ($i=0; $i < $number; $i++) { 
+
+                            echo 
+                            "<tr>
+                                <th class = 'staticData'>$i</th>
+                                <th><input type = 'text' class = 'dbTextbox'></input></th>
+                                <th class = 'staticData'>--</th>
+                                <th class = 'staticData'>--</th>
+                                <th class = 'staticData'>--</th>
+                                <th class = 'staticData'>--</th>
+                                <th class = 'staticData'>--</th>
+                                <th class = 'staticData'>--</th>
+                                <th class = 'staticData'>--</th>
+                                <th class = 'staticData'>--</th>
+                                <th class = 'staticData'>--</th>
+                            </tr>";
+                        }
+                    }
+                    
+
+                    if(isset($_POST['number'])){
+                        for ($j=0; $j < sizeof($number); $j++) { 
+                        # code...
+                        echo "hello";
+                        }
+                    }
+
                     $currentDate = date('d-m-Y');
 
                     ini_set('display errors', 1);
@@ -133,38 +164,6 @@
                     else{
                     // Validation to prompt user that file has to be CSV
                     echo " --INVALID FILE, PLEASE SELECT CSV FILE-- ";
-                        }
-                    }
-
-
-
-
-                    //************************* This will input the row number of user input ******************************
-                    if (isset($_POST['number'])) {
-                        for ($i=0; $i < $number; $i++) { 
-
-                            echo 
-                            "<tr>
-                                <th class = 'staticData'>$i</th>
-                                <th><input type = 'text' class = 'dbTextbox'></input></th>
-                                <th class = 'staticData'>--</th>
-                                <th class = 'staticData'>--</th>
-                                <th class = 'staticData'>--</th>
-                                <th class = 'staticData'>--</th>
-                                <th class = 'staticData'>--</th>
-                                <th class = 'staticData'>--</th>
-                                <th class = 'staticData'>--</th>
-                                <th class = 'staticData'>--</th>
-                                <th class = 'staticData'>--</th>
-                            </tr>";
-                        }
-                    }
-                    
-
-                    if(isset($_POST['number'])){
-                        for ($j=0; $j < sizeof($number); $j++) { 
-                        # code...
-                        //echo "hello";
                         }
                     }
 
