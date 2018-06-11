@@ -415,6 +415,4 @@
     }
 </script>
 
-<?php
-mysqli_close($connection)
-?>
+<?php mysqli_close($connection) ?>
