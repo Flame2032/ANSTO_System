@@ -87,41 +87,43 @@ require_once("db_connect.php");
                     fclose($handle);
             }
                     //**********************************************TEST THIS SHIT*********************************************
-                    echo '<table class = "staticData columnTitle">';
+                    echo '<table>';
                         echo
                         "<tr>
-                            <th>ID</th>
-                            <th>Pre Mass</th>
-                            <th>Pre Laser</th>
-                            <th>Type</th>
-                            <th>l<sub>0</sub>(405)</th>
-                            <th>l<sub>0</sub>(465)</th>
-                            <th>l<sub>0</sub>(525)</th>
-                            <th>l<sub>0</sub>(639)</th>
-                            <th>l<sub>0</sub>(870)</th>
-                            <th>l<sub>0</sub>(940)</th>
-                            <th>l<sub>0</sub>(1050)</th>
+                            <th class = 'staticData columnTitle'>ID</th>
+                            <th class = 'staticData columnTitle'>Pre Mass</th>
+                            <th class = 'staticData columnTitle'>Pre Laser</th>
+                            <th class = 'staticData columnTitle'>Type</th>
+                            <th class = 'staticData columnTitle'>l<sub>0</sub>(405)</th>
+                            <th class = 'staticData columnTitle'>l<sub>0</sub>(465)</th>
+                            <th class = 'staticData columnTitle'>l<sub>0</sub>(525)</th>
+                            <th class = 'staticData columnTitle'>l<sub>0</sub>(639)</th>
+                            <th class = 'staticData columnTitle'>l<sub>0</sub>(870)</th>
+                            <th class = 'staticData columnTitle'>l<sub>0</sub>(940)</th>
+                            <th class = 'staticData columnTitle'>l<sub>0</sub>(1050)</th>
                         </tr>";
 
                     //print_r($results);
                     foreach ($results as $row){
                         echo 
                         "<tr>
-                          <td>" . $row['Sample'] . "</td>
+                          <td class = 'staticData'>" . $row['Sample'] . "</td>
                           <td><input type = 'text' class = 'dbTextbox'></input></td>
-                          <td>" . $row['Sample'] . "</td>
-                          <td>" . $row['Type'] . "</td>
-                          <td>" . $row['Sample'] . "</td>
-                          <td>" . $row['Sample'] . "</td>
-                          <td>" . $row['Sample'] . "</td>
-                          <td>" . $row['Sample'] . "</td>
-                          <td>" . $row['Sample'] . "</td>
-                          <td>" . $row['Sample'] . "</td>
-                          <td>" . $row['Sample'] . "</td>
+                          <td class = 'staticData'>" . $row['Sample'] . "</td>
+                          <td class = 'staticData'>" . $row['Type'] . "</td>
+                          <td class = 'staticData'>" . $row['Sample'] . "</td>
+                          <td class = 'staticData'>" . $row['Sample'] . "</td>
+                          <td class = 'staticData'>" . $row['Sample'] . "</td>
+                          <td class = 'staticData'>" . $row['Sample'] . "</td>
+                          <td class = 'staticData'>" . $row['Sample'] . "</td>
+                          <td class = 'staticData'>" . $row['Sample'] . "</td>
+                          <td class = 'staticData'>" . $row['Sample'] . "</td>
                         </tr>";
                     }
-                    return $results;                              
+                    return $results;
+
                 }
+
 
             //***********************************TEST*********************************
 
@@ -129,6 +131,7 @@ require_once("db_connect.php");
                 // Validation to prompt user that file has to be CSV file type
                 echo " Invalid file, please select a csv file! ";
                 }
+
         }
         ?>
 
@@ -144,90 +147,92 @@ require_once("db_connect.php");
                         <input type = 'hidden' name = 'number' value = '<?php echo ($number); ?>'>
                         <input class = "btn-ansto font-16 floatLeft" style = "padding:10px;" type='file' name='select_file' size='20' >
                        <!-- <input type='submit' name='submit1' value='submit'> -->
+                       <?php
+                        if (isset($_POST['submit2'])) {
+                            echo '<button class = "btn-ansto font-16 floatRight" style = "padding:10px;margin-left:10px;" onclick = "UpdateDatabase();" style = "height:35px; margin-top:5px;">Save to Database</button>';
+                        }
+                        ?>
                         <button class = "btn-ansto font-16 floatRight" style = "padding:10px;" type = 'submit' name='submit2' value='submit'>Import MABI</button>
+                        
                     </form>
+                    
 
             </div>
             
             <!-- Table will allow user to manually input data for Pre Mass and will output data from CSV file -->
-            <table>
-                <tr>
-                    <th class = "staticData columnTitle">ID</th>
-                    <th class = "staticData columnTitle">Pre Mass</th>
-                    <th class = "staticData columnTitle">Pre Laser</th>
-                    <th class = "staticData columnTitle">Type</th>
-                    <th class = "staticData columnTitle">l<sub>0</sub>(405)</th>
-                    <th class = "staticData columnTitle">l<sub>0</sub>(465)</th>
-                    <th class = "staticData columnTitle">l<sub>0</sub>(525)</th>
-                    <th class = "staticData columnTitle">l<sub>0</sub>(639)</th>
-                    <th class = "staticData columnTitle">l<sub>0</sub>(870)</th>
-                    <th class = "staticData columnTitle">l<sub>0</sub>(940)</th>
-                    <th class = "staticData columnTitle">l<sub>0</sub>(1050)</th>
-                </tr>
+            
+            <?php
+            if (!isset($_POST['submit2'])) {
+                echo '
+                <table>
+                    <tr>
+                        <th class = "staticData columnTitle">ID</th>
+                        <th class = "staticData columnTitle">Pre Mass</th>
+                        <th class = "staticData columnTitle">Pre Laser</th>
+                        <th class = "staticData columnTitle">Type</th>
+                        <th class = "staticData columnTitle">l<sub>0</sub>(405)</th>
+                        <th class = "staticData columnTitle">l<sub>0</sub>(465)</th>
+                        <th class = "staticData columnTitle">l<sub>0</sub>(525)</th>
+                        <th class = "staticData columnTitle">l<sub>0</sub>(639)</th>
+                        <th class = "staticData columnTitle">l<sub>0</sub>(870)</th>
+                        <th class = "staticData columnTitle">l<sub>0</sub>(940)</th>
+                        <th class = "staticData columnTitle">l<sub>0</sub>(1050)</th>
+                    </tr>';
 
-                <?php
 
-                    //************************* Check Filter Type selected from previous page ******************************
-                    $currentDate = date('d-m-Y'); 
-                    $SelectASP = false;
-                    $SelectGASC = false;
-                    $SelectGASF = false;
+                    for ($i=0; $i < $number; $i++) { 
 
-                    if($number == "ASP" && isset($_POST['number'])) {
-                    $SelectASP = mysqli_query($connection, "SELECT * FROM asp");
-                    } else if ($number == "GAS" && isset($_POST['number'])) {
-                    $SelectGASC = mysqli_query($connection, "SELECT * FROM gasc");
-                    $SelectGASF = mysqli_query($connection, "SELECT * FROM gasf");
-            }
-                           
-                    
-                    
-                ?>
+                        echo 
+
+                        "<tr>
+                            <th class = 'staticData'>$i</th>
+                            <th><input type = 'text' class = 'dbTextbox'></input></th>
+                            <th class = 'staticData'>--</th>
+                            <th class = 'staticData'>--</th>
+                            <th class = 'staticData'>--</th>
+                            <th class = 'staticData'>--</th>
+                            <th class = 'staticData'>--</th>
+                            <th class = 'staticData'>--</th>
+                            <th class = 'staticData'>--</th>
+                            <th class = 'staticData'>--</th>
+                            <th class = 'staticData'>--</th>
+                        </tr>";
+                    }
+                } 
+
+                //************************* Check Filter Type selected from previous page ******************************
+                $currentDate = date('d-m-Y'); 
+                $SelectASP = false;
+                $SelectGASC = false;
+                $SelectGASF = false;
+
+                if($number == "ASP" && isset($_POST['number'])) {
+                $SelectASP = mysqli_query($connection, "SELECT * FROM asp");
+                } else if ($number == "GAS" && isset($_POST['number'])) {
+                $SelectGASC = mysqli_query($connection, "SELECT * FROM gasc");
+                $SelectGASF = mysqli_query($connection, "SELECT * FROM gasf");
+            echo "</table>";}  
+            ?>
                 
-            </table>
+            
 
             <?php
-                    //************************************ CSV FILE HANDLE ********************************************** 
-                    ini_set('display errors', 1);
-                    $table = 'gasc';
-                    $found = 'Intensity Results';
+                //************************************ CSV FILE HANDLE ********************************************** 
+                ini_set('display errors', 1);
+                $table = 'gasc';
+                $found = 'Intensity Results';
 
-    
-                    //This will allow user to select CSV file and submit to Table
-                    if(isset($_POST['submit2'])){
-                    csvImport();
-                    
-                    }
-                    if (isset($_POST['submit2'])) {
-                        for ($i=0; $i < $number; $i++) { 
 
-                            echo 
-
-                            "<tr>
-                                <th class = 'staticData'>$i</th>
-                                <th><input type = 'text' class = 'dbTextbox'></input></th>
-                                <th class = 'staticData'>--</th>
-                                <th class = 'staticData'>--</th>
-                                <th class = 'staticData'>--</th>
-                                <th class = 'staticData'>--</th>
-                                <th class = 'staticData'>--</th>
-                                <th class = 'staticData'>--</th>
-                                <th class = 'staticData'>--</th>
-                                <th class = 'staticData'>--</th>
-                                <th class = 'staticData'>--</th>
-                            </tr>";
-                        }
-                    } 
-
+                //This will allow user to select CSV file and submit to Table
+                if(isset($_POST['submit2'])){
+                csvImport();
+                
+                }
             ?>
 
 
 
-            <div class = "bottomStrip">
-                <form action = "PreData.html">
-                    <input class = "btn-ansto font-16 floatRight" type = "submit" value = "Save to Database" style = "height:35px; margin-top:5px;"></input>
-                </form>
-            </div>
+            
         </div>  
     </body>
 </html>
