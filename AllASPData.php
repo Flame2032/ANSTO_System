@@ -132,33 +132,13 @@
           <input type = 'checkbox' name="filter[]" value ="`I (940)`"/>I (940)<br>
           <input type = 'checkbox' name="filter[]" value ="`I (1050)`"/>I (1050)<br>
         </div>
-        <div class = 'filterSeparator'></div>
-		
         
-        		  <div class = 'filterSeparator'></div>
-        <div class = 'row'>
-          <input type = 'checkbox' class = 'searchByCheckbox' name = 'sitecolumn'>
-          <p class = 'searchBarText'>By Site:</p>
-        </div>
-        <div class = 'container-white'>
-          <input type="checkbox" name="site[]" value ="`ASP-01`"/>Lucas Heights (ASP-01)<br>
-          <input type = 'checkbox' name="site[]" value ="`ASP-08`"/>Warrawong (ASP-08)<br>
-          <input type = 'checkbox' name="site[]" value ="`ASP-10`"/>Mayfield (ASP-10)<br>
-          <input type = 'checkbox' name="site[]" value ="`ASP-18`"/>Richmond (ASP-18)<br>
-		  <input type = 'checkbox' name="site[]" value ="`ASP-23`"/>Rockdale (ASP-23)<br>
-          <input type = 'checkbox' name="site[]" value ="`ASP-25`"/>Cape Grim (ASP-25)<br>
-          <input type = 'checkbox' name="site[]" value ="`ASP-31`"/>Liverpool (ASP-31)<br>
-          <input type = 'checkbox' name="site[]" value ="`ASP-40`"/>Muswellbrook (ASP-40)<br>
-          <input type = 'checkbox' name="site[]" value ="`ASP-65`"/>Vietnam (ASP-65)<br>
-          <input type = 'checkbox' name="site[]" value ="`ASP-81`"/>Broome (ASP-81)<br>
-          <input type = 'checkbox' name="site[]" value ="`ASP-89`"/>Stockton (ASP-89)<br>
-         </div>
 		 <div class = 'filterSeparator'></div>
         <input type="submit" class = "btn-ansto" name="search" value = "ApplyFilterOptions" method ="POST" style = "width:100%;">
-      <!--/form-->
+      
     </div>
-	
-    <?php
+	</form>
+	<?php
 	// check filter list
       if (isset($_POST['column'])){
       if(isset($_POST['filter'])) {
@@ -189,48 +169,169 @@
       	}
       	echo '</tr>'; //end tr tag
       //showing all data
-      while ($row = mysqli_fetch_array($result)) { 
-		  
-		  $id = $row['aspID'];
-		  $site = $row['Site'];
-		  
+      while ($row = mysqli_fetch_array($result)) {
           echo "<tr>";
           foreach ($all_property as $item) {
-              echo '<td  contenteditable="true">'  . $row[$item] . '<div style= "width:180px;" </div></td>'; //get items using property value
-			  
+              echo '<td>' . $row[$item] . '<div style= "width:180px;"</div></td>'; //get items using property value
           }
-		  
           echo '</tr>';
       	
       }
       }
        }
        ?>
+  
+    <?php
+//code for Filter ID tab
+      if (isset($_POST['filterBy'])) {
+          if($_POST['filterBy'] == "FilterID"){
+              // User has selected Filter ID from the dropdown
+              if (isset($_POST['filterTextBox'])) {
+                 
+      $filterTextBox = $_POST['filterTextBox'];
+      $i = 0;
+      
+      While($i < sizeof($filterTextBox))
+      {
+      $i++;
+      
+      }
+      $sql = "SELECT * FROM asp WHERE aspID = $filterTextBox";
+      
+      $result = mysqli_query($connection,$sql) or die(mysql_error());
+      if (mysqli_num_rows($result) == 0)
+      {
+      echo "Sorry, but we can not find an entry to match your query...<br><br>";
+      }
+      else
+      {
+      $all_property = array();  //declare an array for saving property
+      //showing property
+      echo '<table class="data-table" border="2" width="auto" overflow: "auto" ID="Table1" style="font-size: 70%;">
+      <tr class="data-heading">';  //initialize table tag
+      while ($property = mysqli_fetch_field($result)) {
+      echo '<td>' . $property->name . '</td>';  //get field name for header
+      array_push($all_property, $property->name);  //save those to array
+      }
+      }
+      echo '</tr>'; //end tr tag
+      //showing all data
+      while ($row = mysqli_fetch_array($result)) {
+      echo "<tr>";
+      foreach ($all_property as $item) {
+      echo '<td>' . $row[$item] . '<div style= "width:180px;"</div></td>'; //get items using property value
+      }
+      
+      echo '</tr>';
+      
+      }
+      }
+      
+              }
+          } 
+    // Code For Filter Exposure tab  
+      if (isset($_POST['filterBy'])) {
+          if($_POST['filterBy'] == "Exposure"){ {
+              // User has selected Exposure Code from the dropdown
+              if (isset($_POST['fromDate']) && $_POST['toDate'] != "") {
+                  if (isset($_POST['fromDate'])) {
+                  $ExposureDateFromBox = $_POST['fromDate'];
+      $ExposureDateToBox = $_POST['toDate'];
+      $i = 0;
+      
+      While($i < sizeof($ExposureDateFromBox))
+      {
+      $i++;
+      
+      }
 	  
-	 <input type="submit" class = "btn-ansto" name="update" value = "update" method ="POST" style = "width:100%;">
-  </form>
-	 <?php
-	 if(isset($_POST['update'])) {
-	 // sanitise input
-	 $id = mysqli_real_escape_string($connection, $_POST['aspID']);
-	 $site = mysqli_real_escape_string($connection, $_POST['Site']);
-	 
-	 //build mysql update statement
-	 $sql = "UPDATE asp set Site= '$site' WHERE aspID='$id'";
-	 echo"$sql";
-	 // Execute query and check for errors
-	 if (mysqli_query($connection, $sql)) {
-		 //if successful
-		 echo"Data successfuly modified";
-	 }
-	 else{
-		 echo" Error: could not execute $sql." .mysqli_error($link);
-	 }
-	 }
-	 ?>
-	
-
-	
+	 // check from and to dates
+      $sql = "SELECT * FROM asp WHERE ExposureDate >= '$ExposureDateFromBox' AND ExposureDate <= '$ExposureDateToBox'  ";
+      $result = mysqli_query($connection,$sql) or die(mysql_error());
+      if (mysqli_num_rows($result) == 0)
+      {
+      echo "Sorry, but we can not find an entry to match your query...<br><br>";
+      }
+      else
+      {
+      $all_property = array();  //declare an array for saving property
+      //showing property
+      echo '<table class="data-table" border="2" width="auto" overflow: "auto" ID="Table1" style="font-size: 70%;">
+      <tr class="data-heading">';  //initialize table tag
+      while ($property = mysqli_fetch_field($result)) {
+      echo '<td>' . $property->name . '</td>';  //get field name for header
+      array_push($all_property, $property->name);  //save those to array
+      }
+      }
+      echo '</tr>'; //end tr tag
+      //showing all data
+      while ($row = mysqli_fetch_array($result)) {
+      echo "<tr>";
+      foreach ($all_property as $item) {
+      echo '<td>' . $row[$item] . '<div style= "width:180px;"</div></td>'; //get items using property value
+      }
+      
+      echo '</tr>';
+      
+      }
+      }
+      
+             
+          
+      
+      
+              } 
+			  // else check from only from Date
+      else if(isset($_POST['fromDate'])) {
+                      if (isset($_POST['fromDate'])) {
+                  $ExposureDateFromBox = $_POST['fromDate'];
+      
+      $i = 0;
+      
+      While($i < sizeof($ExposureDateFromBox))
+      {
+      $i++;
+      
+      }
+      $sql = "SELECT * FROM asp WHERE ExposureDate >= '$ExposureDateFromBox'  ";
+      
+      $result = mysqli_query($connection,$sql) or die(mysql_error());
+      if (mysqli_num_rows($result) == 0)
+      {
+      echo "Sorry, but we can not find an entry to match your query...<br><br>";
+      }
+      else
+      {
+      $all_property = array();  //declare an array for saving property
+      //showing property
+      echo '<table class="data-table" border="2" width="auto" overflow: "auto" ID="Table1" style="font-size: 70%;">
+      <tr class="data-heading">';  //initialize table tag
+      while ($property = mysqli_fetch_field($result)) {
+      echo '<td>' . $property->name . '</td>';  //get field name for header
+      array_push($all_property, $property->name);  //save those to array
+      }
+      }
+      echo '</tr>'; //end tr tag
+      //showing all data
+      while ($row = mysqli_fetch_array($result)) {
+      echo "<tr>";
+      foreach ($all_property as $item) {
+      echo '<td>' . $row[$item] . '<div style= "width:180px;"</div></td>'; //get items using property value
+      }
+      
+      echo '</tr>';
+      
+      }
+      }
+              }
+          }
+      }
+      
+      }
+               
+      
+              ?>
+    
     <script type="text/javascript">
       function ToggleFilterMenu () {
           var filterBar = document.getElementById("filterBar");

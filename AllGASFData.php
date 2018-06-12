@@ -2,9 +2,7 @@
     session_start();
     require_once("nocache.php");
     require_once("db_connect.php");
-
     $admin = null;
-
     if (isset($_SESSION["user"])) {
         if ($_SESSION["admin"] == true) {
             $admin = true;
@@ -143,30 +141,7 @@
 					
                 </div>
                 <div class = 'filterSeparator'></div>
-                <!--By Site-->
-                <?php
-                    $siteQuery = 'SELECT * FROM sites WHERE `type` = "GAS"';
-                    $siteResults = mysqli_query($connection, $siteQuery);
-                ?>
-                <div class = 'row'>
-                    <input type = 'checkbox' class = 'searchByCheckbox' name = 'column'><p class = 'searchBarText'>By Site:</p>
-                </div>
-                <?php
-                    if($siteResults){
-                        echo "<div class = 'container-white' style = 'margin-bottom:8px;'>";
-                        while ($row = mysqli_fetch_array($siteResults)) {
-                            // Make sure siteID is two digits
-                            if($row["SiteID"] < 10){
-                                $id = '0'.$row["SiteID"];
-                            } else {
-                                $id = $row["SiteID"];
-                            }
-                            echo "<input type = 'checkbox' name = 'column'>".$row["siteName"]." (".$row["type"].$id.")<br>";
-                        }
-                        echo "</div>
-                        <div class = 'filterSeparator'></div>";
-                    }
-                ?>
+                
                 <input type="submit" class = "btn-ansto" value = "ApplyFilterOptions" method ="POST" style = "width:100%;">
 				 
                 
@@ -183,14 +158,10 @@ $sql_where = implode (" , ", $chkbox);
  While($i < sizeof($sql_where))
  {
  $i++;
-
-
  
  }
  $sql = "SELECT $sql_where FROM gasf WHERE `Exposure Date` >= now()-interval 3 month ";
 $result = mysqli_query($connection,$sql) or die(mysql_error());
-
-
 if (mysqli_num_rows($result) == 0)
     {
         echo "Sorry, but we can not find an entry to match your query...<br><br>";
@@ -219,7 +190,156 @@ while ($row = mysqli_fetch_array($result)) {
 }
 }
  ?>
-
+ <?php
+//code for Filter ID tab
+      if (isset($_POST['filterBy'])) {
+          if($_POST['filterBy'] == "FilterID"){
+              // User has selected Filter ID from the dropdown
+              if (isset($_POST['filterTextBox'])) {
+                 
+      $filterTextBox = $_POST['filterTextBox'];
+      $i = 0;
+      
+      While($i < sizeof($filterTextBox))
+      {
+      $i++;
+      
+      }
+      $sql = "SELECT * FROM gasf WHERE gasFID = $filterTextBox";
+      
+      $result = mysqli_query($connection,$sql) or die(mysql_error());
+      if (mysqli_num_rows($result) == 0)
+      {
+      echo "Sorry, but we can not find an entry to match your query...<br><br>";
+      }
+      else
+      {
+      $all_property = array();  //declare an array for saving property
+      //showing property
+      echo '<table class="data-table" border="2" width="auto" overflow: "auto" ID="Table1" style="font-size: 70%;">
+      <tr class="data-heading">';  //initialize table tag
+      while ($property = mysqli_fetch_field($result)) {
+      echo '<td>' . $property->name . '</td>';  //get field name for header
+      array_push($all_property, $property->name);  //save those to array
+      }
+      }
+      echo '</tr>'; //end tr tag
+      //showing all data
+      while ($row = mysqli_fetch_array($result)) {
+      echo "<tr>";
+      foreach ($all_property as $item) {
+      echo '<td>' . $row[$item] . '<div style= "width:180px;"</div></td>'; //get items using property value
+      }
+      
+      echo '</tr>';
+      
+      }
+      }
+      
+              }
+          } 
+    // Code For Filter Exposure tab  
+      if (isset($_POST['filterBy'])) {
+          if($_POST['filterBy'] == "Exposure"){ {
+              // User has selected Exposure Code from the dropdown
+              if (isset($_POST['fromDate']) && $_POST['toDate'] != "") {
+                  if (isset($_POST['fromDate'])) {
+                  $ExposureDateFromBox = $_POST['fromDate'];
+      $ExposureDateToBox = $_POST['toDate'];
+      $i = 0;
+      
+      While($i < sizeof($ExposureDateFromBox))
+      {
+      $i++;
+      
+      }
+	  
+	 // check from and to dates
+      $sql = "SELECT * FROM gasf WHERE ExposureDate >= '$ExposureDateFromBox' AND ExposureDate <= '$ExposureDateToBox'  ";
+      $result = mysqli_query($connection,$sql) or die(mysql_error());
+      if (mysqli_num_rows($result) == 0)
+      {
+      echo "Sorry, but we can not find an entry to match your query...<br><br>";
+      }
+      else
+      {
+      $all_property = array();  //declare an array for saving property
+      //showing property
+      echo '<table class="data-table" border="2" width="auto" overflow: "auto" ID="Table1" style="font-size: 70%;">
+      <tr class="data-heading">';  //initialize table tag
+      while ($property = mysqli_fetch_field($result)) {
+      echo '<td>' . $property->name . '</td>';  //get field name for header
+      array_push($all_property, $property->name);  //save those to array
+      }
+      }
+      echo '</tr>'; //end tr tag
+      //showing all data
+      while ($row = mysqli_fetch_array($result)) {
+      echo "<tr>";
+      foreach ($all_property as $item) {
+      echo '<td>' . $row[$item] . '<div style= "width:180px;"</div></td>'; //get items using property value
+      }
+      
+      echo '</tr>';
+      
+      }
+      }
+      
+             
+          
+      
+      
+              } 
+			  // else check from only from Date
+      else if(isset($_POST['fromDate'])) {
+                      if (isset($_POST['fromDate'])) {
+                  $ExposureDateFromBox = $_POST['fromDate'];
+      
+      $i = 0;
+      
+      While($i < sizeof($ExposureDateFromBox))
+      {
+      $i++;
+      
+      }
+      $sql = "SELECT * FROM gasf WHERE ExposureDate >= '$ExposureDateFromBox'  ";
+      
+      $result = mysqli_query($connection,$sql) or die(mysql_error());
+      if (mysqli_num_rows($result) == 0)
+      {
+      echo "Sorry, but we can not find an entry to match your query...<br><br>";
+      }
+      else
+      {
+      $all_property = array();  //declare an array for saving property
+      //showing property
+      echo '<table class="data-table" border="2" width="auto" overflow: "auto" ID="Table1" style="font-size: 70%;">
+      <tr class="data-heading">';  //initialize table tag
+      while ($property = mysqli_fetch_field($result)) {
+      echo '<td>' . $property->name . '</td>';  //get field name for header
+      array_push($all_property, $property->name);  //save those to array
+      }
+      }
+      echo '</tr>'; //end tr tag
+      //showing all data
+      while ($row = mysqli_fetch_array($result)) {
+      echo "<tr>";
+      foreach ($all_property as $item) {
+      echo '<td>' . $row[$item] . '<div style= "width:180px;"</div></td>'; //get items using property value
+      }
+      
+      echo '</tr>';
+      
+      }
+      }
+              }
+          }
+      }
+      
+      }
+               
+      
+              ?>
         <script type="text/javascript">
             function ToggleFilterMenu () {
                 var filterBar = document.getElementById("filterBar");
@@ -249,7 +369,6 @@ while ($row = mysqli_fetch_array($result)) {
                 var filterBy = document.getElementById("filterBy");
                 var filterTB = document.getElementById("filterTextBox");
                 var exposureDiv = document.getElementById("exposureDiv");
-
                 if (filterBy.value == 'FilterID') {
                     filterTB.style.display = "";
                     exposureDiv.style.display = "none";
