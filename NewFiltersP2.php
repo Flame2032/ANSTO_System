@@ -111,13 +111,13 @@ require_once("db_connect.php");
                           <td><input type = 'text' class = 'dbTextbox'></input></td>
                           <td class = 'staticData'>" . $row['Sample'] . "</td>
                           <td class = 'staticData'>" . $row['Type'] . "</td>
-                          <td class = 'staticData'>" . $row['Sample'] . "</td>
-                          <td class = 'staticData'>" . $row['Sample'] . "</td>
-                          <td class = 'staticData'>" . $row['Sample'] . "</td>
-                          <td class = 'staticData'>" . $row['Sample'] . "</td>
-                          <td class = 'staticData'>" . $row['Sample'] . "</td>
-                          <td class = 'staticData'>" . $row['Sample'] . "</td>
-                          <td class = 'staticData'>" . $row['Sample'] . "</td>
+                          <td class = 'staticData'>" . $row['  405nm'] . "</td>
+                          <td class = 'staticData'>" . $row['  465nm'] . "</td>
+                          <td class = 'staticData'>" . $row['  525nm'] . "</td>
+                          <td class = 'staticData'>" . $row['  639nm'] . "</td>
+                          <td class = 'staticData'>" . $row['  870nm'] . "</td>
+                          <td class = 'staticData'>" . $row['  940nm'] . "</td>
+                          <td class = 'staticData'>" . $row[' 1050nm'] . "</td>
                         </tr>";
                     }
                     return $results;
