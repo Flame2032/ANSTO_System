@@ -65,7 +65,7 @@
                 width: 1000px;
             }
             .barcodeY {
-                margin: 118px 0px 0px 285px;
+                margin: 119px 0px 0px 285px;
             }
             .IDY {
                 margin: 135px 0px 0px 340px;
@@ -245,9 +245,9 @@
                     // Get date in AUS format
                     $date = $row['Exposure Day'].'-'.$row['Exposure Month'].'-'.$row['Exposure Year'];
                     $qrString = $row['aspID'].' | '.$row['Site'].' '.$date.' '.$row['Type'].' | Wt '.round($row['Pre Filter Mass'],3).
-                    ' | LA '.round($row['Pre Laser'],3).' | MABI '.round($row['I0 (405)'],3).' '.round($row['I0 (465)'],3).' '.round($row['I0 (525)'],3).' '
+                    ' | MABI '.round($row['I0 (405)'],3).' '.round($row['I0 (465)'],3).' '.round($row['I0 (525)'],3).' '
                     .round($row['I0 (639)'],3).' '.round($row['I0 (870)'],3).' '.round($row['I0 (940)'],3).' '.round($row['I0 (1050)'],3);
-                    QRcode::png($qrString, 'GeneratedCodes/qrCode1.png', QR_ECLEVEL_L, 1.3, 1);
+                    QRcode::png($qrString, 'GeneratedCodes/qrCode1.png', QR_ECLEVEL_L, 1.4, 1);
                     echo '
                     <img class = "logsheetText barcodeY" style="-webkit-user-select: none;" src="GeneratedCodes/qrCode1.png">
                     <input type = "text" class = "logsheetText IDY" value = "'.$row['aspID'].'" readonly>
@@ -284,9 +284,9 @@
                     // Get date in AUS format
                     $date = $row['Exposure Day'].'-'.$row['Exposure Month'].'-'.$row['Exposure Year'];
                     $qrString = $row['aspID'].' | '.$row['Site'].' '.$date.' '.$row['Type'].' | Wt '.round($row['Pre Filter Mass'],3).
-                    ' | LA '.round($row['Pre Laser'],3).' | MABI '.round($row['I0 (405)'],3).' '.round($row['I0 (465)'],3).' '.round($row['I0 (525)'],3).' '
+                    ' | MABI '.round($row['I0 (405)'],3).' '.round($row['I0 (465)'],3).' '.round($row['I0 (525)'],3).' '
                     .round($row['I0 (639)'],3).' '.round($row['I0 (870)'],3).' '.round($row['I0 (940)'],3).' '.round($row['I0 (1050)'],3);
-                    QRcode::png($qrString, 'GeneratedCodes/qrCode2.png', QR_ECLEVEL_L, 1.3, 1);
+                    QRcode::png($qrString, 'GeneratedCodes/qrCode2.png', QR_ECLEVEL_L, 1.4, 1);
                     echo '
                     <img class = "logsheetText barcodeR" style="-webkit-user-select: none;" src="GeneratedCodes/qrCode2.png">
                     <input type = "text" class = "logsheetText IDR" value = "'.$row['aspID'].'" readonly>
@@ -327,9 +327,9 @@
                     // Get date in AUS format
                     $date = $row['Exposure Day'].'-'.$row['Exposure Month'].'-'.$row['Exposure Year'];
                     $qrString = $row['aspID'].' | '.$row['Site'].' '.$date.' '.$row['Type'].' | Wt '.round($row['Pre Filter Mass'],3).
-                    ' | LA '.round($row['Pre Laser'],3).' | MABI '.round($row['I0 (405)'],3).' '.round($row['I0 (465)'],3).' '.round($row['I0 (525)'],3).' '
+                    ' | MABI '.round($row['I0 (405)'],3).' '.round($row['I0 (465)'],3).' '.round($row['I0 (525)'],3).' '
                     .round($row['I0 (639)'],3).' '.round($row['I0 (870)'],3).' '.round($row['I0 (940)'],3).' '.round($row['I0 (1050)'],3);
-                    QRcode::png($qrString, 'GeneratedCodes/qrCode1.png', QR_ECLEVEL_L, 1.3, 1);
+                    QRcode::png($qrString, 'GeneratedCodes/qrCode1.png', QR_ECLEVEL_L, 1.4, 1);
                     echo '
                     <img class = "logsheetText barcodeY" style="-webkit-user-select: none;" src="GeneratedCodes/qrCode1.png">
                     <input type = "text" class = "logsheetText IDY" value = "'.$row['aspID'].'" readonly>
@@ -366,9 +366,9 @@
                     // Get date in AUS format
                     $date = $row['Exposure Day'].'-'.$row['Exposure Month'].'-'.$row['Exposure Year'];
                     $qrString = $row['aspID'].' | '.$row['Site'].' '.$date.' '.$row['Type'].' | Wt '.round($row['Pre Filter Mass'],3).
-                    ' | LA '.round($row['Pre Laser'],3).' | MABI '.round($row['I0 (405)'],3).' '.round($row['I0 (465)'],3).' '.round($row['I0 (525)'],3).' '
+                    ' | MABI '.round($row['I0 (405)'],3).' '.round($row['I0 (465)'],3).' '.round($row['I0 (525)'],3).' '
                     .round($row['I0 (639)'],3).' '.round($row['I0 (870)'],3).' '.round($row['I0 (940)'],3).' '.round($row['I0 (1050)'],3);
-                    QRcode::png($qrString, 'GeneratedCodes/qrCode2.png', QR_ECLEVEL_L, 1.3, 1);
+                    QRcode::png($qrString, 'GeneratedCodes/qrCode2.png', QR_ECLEVEL_L, 1.4, 1);
                     echo '
                     <img class = "logsheetText barcodeR" style="-webkit-user-select: none;" src="GeneratedCodes/qrCode2.png">
                     <input type = "text" class = "logsheetText IDR" value = "'.$row['aspID'].'" readonly>

@@ -65,33 +65,33 @@
         <style type="text/css">
             /*QR-Codes*/
             .YC-Code {
-                margin: 121px 0px 0px 180px;
+                margin: 118px 0px 0px 180px;
             }
             .YF-Code {
-                margin: 121px 0px 0px 477px;
+                margin: 118px 0px 0px 477px;
             }
             .RC-Code {
-                margin: 178px 0px 0px 180px;
+                margin: 175px 0px 0px 180px;
             }
             .RF-Code {
-                margin: 178px 0px 0px 477px;
+                margin: 175px 0px 0px 477px;
             }
             /*ID values next to QR Codes*/
             .IDYC, .IDRC, .IDYF, .IDRF {
-                width: 70px;
+                width: 60px;
                 text-align:center;
             }
             .IDYC {
-                margin: 135px 0px 0px 230px;
+                margin: 135px 0px 0px 237px;
             }
             .IDRC {
-                margin: 195px 0px 0px 230px;
+                margin: 195px 0px 0px 237px;
             }
             .IDYF {
-                margin: 135px 0px 0px 525px;
+                margin: 135px 0px 0px 532px;
             }
             .IDRF {
-                margin: 195px 0px 0px 525px;
+                margin: 195px 0px 0px 532px;
             }
             /*Remaining Fields*/
             .field1C, .field1F, .field2C, .field2F {
@@ -229,7 +229,12 @@
                 while ($row = mysqli_fetch_array($filterCResult[$i])) {
                     // Get date in AUS format
                     $date = $row['Exposure Day'].'-'.$row['Exposure Month'].'-'.$row['Exposure Year'];
-                    QRcode::png('GC '.$row['gasCID'], 'GeneratedCodes/gasCQR_'.$i.'.png', QR_ECLEVEL_L, 2, 1);
+                    //QRcode display all info
+                    $qrString = 'GC '.$row['gasCID'].' | '.$row['Site'].' '.$date.' '.$row['Type'].' | Wt '.round($row['Pre Filter Mass'],3).
+                    ' | MABI '.round($row['I0 (405)'],3).' '.round($row['I0 (465)'],3).' '.round($row['I0 (525)'],3).' '
+                    .round($row['I0 (639)'],3).' '.round($row['I0 (870)'],3).' '.round($row['I0 (940)'],3).' '.round($row['I0 (1050)'],3);
+                    QRcode::png($qrString, 'GeneratedCodes/gasCQR_'.$i.'.png', QR_ECLEVEL_L, 1.5, 1);
+                    //QRcode::png('GC '.$row['gasCID'], 'GeneratedCodes/gasCQR_'.$i.'.png', QR_ECLEVEL_L, 2, 1);
                     echo '
                     <img class = "logsheetText YC-Code" style="-webkit-user-select: none;" src="GeneratedCodes/gasCQR_'.$i.'.png">
                     <input type = "text" class = "logsheetText IDYC" value = "GC '.$row['gasCID'].'" readonly>
@@ -240,7 +245,12 @@
                 while ($row = mysqli_fetch_array($filterCResult[$i+1])) {
                     // Get date in AUS format
                     $date = $row['Exposure Day'].'-'.$row['Exposure Month'].'-'.$row['Exposure Year'];
-                    QRcode::png('GC '.$row['gasCID'], 'GeneratedCodes/gasCQR_'.($i+1).'.png', QR_ECLEVEL_L, 2, 1);
+                    //QRcode display all info
+                    $qrString = 'GC '.$row['gasCID'].' | '.$row['Site'].' '.$date.' '.$row['Type'].' | Wt '.round($row['Pre Filter Mass'],3).
+                    ' | MABI '.round($row['I0 (405)'],3).' '.round($row['I0 (465)'],3).' '.round($row['I0 (525)'],3).' '
+                    .round($row['I0 (639)'],3).' '.round($row['I0 (870)'],3).' '.round($row['I0 (940)'],3).' '.round($row['I0 (1050)'],3);
+                    QRcode::png($qrString, 'GeneratedCodes/gasCQR_'.($i+1).'.png', QR_ECLEVEL_L, 1.5, 1);
+                    //QRcode::png('GC '.$row['gasCID'], 'GeneratedCodes/gasCQR_'.($i+1).'.png', QR_ECLEVEL_L, 2, 1);
                     echo '
                     <img class = "logsheetText RC-Code" style="-webkit-user-select: none;" src="GeneratedCodes/gasCQR_'.($i+1).'.png">
                     <input type = "text" class = "logsheetText IDRC" value = "GC '.$row['gasCID'].'" readonly>
@@ -251,7 +261,12 @@
                 while ($row = mysqli_fetch_array($filterFResult[$i])) {
                     // Get date in AUS format
                     $date = $row['Exposure Day'].'-'.$row['Exposure Month'].'-'.$row['Exposure Year'];
-                    QRcode::png('GF '.$row['gasFID'], 'GeneratedCodes/gasFQR_'.$i.'.png', QR_ECLEVEL_L, 2, 1);
+                    //QRcode display all info
+                    $qrString = 'GF '.$row['gasFID'].' | '.$row['Site'].' '.$date.' '.$row['Type'].' | Wt '.round($row['Pre Filter Mass'],3).
+                    ' | MABI '.round($row['I0 (405)'],3).' '.round($row['I0 (465)'],3).' '.round($row['I0 (525)'],3).' '
+                    .round($row['I0 (639)'],3).' '.round($row['I0 (870)'],3).' '.round($row['I0 (940)'],3).' '.round($row['I0 (1050)'],3);
+                    QRcode::png($qrString, 'GeneratedCodes/gasFQR_'.$i.'.png', QR_ECLEVEL_L, 1.5, 1);
+                    //QRcode::png('GF '.$row['gasFID'], 'GeneratedCodes/gasFQR_'.$i.'.png', QR_ECLEVEL_L, 2, 1);
                     echo '
                     <img class = "logsheetText YF-Code" style="-webkit-user-select: none;" src="GeneratedCodes/gasFQR_'.$i.'.png">
                     <input type = "text" class = "logsheetText IDYF" value = "GF '.$row['gasFID'].'" readonly>
@@ -262,7 +277,12 @@
                 while ($row = mysqli_fetch_array($filterFResult[$i+1])) {
                     // Get date in AUS format
                     $date = $row['Exposure Day'].'-'.$row['Exposure Month'].'-'.$row['Exposure Year'];
-                    QRcode::png('GF '.$row['gasFID'], 'GeneratedCodes/gasFQR_'.($i+1).'.png', QR_ECLEVEL_L, 2, 1);
+                    //QRcode display all info
+                    $qrString = 'GF '.$row['gasFID'].' | '.$row['Site'].' '.$date.' '.$row['Type'].' | Wt '.round($row['Pre Filter Mass'],3).
+                    ' | MABI '.round($row['I0 (405)'],3).' '.round($row['I0 (465)'],3).' '.round($row['I0 (525)'],3).' '
+                    .round($row['I0 (639)'],3).' '.round($row['I0 (870)'],3).' '.round($row['I0 (940)'],3).' '.round($row['I0 (1050)'],3);
+                    QRcode::png($qrString, 'GeneratedCodes/gasFQR_'.($i+1).'.png', QR_ECLEVEL_L, 1.5, 1);
+                    //QRcode::png('GF '.$row['gasFID'], 'GeneratedCodes/gasFQR_'.($i+1).'.png', QR_ECLEVEL_L, 2, 1);
                     echo '
                     <img class = "logsheetText RF-Code" style="-webkit-user-select: none;" src="GeneratedCodes/gasFQR_'.($i+1).'.png">
                     <input type = "text" class = "logsheetText IDRF" value = "GF '.$row['gasFID'].'" readonly>

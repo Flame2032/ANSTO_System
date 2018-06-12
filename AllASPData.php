@@ -155,7 +155,7 @@
          </div>
 		 <div class = 'filterSeparator'></div>
         <input type="submit" class = "btn-ansto" name="search" value = "ApplyFilterOptions" method ="POST" style = "width:100%;">
-      </form>
+      <!--/form-->
     </div>
 	
     <?php
@@ -208,6 +208,7 @@
        ?>
 	  
 	 <input type="submit" class = "btn-ansto" name="update" value = "update" method ="POST" style = "width:100%;">
+  </form>
 	 <?php
 	 if(isset($_POST['update'])) {
 	 // sanitise input

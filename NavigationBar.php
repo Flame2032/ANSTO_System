@@ -51,7 +51,7 @@
             <div class = "myDropdown-content">
                 <a href="ExistingASPLogsheets.php">View Existing Logsheets</a>
                 <a href="GenerateLogsheets.php">Generate New Logsheets</a>
-                <a href="ReturnedLogsheets.php">Edit Returned Logsheets</a>
+                <a>Edit Returned Logsheets</a>
             </div>
         </div>
         <?php 
