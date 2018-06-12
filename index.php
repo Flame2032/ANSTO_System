@@ -44,7 +44,7 @@
                 window.location.href = "PostScan.php";
             }
             function GoViewData () {
-                window.location.href = "AllData.php";
+                window.location.href = "AllASPData.php";
             }
         </script>
 
