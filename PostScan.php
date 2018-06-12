@@ -64,7 +64,7 @@
         <div class = "navSpacer"></div>
 
          <div class = "container-ansto centered-800-X marginT-20" style = " width:600px;">
-            <form action = "PostAnalysis.php" name = "numForm" method="POST" style = "margin:20px 0px;">
+            <form action = "PostAnalysis.php" name = "numForm" method="POST"  style = "margin:20px 0px;">
                 <h1 class = "H290Width">Scan Filters</h1>
 
                 <div class = "width-90 container-white">

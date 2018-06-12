@@ -2,9 +2,21 @@
     session_start();
     require_once("nocache.php");
     require_once("db_connect.php");
-
+	$retrievepre[][]=null;
     $admin = null;
-
+	if(isset($_POST["myList"])){
+		$myList=$_POST["myList"];
+		$filtercount=$myList.length;
+		//ASP statement loop
+		for ($row=0;$row<$filtercount;$row++){
+			$aspquery[$row]="SELECT * FROM asp WHERE aspID =".$myList[$row];
+			require_once("db_connect.php");
+			$retrievepre[$row][]=$connection->query($aspquery);
+		}
+	}else{
+		$myList=0;		
+		$filtercount=0;
+	}
     if (isset($_SESSION["user"])) {
         if ($_SESSION["admin"] == true) {
             $admin = true;
@@ -57,7 +69,7 @@
 
             <div class = "container-ansto main-content-centered marginT-20" style = "padding:20px;">
             <div class = "strip">
-                <h2 class = "H290Width-left">3 Post-Analysis filters have been scanned in</h2>
+                <h2 class = "H290Width-left"><?php  echo $filtercount ?> Post-Analysis filters have been scanned in</h2>
                 <button class = "btn-ansto font-16 floatRight" style = "padding:10px;" onclick = "uploadCSV()">Import CSV</button>
             </div>
             
@@ -84,8 +96,10 @@
                     <th class = "columnTitle">l(1050)</th>
                     <th class = "columnTitle">Date</th>
                 </tr>
-                <tr>
-                    <th class = "staticData">X</th>
+				<?php 
+				for($row=0;$row<$filtercount;$row++){
+				echo '<tr>
+                    <th class = "staticData">'.$retrievepre[$row][0].'</th>
                     <th class = "staticData">--</th>
                     <th class = "staticData">--</th>
                     <th class = "staticData">--</th>
@@ -105,51 +119,11 @@
                     <th class = "staticData">--</th>
                     <th class = "staticData">--</th>
                     <th class = "staticData">30-3-18</th>
-                </tr>
-                <tr>
-                    <th class = "staticData">X</th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">--</th>
-                    <th><input type = "text" class = "dbTextbox"></input></th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">30-3-18</th>
-                </tr>
-                <tr>
-                    <th class = "staticData">X</th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">--</th>
-                    <th><input type = "text" class = "dbTextbox"></input></th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">--</th>
-                    <th class = "staticData">30-3-18</th>
-                </tr>
+                </tr>';
+				}
+				
+				?>
+                
             </table>
             <div class = "bottomStrip">
                 <form action = "PreData.html">
