@@ -1,3 +1,7 @@
+<?php
+require_once("db_connect.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -36,6 +40,7 @@
         <!--Empty block so navbar doesn't overlap contents-->
         <div class = "navSpacer"></div>
 
+
         <?php
             if (isset($_POST['number'])) {
                 $number = $_POST['number'];
@@ -43,11 +48,12 @@
 
         ?>
 
+
         <?php
-        function ImportCSV2Array($filename)
+        function csvImport()
         {
             $fname = $_FILES['select_file']['name'];
-            echo 'Uploaded CSV File Name: '.$fname.' ';
+            //echo 'Selected CSV File: '.$fname.' '; // THIS IS TO Inform user that file has been selected as a test
 
             $check_ext = explode(".",$fname);
 
@@ -57,39 +63,72 @@
             //Will open and read file with "r"
             $handle = fopen($filename, "r");
 
-            $row = 0;
-            $col = 0;
+            $row = 0; // counter for rows
+            $col = 0; // counter for columns
+
+            // If file exists then it will continue to read and get values from csv file
             if($handle){
-            while (($row = fgetcsv($handle, 4096)) !== false){
-                if(empty($fields)){
-                    $fields = $row;
-                    continue;
-                }
-                foreach($row as $k=>$value){
-                    $results[$col][$fields[$k]] = $value;
+                while (($row = fgetcsv($handle, 4096)) !== false){
+                    // this will make sure to check if array is empty it will equal to row and continue
+                    if(empty($fields)){
+                    $fields = $row; continue;
                     }
-                $col++;
-                unset($row);
-                //print_r($results);
-                }
-                if(!feof($handle)){
-                echo "Error: unexpected fgets() failn";
-                }
-                fclose($handle);
-                }
-                return $results;                              
-                }
 
-
-                //***********************************TEST*********************************
-
-
-
-
-                else{
-                // Validation to prompt user that file has to be CSV
-                echo " --INVALID FILE, PLEASE SELECT CSV FILE-- ";
+                    /************* FOR LOOP FOR CSV ***********/
+                    foreach($row as $key=>$value){
+                        $results[$col][$fields[$key]] = $value;
+                        $cols = $results[$col];  
                         }
+                        $col++; // count all the colummns of the array $row
+                        unset($row); // This is to not increment array into numbers
+                    }
+                    //print_r($results);
+
+                    fclose($handle);
+            }
+                    //**********************************************TEST THIS SHIT*********************************************
+                    echo '<table class = "staticData columnTitle">';
+                        echo
+                        "<tr>
+                            <th>ID</th>
+                            <th>Pre Mass</th>
+                            <th>Pre Laser</th>
+                            <th>Type</th>
+                            <th>l<sub>0</sub>(405)</th>
+                            <th>l<sub>0</sub>(465)</th>
+                            <th>l<sub>0</sub>(525)</th>
+                            <th>l<sub>0</sub>(639)</th>
+                            <th>l<sub>0</sub>(870)</th>
+                            <th>l<sub>0</sub>(940)</th>
+                            <th>l<sub>0</sub>(1050)</th>
+                        </tr>";
+
+                    //print_r($results);
+                    foreach ($results as $row){
+                        echo 
+                        "<tr>
+                          <td>" . $row['Sample'] . "</td>
+                          <td><input type = 'text' class = 'dbTextbox'></input></td>
+                          <td>" . $row['Sample'] . "</td>
+                          <td>" . $row['Type'] . "</td>
+                          <td>" . $row['Sample'] . "</td>
+                          <td>" . $row['Sample'] . "</td>
+                          <td>" . $row['Sample'] . "</td>
+                          <td>" . $row['Sample'] . "</td>
+                          <td>" . $row['Sample'] . "</td>
+                          <td>" . $row['Sample'] . "</td>
+                          <td>" . $row['Sample'] . "</td>
+                        </tr>";
+                    }
+                    return $results;                              
+                }
+
+            //***********************************TEST*********************************
+
+            else{
+                // Validation to prompt user that file has to be CSV file type
+                echo " Invalid file, please select a csv file! ";
+                }
         }
         ?>
 
@@ -97,15 +136,15 @@
         <div class = "container-ansto centered-800-X marginT-20" style = "padding:20px;">
             <div class = "strip">
                 <h2 class = "H290Width-left"> <?php echo ($number); ?> Pre-Analysis filter entries have been generated</h2>
-                <button class = "btn-ansto font-16 floatRight" style = "padding:10px;" onclick = "uploadCSV()">Import MABI</button>
+                <!--<button class = "btn-ansto font-16 floatRight" style = "padding:10px;" onclick = "uploadCSV()">Import MABI</button> -->
 
                     <!-- This is for selection of CSV file with browse button 
                     Once the user selects the file they will need to press submit to add csv data to table -->
                     <form action='<?php echo $_SERVER["PHP_SELF"];?>' method='post' enctype="multipart/form-data">
                         <input type = 'hidden' name = 'number' value = '<?php echo ($number); ?>'>
-                        <input type='file' name='select_file' size='20' >
-                        <input type='submit' name='submit1' value='submit'>
-                        <button type = 'submit' name='submit2' value='submit'>Confirm</button>
+                        <input class = "btn-ansto font-16 floatLeft" style = "padding:10px;" type='file' name='select_file' size='20' >
+                       <!-- <input type='submit' name='submit1' value='submit'> -->
+                        <button class = "btn-ansto font-16 floatRight" style = "padding:10px;" type = 'submit' name='submit2' value='submit'>Import MABI</button>
                     </form>
 
             </div>
@@ -128,14 +167,42 @@
 
                 <?php
 
+                    //************************* Check Filter Type selected from previous page ******************************
+                    $currentDate = date('d-m-Y'); 
+                    $SelectASP = false;
+                    $SelectGASC = false;
+                    $SelectGASF = false;
 
-                    //************************* This will input the row num of user input ******************************
-                    $currentDate = date('d-m-Y');
+                    if($number == "ASP" && isset($_POST['number'])) {
+                    $SelectASP = mysqli_query($connection, "SELECT * FROM asp");
+                    } else if ($number == "GAS" && isset($_POST['number'])) {
+                    $SelectGASC = mysqli_query($connection, "SELECT * FROM gasc");
+                    $SelectGASF = mysqli_query($connection, "SELECT * FROM gasf");
+            }
+                           
+                    
+                    
+                ?>
+                
+            </table>
 
-                    if (isset($_POST['number'])) {
+            <?php
+                    //************************************ CSV FILE HANDLE ********************************************** 
+                    ini_set('display errors', 1);
+                    $table = 'gasc';
+                    $found = 'Intensity Results';
+
+    
+                    //This will allow user to select CSV file and submit to Table
+                    if(isset($_POST['submit2'])){
+                    csvImport();
+                    
+                    }
+                    if (isset($_POST['submit2'])) {
                         for ($i=0; $i < $number; $i++) { 
 
                             echo 
+
                             "<tr>
                                 <th class = 'staticData'>$i</th>
                                 <th><input type = 'text' class = 'dbTextbox'></input></th>
@@ -150,54 +217,11 @@
                                 <th class = 'staticData'>--</th>
                             </tr>";
                         }
-                    }
-                    
+                    } 
 
-                    if(isset($_POST['submit2'])){
-                        for ($j=0; $j < sizeof($number); $j++){ 
-                        # code...
-                            // This is to echo out arrays into table
-                            $filename = "MABI_V2_AspEx40802_40785.csv";
-                            $csvArray = ImportCSV2Array($filename);
-                            foreach ($csvArray as $row){   
-                            echo$row['Sample'];
-                            //echo $row['Type'];
-                            //echo $row['405nm'];
-
-                            }
-                        }
-                    }
+            ?>
 
 
-                    //************************************ CSV FILE HANDLE ********************************************** 
-                    ini_set('display errors', 1);
-                    $table = 'gasc';
-                    $found = 'Intensity Results';
-                    //$result = array();
-                    require_once("db_connect.php");
-    
-                    //This will allow user to select CSV file and submit to Table
-                    if(isset($_POST['submit2'])){
-                    ImportCSV2Array($filename);
-
-                    
-                    // This is to echo out arrays into table
-                    //$filename = "MABI_V2_AspEx40802_40785.csv";
-                    //$csvArray = ImportCSV2Array($filename);
-                    //foreach ($csvArray as $row)
-                        //{   
-                            //echo$row['Sample'];
-                            //echo $row['Type'];
-                            //echo $row['405nm'];
-                        //}
-                            
-                    }
-
-                                
-                    
-                ?>
-                
-            </table>
 
             <div class = "bottomStrip">
                 <form action = "PreData.html">
