@@ -43,6 +43,55 @@
 
         ?>
 
+        <?php
+        function ImportCSV2Array($filename)
+        {
+            $fname = $_FILES['select_file']['name'];
+            echo 'Uploaded CSV File Name: '.$fname.' ';
+
+            $check_ext = explode(".",$fname);
+
+            //Validation that checks if file type is csv
+            if(strtolower(end($check_ext)) == "csv"){
+            $filename = $_FILES['select_file']['tmp_name'];
+            //Will open and read file with "r"
+            $handle = fopen($filename, "r");
+
+            $row = 0;
+            $col = 0;
+            if($handle){
+            while (($row = fgetcsv($handle, 4096)) !== false){
+                if(empty($fields)){
+                    $fields = $row;
+                    continue;
+                }
+                foreach($row as $k=>$value){
+                    $results[$col][$fields[$k]] = $value;
+                    }
+                $col++;
+                unset($row);
+                //print_r($results);
+                }
+                if(!feof($handle)){
+                echo "Error: unexpected fgets() failn";
+                }
+                fclose($handle);
+                }
+                return $results;                              
+                }
+
+
+                //***********************************TEST*********************************
+
+
+
+
+                else{
+                // Validation to prompt user that file has to be CSV
+                echo " --INVALID FILE, PLEASE SELECT CSV FILE-- ";
+                        }
+        }
+        ?>
 
 
         <div class = "container-ansto centered-800-X marginT-20" style = "padding:20px;">
@@ -81,6 +130,8 @@
 
 
                     //************************* This will input the row num of user input ******************************
+                    $currentDate = date('d-m-Y');
+
                     if (isset($_POST['number'])) {
                         for ($i=0; $i < $number; $i++) { 
 
@@ -102,73 +153,50 @@
                     }
                     
 
-                    if(isset($_POST['number'])){
-                        for ($j=0; $j < sizeof($number); $j++) { 
+                    if(isset($_POST['submit2'])){
+                        for ($j=0; $j < sizeof($number); $j++){ 
                         # code...
-                        echo "hello";
+                            // This is to echo out arrays into table
+                            $filename = "MABI_V2_AspEx40802_40785.csv";
+                            $csvArray = ImportCSV2Array($filename);
+                            foreach ($csvArray as $row){   
+                            echo$row['Sample'];
+                            //echo $row['Type'];
+                            //echo $row['405nm'];
+
+                            }
                         }
                     }
 
-                    $currentDate = date('d-m-Y');
 
+                    //************************************ CSV FILE HANDLE ********************************************** 
                     ini_set('display errors', 1);
                     $table = 'gasc';
                     $found = 'Intensity Results';
                     //$result = array();
                     require_once("db_connect.php");
-
+    
                     //This will allow user to select CSV file and submit to Table
                     if(isset($_POST['submit2'])){
-                    $fname = $_FILES['select_file']['name'];
-                    echo 'upload file name: '.$fname.' ';
+                    ImportCSV2Array($filename);
 
-                    $check_ext = explode(".",$fname);
-
-                    //Validation that checks if file type is csv
-                    if(strtolower(end($check_ext)) == "csv"){
-                    $filename = $_FILES['select_file']['tmp_name'];
-                    //Will open and read file with "r"
-                    $handle = fopen($filename, "r");
-
-                    $result =[];
-
-                    $first = strtolower(fgets($handle, 4096));
-                    $keys = str_getcsv($first);
-
-                    while(($buffer = fgets($handle, 4096)) !== false){
-
-                    $array = str_getcsv($buffer);
-                    if(empty($array)) continue;
-
-                        $row = [];
-                        $i=0;
-
-                        foreach($keys as $key){
-                        $row[$key] = $array[$i];
-                        $i++;
-                        }
-                            $result[] = $row;
-                            //print_r($result);
-
-
-                    }
-                    echo "!----successfully imported----!";
-                    fclose($handle);
-                    return $result;
-
-
-                                                      
-                    }
+                    
+                    // This is to echo out arrays into table
+                    //$filename = "MABI_V2_AspEx40802_40785.csv";
+                    //$csvArray = ImportCSV2Array($filename);
+                    //foreach ($csvArray as $row)
+                        //{   
+                            //echo$row['Sample'];
+                            //echo $row['Type'];
+                            //echo $row['405nm'];
+                        //}
                             
-             
-                    else{
-                    // Validation to prompt user that file has to be CSV
-                    echo " --INVALID FILE, PLEASE SELECT CSV FILE-- ";
-                        }
                     }
 
+                                
+                    
                 ?>
-
+                
             </table>
 
             <div class = "bottomStrip">
@@ -177,6 +205,5 @@
                 </form>
             </div>
         </div>  
-
     </body>
 </html>
