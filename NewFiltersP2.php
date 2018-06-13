@@ -50,10 +50,31 @@ require_once("db_connect.php");
 
 
         <?php
+
+        function uploadToDatabase()
+        {
+            session_start();
+            $connection;
+
+
+            if(isset($_POST['submit2'])){
+                $row['Type'] = $_POST['csvtypes'];
+                $row['  405nm'] = $_POST['csv405'];
+                $row['  525nm'] = $_POST['csv525'];
+                $row['  639nm'] = $_POST['csv639'];
+                $row['  870nm'] = $_POST['csv940'];
+                $row['  940nm'] = $_POST['csv1050'];
+                $csvDateTime = $_POST['csvDateTime'];
+            }
+
+           /* mysqli_query($db_connect, "INSERT INTO asp */
+
+        }
+
         function csvImport()
         {
             $fname = $_FILES['select_file']['name'];
-            //echo 'Selected CSV File: '.$fname.' '; // THIS IS TO Inform user that file has been selected as a test
+            //echo 'Selected CSV File: '.$fname.' '; // This is to inform user that file has been selected as a test
 
             $check_ext = explode(".",$fname);
 
@@ -64,7 +85,7 @@ require_once("db_connect.php");
             $handle = fopen($filename, "r");
 
             $row = 0; // counter for rows
-            $col = 0; // counter for columns
+            $colCount = 0; // counter for columns
 
             // If file exists then it will continue to read and get values from csv file
             if($handle){
@@ -76,17 +97,17 @@ require_once("db_connect.php");
 
                     /************* FOR LOOP FOR CSV ***********/
                     foreach($row as $key=>$value){
-                        $results[$col][$fields[$key]] = $value;
-                        $cols = $results[$col];  
+                        $results[$colCount][$fields[$key]] = $value;
+                        $colsResult = $results[$colCount];  
                         }
-                        $col++; // count all the colummns of the array $row
+                        $colCount++; // count all the colummns of the array $row
                         unset($row); // This is to not increment array into numbers
                     }
                     //print_r($results);
 
                     fclose($handle);
             }
-                    //**********************************************TEST THIS SHIT*********************************************
+                    //*******************************************Display Arary into table*********************************************
                     echo '<table>';
                         echo
                         "<tr>
@@ -109,7 +130,7 @@ require_once("db_connect.php");
                         "<tr>
                           <td class = 'staticData'>" . $row['Sample'] . "</td>
                           <td><input type = 'text' class = 'dbTextbox'></input></td>
-                          <td class = 'staticData'>" . $row['Sample'] . "</td>
+                          <td class = 'staticData'>" . $row['  639nm'] . "</td>
                           <td class = 'staticData'>" . $row['Type'] . "</td>
                           <td class = 'staticData'>" . $row['  405nm'] . "</td>
                           <td class = 'staticData'>" . $row['  465nm'] . "</td>
@@ -213,6 +234,7 @@ require_once("db_connect.php");
                 $SelectGASF = mysqli_query($connection, "SELECT * FROM gasf");
             echo "</table>";}  
             ?>
+
                 
             
 
@@ -222,12 +244,23 @@ require_once("db_connect.php");
                 $table = 'gasc';
                 $found = 'Intensity Results';
 
-
-                //This will allow user to select CSV file and submit to Table
-                if(isset($_POST['submit2'])){
-                csvImport();
                 
+                if($SelectASP){
+                    $availableASP = mysqli_num_rows($SelectASP);
+
+                    $aspQuery = "SELECT aspID FROM asp WHERE aspID = (SELECT MAX(aspID) FROM asp)";
+                    $resultAsp = mysql_result($connection, $aspQuery);
+                    while($aspRow = mysqli_fetch_array($resultAsp)){
+                    $maxASPID = $aspRow['aspID'];
+                    }
+                    
                 }
+                if(isset($_POST['submit2'])){
+                    csvImport();
+                }
+          
+                
+                
             ?>
 
 
