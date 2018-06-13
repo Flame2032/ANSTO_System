@@ -88,7 +88,7 @@
             <div class = 'container-white'>
                <input type="checkbox" name="filter[]" value ="`aspID`"/>aspID<br>
                <input type = 'checkbox' name="filter[]" value ="`Site`"/>Site<br>
-               <input type = 'checkbox' name="filter[]" value ="`ExposureDate`"/>Exposure Date<br>
+               <input type = 'checkbox' name="filter[]" value ="`Exposure Date`"/>Exposure Date<br>
                <input type = 'checkbox' name="filter[]" value ="`Type`"/>Type<br>
                <input type = 'checkbox' name="filter[]" value ="`Pre Filter Mass`"/>Pre Filter Mass<br>
                <input type = 'checkbox' name="filter[]" value ="`Pre Laser`"/>Pre Laser<br>
@@ -267,7 +267,7 @@
                }
          	  
          	 // check from and to dates
-               $sql = "SELECT * FROM asp WHERE ExposureDate >= '$ExposureDateFromBox' AND ExposureDate <= '$ExposureDateToBox'  ";
+               $sql = "SELECT * FROM asp WHERE `Exposure Date` >= '$ExposureDateFromBox' AND `Exposure Date` <= '$ExposureDateToBox'  ";
                $result = mysqli_query($connection,$sql) or die(mysql_error());
                if (mysqli_num_rows($result) == 0)
                {
@@ -314,7 +314,7 @@
                $i++;
                
                }
-               $sql = "SELECT * FROM asp WHERE ExposureDate >= '$ExposureDateFromBox'  ";
+               $sql = "SELECT * FROM asp WHERE `Exposure Date` >= '$ExposureDateFromBox'  ";
                
                $result = mysqli_query($connection,$sql) or die(mysql_error());
                if (mysqli_num_rows($result) == 0)
