@@ -252,12 +252,18 @@
                    } 
              // Code For Filter Exposure tab  
                if (isset($_POST['filterBy'])) {
+			   
                    if($_POST['filterBy'] == "Exposure"){ {
+				   
                        // User has selected Exposure Code from the dropdown
                        if (isset($_POST['fromDate']) && $_POST['toDate'] != "") {
+					   
                            if (isset($_POST['fromDate'])) {
+						   
                            $ExposureDateFromBox = $_POST['fromDate'];
+						
                $ExposureDateToBox = $_POST['toDate'];
+		
                $i = 0;
                
                While($i < sizeof($ExposureDateFromBox))
@@ -267,8 +273,9 @@
                }
          	  
          	 // check from and to dates
-               $sql = "SELECT * FROM asp WHERE `Exposure Date` >= '$ExposureDateFromBox' AND `Exposure Date` <= '$ExposureDateToBox'  ";
-               $result = mysqli_query($connection,$sql) or die(mysql_error());
+               $sql = "SELECT * FROM asp WHERE  `Exposure Date` >= '$ExposureDateFromBox' AND  `Exposure Date` <= '$ExposureDateToBox'  ";
+			   
+                 $result = mysqli_query($connection,$sql) or die(mysql_error());
                if (mysqli_num_rows($result) == 0)
                {
                echo "Sorry, but we can not find an entry to match your query...<br><br>";
@@ -297,11 +304,8 @@
                }
                }
                
-                      
+                       }
                    
-               
-               
-                       } 
          			  // else check from only from Date
                else if(isset($_POST['fromDate'])) {
                                if (isset($_POST['fromDate'])) {

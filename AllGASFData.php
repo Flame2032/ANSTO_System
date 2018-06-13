@@ -56,25 +56,25 @@
       <!--Dropdown filter bar-->
       <div class = 'filterBar' id = "filterBar">
          <form action = "AllGASFData.php" method = 'POST'>
-            <!--Filter by Searchbox section-->
+           <!--Filter by Searchbox section-->
             <div class = 'row'>
                <input type = 'checkbox' class = 'searchByCheckbox' name = 'column'>
                <p class = 'searchBarText'>Filter by Search:</p>
             </div>
             <select id = "filterBy" name = 'filterBy' class = 'width-100' style = 'display:block; margin-bottom:6px;' onchange = "FilterByChanged();">
-               <option value = "FilterID">Filter ID</option>
-               <option value = "Exposure">Exposure Date</option>
+               <option name="FilterID" value = "FilterID">Filter ID</option>
+               <option name="Exposure" value = "Exposure">Exposure Date</option>
             </select>
-            <input id = "filterTextBox" type = 'textbox' class = 'width-100 centeredItem' style = 'padding:3px;box-sizing: border-box;' placeholder = 'Enter Filter ID'>
+            <input id = "filterTextBox" name = "filterTextBox" type = 'textbox' class = 'width-100 centeredItem' style = 'padding:3px;box-sizing: border-box;' placeholder = 'Enter Filter ID'>
             <div id = "exposureDiv" style = "display:none;">
                <div class = "strip">
                   <p class = "whiteText" style = "width:20%;">From:</p>
-                  <input type = 'textbox' class = 'centeredItem' 
+                  <input type = 'textbox' class = 'centeredItem' name = "fromDate"
                      style = 'padding:3px; width: 70%; display:inline-block;' placeholder = 'dd-mm-yy'>
                </div>
                <div class = "strip">
                   <p class = "whiteText" style = "width:20%;">To:</p>
-                  <input type = 'textbox' class = 'centeredItem' 
+                  <input type = 'textbox' class = 'centeredItem' name = "toDate"
                      style = 'padding:3px; width: 70%; display:inline-block; margin-top:6px;' placeholder = 'dd-mm-yy'>
                </div>
             </div>
@@ -85,7 +85,7 @@
                <p class = 'searchBarText'>By Columns:</p>
             </div>
             <div class = 'container-white'>
-               <input type="checkbox" name="filter[]" value ="`gasFID`"/>gasCID<br>
+               <input type="checkbox" name="filter[]" value ="`gasFID`"/>gasFID<br>
                <input type = 'checkbox' name="filter[]" value ="`Site`"/>Site<br>
                <input type = 'checkbox' name="filter[]" value ="`Exposure Date`"/>Exposure Date<br>
                <input type = 'checkbox' name="filter[]" value ="`Type`"/>Type<br>
@@ -251,13 +251,15 @@
              // Code For Filter Exposure tab  
                if (isset($_POST['filterBy'])) {
                    if($_POST['filterBy'] == "Exposure"){ {
+					   
                        // User has selected Exposure Code from the dropdown
                        if (isset($_POST['fromDate']) && $_POST['toDate'] != "") {
+						  
                            if (isset($_POST['fromDate'])) {
                            $ExposureDateFromBox = $_POST['fromDate'];
                $ExposureDateToBox = $_POST['toDate'];
                $i = 0;
-               
+          
                While($i < sizeof($ExposureDateFromBox))
                {
                $i++;
@@ -265,7 +267,7 @@
                }
          	  
          	 // check from and to dates
-               $sql = "SELECT * FROM gasf WHERE ExposureDate >= '$ExposureDateFromBox' AND ExposureDate <= '$ExposureDateToBox'  ";
+               $sql = "SELECT * FROM gasf WHERE `Exposure Date` >= '$ExposureDateFromBox' AND `Exposure Date` <= '$ExposureDateToBox'  ";
                $result = mysqli_query($connection,$sql) or die(mysql_error());
                if (mysqli_num_rows($result) == 0)
                {

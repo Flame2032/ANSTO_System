@@ -64,19 +64,19 @@
                <p class = 'searchBarText'>Filter by Search:</p>
             </div>
             <select id = "filterBy" name = 'filterBy' class = 'width-100' style = 'display:block; margin-bottom:6px;' onchange = "FilterByChanged();">
-               <option value = "FilterID">Filter ID</option>
-               <option value = "Exposure">Exposure Date</option>
+               <option name="FilterID" value = "FilterID">Filter ID</option>
+               <option name="Exposure" value = "Exposure">Exposure Date</option>
             </select>
-            <input id = "filterTextBox" type = 'textbox' class = 'width-100 centeredItem' style = 'padding:3px;box-sizing: border-box;' placeholder = 'Enter Filter ID'>
+            <input id = "filterTextBox" name = "filterTextBox" type = 'textbox' class = 'width-100 centeredItem' style = 'padding:3px;box-sizing: border-box;' placeholder = 'Enter Filter ID'>
             <div id = "exposureDiv" style = "display:none;">
                <div class = "strip">
                   <p class = "whiteText" style = "width:20%;">From:</p>
-                  <input type = 'textbox' class = 'centeredItem' 
+                  <input type = 'textbox' class = 'centeredItem' name = "fromDate"
                      style = 'padding:3px; width: 70%; display:inline-block;' placeholder = 'dd-mm-yy'>
                </div>
                <div class = "strip">
                   <p class = "whiteText" style = "width:20%;">To:</p>
-                  <input type = 'textbox' class = 'centeredItem' 
+                  <input type = 'textbox' class = 'centeredItem' name = "toDate"
                      style = 'padding:3px; width: 70%; display:inline-block; margin-top:6px;' placeholder = 'dd-mm-yy'>
                </div>
             </div>
@@ -139,50 +139,47 @@
          </form>
       </div>
       <?php
-         if (isset($_POST['column'])){
-         if(isset($_POST['filter'])) {
-         $chkbox = $_POST['filter'];
-         $i = 0;
-         $sql_where = implode (" , ", $chkbox);
-         While($i < sizeof($sql_where))
-         {
-         $i++;
-         
-         
-         
-         }
-         $sql = "SELECT $sql_where FROM gasc WHERE `Exposure Date` >= now()-interval 3 month ";
-         $result = mysqli_query($connection,$sql) or die(mysql_error());
-         
-         
-         if (mysqli_num_rows($result) == 0)
-            {
-                echo "Sorry, but we can not find an entry to match your query...<br><br>";
-         	 }
-         	     else
-            {
-               $all_property = array();  //declare an array for saving property
-         //showing property
-         echo '<table class="data-table" border="2" width="auto" overflow: "auto" ID="Table1" style="font-size: 70%;">
-                <tr class="data-heading">';  //initialize table tag
-         	while ($property = mysqli_fetch_field($result)) {
-            echo '<td>' . $property->name . '</td>';  //get field name for header
-            array_push($all_property, $property->name);  //save those to array
-         }
-         }
-         echo '</tr>'; //end tr tag
-         //showing all data
-         while ($row = mysqli_fetch_array($result)) {
-            echo "<tr>";
-            foreach ($all_property as $item) {
-                echo '<td>' . $row[$item] . '<div style= "width:180px;"</div></td>'; //get items using property value
-            }
-            echo '</tr>';
-         
-         }
-         }
-         }
-		 else 
+         // check filter list
+              if (isset($_POST['column'])){
+              if(isset($_POST['filter'])) {
+               $chkbox = $_POST['filter'];
+               $i = 0;
+              $sql_where = implode (" , ", $chkbox);
+               While($i < sizeof($sql_where))
+               {
+               $i++;
+               
+               }
+               $sql = "SELECT $sql_where FROM gasc WHERE `Exposure Date` >= now()-interval 3 month ";
+              $result = mysqli_query($connection,$sql) or die(mysql_error());
+              if (mysqli_num_rows($result) == 0)
+                  {
+                      echo "Sorry, but we can not find an entry to match your query...<br><br>";
+              		 }
+              		     else
+                  {
+                     $all_property = array();  //declare an array for saving property
+              //showing property
+              echo '<table class="data-table" border="2" width="auto" overflow: "auto" ID="Table1" style="font-size: 70%;">
+                      <tr class="data-heading">';  //initialize table tag
+              		while ($property = mysqli_fetch_field($result)) {
+                  echo '<td>' . $property->name . '</td>';  //get field name for header
+                  array_push($all_property, $property->name);  //save those to array
+              }
+              	}
+              	echo '</tr>'; //end tr tag
+              //showing all data
+              while ($row = mysqli_fetch_array($result)) {
+                  echo "<tr>";
+                  foreach ($all_property as $item) {
+                      echo '<td>' . $row[$item] . '<div style= "width:180px;"</div></td>'; //get items using property value
+                  }
+                  echo '</tr>';
+              	
+              }
+              }
+               }
+            else 
             {
          $result = mysqli_query($connection,"SELECT * FROM gasc WHERE `Exposure Date` >= now()-interval 3 month");
          $all_property = array();  //declare an array for saving property
@@ -205,7 +202,164 @@
          }
          echo "</table>";
          }
-         ?>
+            
+               ?>
+      <?php
+         //code for Filter ID tab
+               if (isset($_POST['filterBy'])) {
+				   
+                   if($_POST['filterBy'] == "FilterID"){
+					   
+                       // User has selected Filter ID from the dropdown
+                       if (isset($_POST['filterTextBox'])) {
+                         
+               $filterTextBox = $_POST['filterTextBox'];
+               $i = 0;
+               
+               While($i < sizeof($filterTextBox))
+               {
+               $i++;
+               
+               }
+               $sql = "SELECT * FROM gasc WHERE gasCID = $filterTextBox";
+               
+               $result = mysqli_query($connection,$sql) or die(mysql_error());
+               if (mysqli_num_rows($result) == 0)
+               {
+               echo "Sorry, but we can not find an entry to match your query...<br><br>";
+               }
+               else
+               {
+               $all_property = array();  //declare an array for saving property
+               //showing property
+               echo '<table class="data-table" border="2" width="auto" overflow: "auto" ID="Table1" style="font-size: 70%;">
+               <tr class="data-heading">';  //initialize table tag
+               while ($property = mysqli_fetch_field($result)) {
+               echo '<td>' . $property->name . '</td>';  //get field name for header
+               array_push($all_property, $property->name);  //save those to array
+               }
+               }
+               echo '</tr>'; //end tr tag
+               //showing all data
+               while ($row = mysqli_fetch_array($result)) {
+               echo "<tr>";
+               foreach ($all_property as $item) {
+               echo '<td>' . $row[$item] . '<div style= "width:180px;"</div></td>'; //get items using property value
+               }
+               
+               echo '</tr>';
+               
+               }
+               }
+               
+                       }
+                   } 
+             // Code For Filter Exposure tab  
+               if (isset($_POST['filterBy'])) {
+			   
+                   if($_POST['filterBy'] == "Exposure"){ {
+				   
+                       // User has selected Exposure Code from the dropdown
+                       if (isset($_POST['fromDate']) && $_POST['toDate'] != "") {
+					   
+                           if (isset($_POST['fromDate'])) {
+						   
+                           $ExposureDateFromBox = $_POST['fromDate'];
+						
+               $ExposureDateToBox = $_POST['toDate'];
+		
+               $i = 0;
+               
+               While($i < sizeof($ExposureDateFromBox))
+               {
+               $i++;
+               
+               }
+         	  
+         	 // check from and to dates
+               $sql = "SELECT * FROM gasc WHERE  `Exposure Date` >= '$ExposureDateFromBox' AND  `Exposure Date` <= '$ExposureDateToBox'  ";
+			   
+                 $result = mysqli_query($connection,$sql) or die(mysql_error());
+               if (mysqli_num_rows($result) == 0)
+               {
+               echo "Sorry, but we can not find an entry to match your query...<br><br>";
+               }
+               else
+               {
+               $all_property = array();  //declare an array for saving property
+               //showing property
+               echo '<table class="data-table" border="2" width="auto" overflow: "auto" ID="Table1" style="font-size: 70%;">
+               <tr class="data-heading">';  //initialize table tag
+               while ($property = mysqli_fetch_field($result)) {
+               echo '<td>' . $property->name . '</td>';  //get field name for header
+               array_push($all_property, $property->name);  //save those to array
+               }
+               }
+               echo '</tr>'; //end tr tag
+               //showing all data
+               while ($row = mysqli_fetch_array($result)) {
+               echo "<tr>";
+               foreach ($all_property as $item) {
+               echo '<td>' . $row[$item] . '<div style= "width:180px;"</div></td>'; //get items using property value
+               }
+               
+               echo '</tr>';
+               
+               }
+               }
+               
+                       }
+                   
+         			  // else check from only from Date
+               else if(isset($_POST['fromDate'])) {
+                               if (isset($_POST['fromDate'])) {
+                           $ExposureDateFromBox = $_POST['fromDate'];
+               
+               $i = 0;
+               
+               While($i < sizeof($ExposureDateFromBox))
+               {
+               $i++;
+               
+               }
+               $sql = "SELECT * FROM gasc WHERE `Exposure Date` >= '$ExposureDateFromBox'  ";
+               
+               $result = mysqli_query($connection,$sql) or die(mysql_error());
+               if (mysqli_num_rows($result) == 0)
+               {
+               echo "Sorry, but we can not find an entry to match your query...<br><br>";
+               }
+               else
+               {
+               $all_property = array();  //declare an array for saving property
+               //showing property
+               echo '<table class="data-table" border="2" width="auto" overflow: "auto" ID="Table1" style="font-size: 70%;">
+               <tr class="data-heading">';  //initialize table tag
+               while ($property = mysqli_fetch_field($result)) {
+               echo '<td>' . $property->name . '</td>';  //get field name for header
+               array_push($all_property, $property->name);  //save those to array
+               }
+               }
+               echo '</tr>'; //end tr tag
+               //showing all data
+               while ($row = mysqli_fetch_array($result)) {
+               echo "<tr>";
+               foreach ($all_property as $item) {
+               echo '<td>' . $row[$item] . '<div style= "width:180px;"</div></td>'; //get items using property value
+               }
+               
+               echo '</tr>';
+               
+               }
+               }
+                       }
+                   }
+               }
+               
+               }
+                        
+               
+                       ?>
       <script type="text/javascript">
          function ToggleFilterMenu () {
              var filterBar = document.getElementById("filterBar");
