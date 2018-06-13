@@ -9,11 +9,11 @@
 		$filtercount=$myList.length;
 		for ($row=0;$row<$filtercount;$row++){
 			//GAS Fine statement loop
-			if((substr $myList[$row],0,2)=='GF'){
-			$query[$row]="SELECT gasFID, Site, 'Pre Filter Mass',Type, 'I0 (405)', 'I0 (465)', 'I0 (525)', 'I0 (639)', 'I0 (870)', 'I0 (940)', 'I0 (1050)'  FROM asp WHERE gasFID =".(substr $myList[$row],-4,4);
-			}else if((substr $myList[$row],0,2)=='GC'){
+			if(substr($myList[$row],0,2)=='GF'){
+			$query[$row]="SELECT gasFID, Site, 'Pre Filter Mass',Type, 'I0 (405)', 'I0 (465)', 'I0 (525)', 'I0 (639)', 'I0 (870)', 'I0 (940)', 'I0 (1050)'  FROM asp WHERE gasFID =".substr($myList[$row],-4,4);
+			}else if(substr($myList[$row],0,2)=='GC'){
 			//GAS Coarse statement loop
-			$query[$row]="SELECT gasCID, Site, 'Pre Filter Mass',Type, 'I0 (405)', 'I0 (465)', 'I0 (525)', 'I0 (639)', 'I0 (870)', 'I0 (940)', 'I0 (1050)'  FROM asp WHERE gasCID =".(substr $myList[$row],-4,4);
+			$query[$row]="SELECT gasCID, Site, 'Pre Filter Mass',Type, 'I0 (405)', 'I0 (465)', 'I0 (525)', 'I0 (639)', 'I0 (870)', 'I0 (940)', 'I0 (1050)'  FROM asp WHERE gasCID =".substr($myList[$row],-4,4);
 			}
 			else{
 			$query[$row]="SELECT aspID, Site, 'Pre Filter Mass',Type, 'I0 (405)', 'I0 (465)', 'I0 (525)', 'I0 (639)', 'I0 (870)', 'I0 (940)', 'I0 (1050)'  FROM asp WHERE aspID =".$myList[$row];
