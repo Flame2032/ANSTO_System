@@ -273,7 +273,7 @@
                     echo '
                     <input type = "text" class = "logsheetText field19" value = "'.$row['Date2'].'" readonly>
                     <input type = "text" class = "logsheetText field20" value = "'.$row['Time2'].'" readonly>
-                    <input type = "text" class = "logsheetText field21" value = "'.$row['Initials2'].'" readonly>
+                    <input type = "text" class = "logsheetText field21" value = "'.$row['Initials3'].'" readonly>
                     <input type = "text" class = "logsheetText field28" value = "'.$row['Temperature Max'].'" readonly>
                     <input type = "text" class = "logsheetText field29" value = "'.$row['Temperature Min'].'" readonly>
                     <textarea rows="2" cols="100" class = "logsheetText commentsField" readonly>'.$row['Comments'].'</textarea>';
@@ -355,7 +355,7 @@
                     echo '
                     <input type = "text" class = "logsheetText field19" value = "'.$row['Date2'].'" readonly>
                     <input type = "text" class = "logsheetText field20" value = "'.$row['Time2'].'" readonly>
-                    <input type = "text" class = "logsheetText field21" value = "'.$row['Initials2'].'" readonly>
+                    <input type = "text" class = "logsheetText field21" value = "'.$row['Initials3'].'" readonly>
                     <input type = "text" class = "logsheetText field28" value = "'.$row['Temperature Max'].'" readonly>
                     <input type = "text" class = "logsheetText field29" value = "'.$row['Temperature Min'].'" readonly>
                     <textarea rows="2" cols="100" class = "logsheetText commentsField" readonly>'.$row['Comments'].'</textarea>';
